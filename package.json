@@ -11,6 +11,7 @@
     "resume": "node scripts/generate-resume.mjs"
   },
   "dependencies": {
+    "@fontsource/anton": "^5.3.0",
     "@fontsource/barlow-condensed": "^5.2.8",
     "@fontsource/dm-sans": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",

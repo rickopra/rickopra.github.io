@@ -2,6 +2,8 @@
 
 Research date: 27 September 2026.
 
+Status update, 28 September 2026: the first published version uses only part of this visual influence. It is not a pixel-identical reproduction of Persona 3 Reload. The owner is reviewing the live baseline before further visual changes. See [the revision brief](PERSONA-3-RELOAD.md), [implementation flow](FLOW.md), and [verification status](STATUS.md) for the distinction between shipped behavior and planned work.
+
 ## Visual references
 
 - [Persona 3 Reload UI development interview, Persona Central, 29 November 2023](https://personacentral.com/p3r-interview-menu-ui/), translating the [Famitsu interview](https://www.famitsu.com/news/202311/29325647.html). Art director Tomohiro Kumagai describes sea-blue movement, underwater reflection, glass-like light, and a menu as a portrait of the protagonist. The interview explicitly distinguishes P3R's flowing approach from Persona 5's aggressive pop-punk movement.

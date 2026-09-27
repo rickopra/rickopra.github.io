@@ -4,6 +4,7 @@ import { capabilities, copy, experiences, identity, projects, text } from './con
 import type { Language, Localized, Project, ProjectCategory } from './content';
 
 const NetworkScene = lazy(() => import('./NetworkScene'));
+const PersonaPortfolio = lazy(() => import('./PersonaPortfolio'));
 const sections = ['profile', 'work', 'experience', 'contact'] as const;
 
 function preference(key: string) {
@@ -14,7 +15,7 @@ function savePreference(key: string, value: string) {
   try { localStorage.setItem(key, value); } catch { return; }
 }
 
-function ProjectDialog({ project, language, onClose }: { project: Project | null; language: Language; onClose: () => void }) {
+export function ProjectDialog({ project, language, onClose }: { project: Project | null; language: Language; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const translate = (value: Localized) => value[language];
   useEffect(() => {
@@ -235,5 +236,8 @@ function Portfolio() {
 }
 
 export default function App() {
-  return new URLSearchParams(window.location.search).has('resume') ? <Resume /> : <Portfolio />;
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('resume')) return <Resume />;
+  if (params.has('classic')) return <Portfolio />;
+  return <Suspense fallback={<div className="portfolio-loading" role="status">Ricko Prayudha</div>}><PersonaPortfolio /></Suspense>;
 }
