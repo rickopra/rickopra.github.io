@@ -11,7 +11,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Hosting | GitHub Pages, sumber `workflow`, artifact `dist/`. |
 | Baseline menu yang sudah terbit | Commit `119ddf1`, [run 36341173792](https://github.com/rickopra/rickopra.github.io/actions/runs/36341173792), sukses. |
 | Revisi foto/pengalaman/bukti | **Live**, commit `c01f4cd`, [run 36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), build dan deploy sukses. |
-| CV | Salinan byte-persis CV utama pemilik, 4 halaman; verifikasi live rilis ini menyusul deployment. |
+| CV | **Live**: salinan byte-persis CV utama pemilik, 4 halaman; commit `20b48f4`, [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536) sukses. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -64,7 +64,9 @@ GitHub memberi peringatan runtime action Node.js 20 yang dipaksa Node.js 24 sert
 - Sumber `D:\CV Ricko Prayudha.pdf`, salinan `public/ricko-prayudha-cv.pdf`, dan hasil build `dist/ricko-prayudha-cv.pdf`: sama persis, masing-masing 4 halaman. SHA-256: `55adb186dd0f648b029d313da3438dd31f8772ebf95b5038fa7263e956602347`.
 - Seluruh tombol CV pada menu, Profile, Experience, Contact, dan mode klasik menunjuk salinan asli. URL lama `/?resume` membuka PDF yang sama. Generator CV lama dihapus; konten CV tidak disunting.
 - `npm test`: **45 lulus, 1 dilewati, 0 gagal** (Chromium desktop dan mobile); `npm run build`: berhasil; `npm audit --omit=dev`: 0 kerentanan terdeteksi.
-- Verifikasi workflow dan hash PDF production dicatat setelah deployment.
+- GitHub Pages [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536): build dan deploy sukses untuk commit `20b48f4`.
+- PDF live `https://rickopra.github.io/ricko-prayudha-cv.pdf` memberi HTTP 200, `application/pdf`, 113874 byte, SHA-256 cocok persis dengan sumber. Tes live tautan CV, redirect `?resume`, dan mode klasik: **6 lulus, 0 gagal** (Chromium desktop dan mobile).
+- Commit dokumentasi setelah rilis tidak mengubah PDF, tautan, atau kode aplikasi.
 
 ## 6. Batas Verifikasi
 
