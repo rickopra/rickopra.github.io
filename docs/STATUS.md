@@ -10,7 +10,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Source | https://github.com/rickopra/rickopra.github.io |
 | Hosting | GitHub Pages, sumber `workflow`, artifact `dist/`. |
 | Baseline menu yang sudah terbit | Commit `119ddf1`, [run 36341173792](https://github.com/rickopra/rickopra.github.io/actions/runs/36341173792), sukses. |
-| Revisi foto/pengalaman/bukti | Lulus pemeriksaan lokal; deployment dan verifikasi live revisi ini belum selesai saat catatan kandidat rilis dibuat. |
+| Revisi foto/pengalaman/bukti | **Live**, commit `c01f4cd`, [run 36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), build dan deploy sukses. |
 | CV | PDF publik tiga halaman, bukan salinan PDF sumber privat. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
@@ -43,7 +43,21 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 
 Tes geometri profil membaca elemen dalam frame browser yang sama agar animasi masuk tidak menyebabkan perbandingan koordinat antarframe. Batas assertion tidak dilonggarkan. Screenshot hasil tes disimpan lokal dalam `.local/screenshots/`, tidak di-commit.
 
-## 4. Batas Verifikasi
+## 4. Verifikasi Production
+
+Seluruh suite diulang dengan `PORTFOLIO_URL=https://rickopra.github.io`: **37 lulus, 1 dilewati, 0 gagal** pada Chromium desktop dan emulasi ponsel. Cakupan sama dengan suite lokal, termasuk audio, canvas, galeri, portrait, pengalaman, CV, EN/ID, serta aksesibilitas otomatis.
+
+Pemeriksaan tambahan:
+
+- Pages API mengonfirmasi `build_type: workflow`.
+- HTML live merujuk bundle `/assets/index-*.js`, bukan `/src/main.tsx`.
+- SHA-256 berkas live sama dengan lokal untuk portrait, PDF publik, dan ketujuh foto bukti; bukan hanya pemeriksaan HTTP 200.
+- Tidak ada `pageerror` pada skenario semua layar, tidak ada respons aset gagal pada skenario galeri.
+- Run aplikasi: [36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), commit `c01f4cd`. Commit dokumentasi sesudahnya tidak mengubah source atau aset aplikasi yang telah diuji.
+
+GitHub memberi peringatan runtime action Node.js 20 yang dipaksa Node.js 24 serta rencana migrasi `ubuntu-latest`; deployment tetap berhasil. Pembaruan versi action perlu dilakukan terpisah dengan pengujian workflow, bukan dinyatakan sudah selesai.
+
+## 5. Batas Verifikasi
 
 - Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
 - Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
@@ -52,7 +66,7 @@ Tes geometri profil membaca elemen dalam frame browser yang sama agar animasi ma
 - Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
 - Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 5. Pemeliharaan Berikutnya
+## 6. Pemeliharaan Berikutnya
 
 - CI belum menjalankan Playwright/audit atau regenerasi PDF; masih menjadi langkah lokal sebelum push.
 - Sebagian metrik, label, dan paragraf CV masih berada dalam komponen selain `content.ts`.
@@ -61,7 +75,7 @@ Tes geometri profil membaca elemen dalam frame browser yang sama agar animasi ma
 - Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
 - Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-## 6. Checklist Pemilik
+## 7. Checklist Pemilik
 
 - [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
 - [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.

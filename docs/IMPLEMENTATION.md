@@ -106,7 +106,7 @@ python -m pip install Pillow
 python scripts/prepare-assets.py --portrait "C:\path\to\professional-photo.jpeg" --portrait-only
 ```
 
-Script menerapkan orientasi EXIF, menghapus background biru yang terhubung tepi, serta mempertahankan seluruh ukuran foto. Crop tetap dihapus karena memotong wajah pada sumber 853 x 1280. `--portrait-only` hanya menulis portrait. Tanpa flag tersebut, script juga menghasilkan empat diagram, social preview, dan favicon. Ini bukan penghapus background universal: periksa hasil sebelum rilis.
+Script menerapkan orientasi EXIF, menghapus background biru yang terhubung tepi, serta mempertahankan seluruh ukuran foto. Crop hardcoded dihapus karena memotong wajah pada sumber 853 x 1280. `--portrait-only` hanya menulis portrait. Tanpa flag tersebut, script juga menghasilkan empat diagram, social preview, dan favicon. Ini bukan penghapus background universal: periksa hasil sebelum rilis.
 
 **Script menimpa aset yang dihasilkan.** Sebelum menjalankannya, commit aset yang ingin dipertahankan dan pastikan file foto benar. Untuk foto baru, tinjau ukuran, crop, dan kriteria background terlebih dahulu.
 
