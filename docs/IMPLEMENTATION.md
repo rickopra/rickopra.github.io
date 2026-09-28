@@ -60,7 +60,7 @@ Di Windows, ganti `npm`/`npx` menjadi `npm.cmd`/`npx.cmd` jika shim PowerShell d
 
 ### Identitas dan Bahasa
 
-- `identity`: nama, email profesional, LinkedIn, GitHub, Instagram, X, pencarian Facebook, lokasi.
+- `identity`: nama, email profesional, LinkedIn, GitHub, Instagram, X, profil Facebook, lokasi.
 - `text(en, id)`: pasangan terjemahan bertipe `Localized`.
 - `copy`: teks UI dan ringkasan umum.
 - `careerRecords`: periode, jabatan, perusahaan, lokasi, ringkasan, kelompok `sections`, `tools`, dan `projectIds`.
@@ -79,7 +79,7 @@ Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak din
 
 ### Kontak Sosial
 
-Instagram `@rickoprayudha` dan X `@rickopra` berasal dari handle yang diberikan pemilik. Facebook baru diberikan sebagai nama "Ricko Prayudha", bukan URL profil unik: `identity.facebookSearch` sementara membuka pencarian orang, diberi label "Find profile" / "Cari profil". Jangan menganggap pencarian tersebut sebagai profil terverifikasi. Setelah pemilik memberi URL profil, ubah tujuan dan label secara bersamaan di `SocialLinks.tsx`, lalu perbarui tes. Semua tautan eksternal membuka tab baru dengan `noopener noreferrer`; tidak ada embed atau pelacak media sosial. CV asli tidak diubah oleh pembaruan kontak website.
+Instagram `@rickoprayudha`, X `@rickopra`, serta URL Facebook `https://web.facebook.com/ricko.prayudha` diberikan pemilik. `SocialLinks.tsx` dipakai oleh Contact Persona dan klasik: tampilkan satu label platform tanpa subteks. Tujuan profil disimpan di `identity` (`instagram`, `x`, `facebook`), bukan pencarian nama. Semua tautan eksternal membuka profil langsung di tab baru dengan `noopener noreferrer`; tidak ada embed atau pelacak media sosial. Tes `tests/social-links.spec.ts` memeriksa label, ketiadaan subteks, URL, serta navigasi tab baru untuk ketiganya. CV asli tidak diubah oleh pembaruan kontak website.
 
 ### Menambah Proyek
 

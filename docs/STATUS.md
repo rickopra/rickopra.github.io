@@ -119,7 +119,14 @@ Verifikasi production revisi ini:
 - GitHub Pages [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577), commit `1b7a49c`: sukses. **14 tes production lulus, 0 gagal**: enam tes iris serta regresi CV, semua rute, foto Profile, dan canvas WebGL pada desktop/mobile. Ini bukan pengulangan seluruh suite production.
 - HTML live memakai `/assets/index-CeI5kEFS.js`. PNG iris live: HTTP 200, 2634 byte, SHA-256 `cf8318ceb1aa8c2c0e73b968cb9ab2b1209a1712f33b9f99331386027b1f1b6c`, identik dengan build. CV dan kedua portrait live juga cocok dengan hash lokal. Commit pencatatan sesudah rilis tidak mengubah source/aset aplikasi yang diuji.
 
-## 9. Batas Verifikasi
+## 9. Tautan Profil Sosial
+
+- Facebook kini menuju URL profil dari pemilik: `https://web.facebook.com/ricko.prayudha`, bukan pencarian orang.
+- Ketiga baris Instagram, Facebook, dan X hanya menampilkan nama platform; subteks/handle di bawah label dihapus pada tampilan Persona dan klasik. Klik tetap membuka masing-masing profil langsung di tab baru.
+- Tes sosial: **4 lulus** pada desktop/ponsel, kedua bahasa dan lebar hingga 320 px. Ketiga URL, ketiadaan subteks, tab baru, fokus, geometri, dan axe diuji. **10 tes regresi terpilih lulus** untuk CV asli, menu, Profile, mode klasik, serta aksesibilitas semua layar. `npm run build` berhasil; hash CV sumber/publik/build tetap identik. Tes memakai respons tiruan saat membuka platform eksternal; kepemilikan akun/login platform tidak diuji.
+- Deployment dan verifikasi pada situs publik dicatat setelah workflow rilis selesai.
+
+## 10. Batas Verifikasi
 
 - Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
 - Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
@@ -128,7 +135,7 @@ Verifikasi production revisi ini:
 - Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
 - Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 10. Pemeliharaan Berikutnya
+## 11. Pemeliharaan Berikutnya
 
 - CI belum menjalankan Playwright/audit; masih menjadi langkah lokal sebelum push.
 - Sebagian metrik dan label website masih berada dalam komponen selain `content.ts`; CV asli terpisah sepenuhnya dari komponen.
@@ -137,7 +144,7 @@ Verifikasi production revisi ini:
 - Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
 - Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-## 11. Checklist Pemilik
+## 12. Checklist Pemilik
 
 - [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
 - [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.

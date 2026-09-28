@@ -8,10 +8,8 @@ export const identity = {
   github: 'https://github.com/rickopra',
   linkedin: 'https://www.linkedin.com/in/ricko-prayudha/',
   instagram: 'https://www.instagram.com/rickoprayudha/',
-  instagramHandle: '@rickoprayudha',
   x: 'https://x.com/rickopra',
-  xHandle: '@rickopra',
-  facebookSearch: 'https://www.facebook.com/search/people/?q=Ricko%20Prayudha',
+  facebook: 'https://web.facebook.com/ricko.prayudha',
   location: 'Jakarta, Indonesia',
 };
 

@@ -15,9 +15,9 @@ for (const mode of [
       for (const language of ['EN', 'ID']) {
         await page.getByRole('button', { name: language, exact: true }).click();
         const destinations = [
-          { name: 'Instagram @rickoprayudha', href: 'https://www.instagram.com/rickoprayudha/' },
-          { name: `Facebook Ricko Prayudha / ${language === 'ID' ? 'Cari profil' : 'Find profile'}`, href: 'https://www.facebook.com/search/people/?q=Ricko%20Prayudha' },
-          { name: 'X / Twitter @rickopra', href: 'https://x.com/rickopra' },
+          { name: 'Instagram', href: 'https://www.instagram.com/rickoprayudha/' },
+          { name: 'Facebook', href: 'https://web.facebook.com/ricko.prayudha' },
+          { name: 'X / Twitter', href: 'https://x.com/rickopra' },
         ];
         for (const destination of destinations) {
           const link = links.getByRole('link', { name: destination.name, exact: true });
@@ -26,16 +26,17 @@ for (const mode of [
           await expect(link).toHaveAttribute('href', destination.href);
           await expect(link).toHaveAttribute('target', '_blank');
           await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+          await expect(link.locator('small')).toHaveCount(0);
+          await expect(link.locator('span')).toHaveText(destination.name);
           await link.focus();
           await expect(link).toBeFocused();
           const geometry = await link.evaluate(element => {
             const anchor = element.getBoundingClientRect();
             const label = element.querySelector('span')!;
-            const caption = label.querySelector('small')!;
             const children = Array.from(element.children).map(child => child.getBoundingClientRect());
             return {
               left: anchor.left, right: anchor.right, height: anchor.height,
-              captionFits: caption.scrollWidth <= label.clientWidth,
+              labelFits: label.scrollWidth <= label.clientWidth,
               childrenFit: children.every(child => child.left >= anchor.left && child.right <= anchor.right),
               noOverlap: children.every((child, index) => index === 0 || child.left >= children[index - 1].right),
             };
@@ -43,7 +44,7 @@ for (const mode of [
           expect(geometry.left).toBeGreaterThanOrEqual(0);
           expect(geometry.right).toBeLessThanOrEqual(width);
           expect(geometry.height).toBeGreaterThanOrEqual(44);
-          expect(geometry.captionFits).toBeTruthy();
+          expect(geometry.labelFits).toBeTruthy();
           expect(geometry.childrenFit).toBeTruthy();
           expect(geometry.noOverlap).toBeTruthy();
         }
@@ -53,14 +54,19 @@ for (const mode of [
         if (width === 320) await links.screenshot({ path: `.local/screenshots/social-${mode.name}-${testInfo.project.name}-${language}.png` });
       }
     }
-    const link = links.getByRole('link', { name: 'Instagram @rickoprayudha', exact: true });
-    await page.context().route('https://www.instagram.com/**', route => route.fulfill({ contentType: 'text/html', body: 'External profile destination' }));
-    const popupPromise = page.waitForEvent('popup');
-    await link.click();
-    const popup = await popupPromise;
-    await popup.waitForLoadState();
-    expect(popup.url()).toBe('https://www.instagram.com/rickoprayudha/');
-    expect(await popup.evaluate(() => window.opener === null)).toBeTruthy();
-    await popup.close();
+    for (const destination of [
+      { name: 'Instagram', href: 'https://www.instagram.com/rickoprayudha/' },
+      { name: 'Facebook', href: 'https://web.facebook.com/ricko.prayudha' },
+      { name: 'X / Twitter', href: 'https://x.com/rickopra' },
+    ]) {
+      await page.context().route(destination.href, route => route.fulfill({ contentType: 'text/html', body: 'External profile destination' }));
+      const popupPromise = page.waitForEvent('popup');
+      await links.getByRole('link', { name: destination.name, exact: true }).click();
+      const popup = await popupPromise;
+      await popup.waitForLoadState();
+      expect(popup.url()).toBe(destination.href);
+      expect(await popup.evaluate(() => window.opener === null)).toBeTruthy();
+      await popup.close();
+    }
   });
 }

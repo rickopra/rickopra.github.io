@@ -162,8 +162,6 @@ h2{font-family:var(--display);font-size:55px;line-height:1.04;font-weight:700;wh
 .contact-links{display:flex;flex-wrap:wrap;gap:35px;border-top:1px solid #ffffff38;margin-top:41px;padding-top:25px}
 .contact-links>a{display:flex;align-items:center;gap:11px;font-size:12px;min-height:44px;max-width:100%}
 .social-link>span{min-width:0}
-.social-link small{display:block;font:10px/1.6 var(--mono);margin-top:3px;overflow-wrap:anywhere}
-.contact-links .social-link small{color:#c6dcff}
 .contact-links>a>svg{flex-shrink:0}
 .contact-links>a>svg:last-child{margin-left:14px}
 .contact-links>a:hover{color:#b9fff0}
