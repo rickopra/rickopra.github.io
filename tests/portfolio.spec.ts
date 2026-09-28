@@ -8,11 +8,11 @@ test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ 
     type: (element as HTMLLinkElement).type,
   })));
   expect(icons).toEqual([
-    { href: '/assets/favicon-16.png', type: 'image/png' },
-    { href: '/assets/favicon-32.png', type: 'image/png' },
-    { href: '/assets/rp-logo.svg', type: 'image/svg+xml' },
+    { href: '/assets/favicon-16.png?v=2', type: 'image/png' },
+    { href: '/assets/favicon-32.png?v=2', type: 'image/png' },
+    { href: '/assets/rp-logo.svg?v=2', type: 'image/svg+xml' },
   ]);
-  await expect(page.locator('head link[rel="apple-touch-icon"]')).toHaveAttribute('href', '/assets/apple-touch-icon.png');
+  await expect(page.locator('head link[rel="apple-touch-icon"]')).toHaveAttribute('href', '/assets/apple-touch-icon.png?v=2');
   for (const [file, size] of [['favicon-16.png', 16], ['favicon-32.png', 32], ['favicon.png', 64], ['apple-touch-icon.png', 180], ['rp-logo.png', 512]] as const) {
     const image = await page.evaluate(async ({ file, size }) => {
       const icon = new Image();
@@ -40,6 +40,21 @@ test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ 
     expect(response.ok(), file).toBeTruthy();
     expect(await response.text()).toContain('Ricko Prayudha');
   }
+  const mark = await page.evaluate(async () => {
+    const image = new Image();
+    image.src = '/assets/rp-logo.svg?v=2';
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 128;
+    const context = canvas.getContext('2d')!;
+    context.drawImage(image, 0, 0);
+    const pixels = context.getImageData(0, 0, 128, 128).data;
+    const pixel = (x: number, y: number) => [...pixels.slice((y * 128 + x) * 4, (y * 128 + x) * 4 + 4)];
+    return { rCounter: pixel(35, 49), pCounter: pixel(92, 49), rLeg: pixel(48, 95), pStem: pixel(76, 90) };
+  });
+  expect(mark.rCounter).toEqual(mark.pCounter);
+  expect(mark.rLeg).not.toEqual(mark.rCounter);
+  expect(mark.pStem).not.toEqual(mark.pCounter);
 });
 
 test('menu, portrait, CV, and working screen routes', async ({ page }, testInfo) => {

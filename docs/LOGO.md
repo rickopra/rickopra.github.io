@@ -1,37 +1,34 @@
 # Identitas RP
 
-Monogram **RP** adalah identitas personal Ricko Prayudha, bukan logo Persona 3 Reload. Rujukan permainan hanya pada energi biru situs; bentuk huruf, proporsi, dan filosofi logo ini orisinal. Logo dapat dipakai terpisah dari website.
+Logotype personal **RP** untuk Ricko Prayudha. Arah visualnya diambil dari contoh logo P3 yang dikirim pemilik: huruf lebar, geometri digital bersudut, counter kotak, sambungan huruf terpotong, dan detail sian. Ini gambar huruf R dan P baru, bukan font atau logo Persona 3 Reload. Tidak ada font, file, atau aset permainan yang disertakan. Bentuk ini untuk identitas independen, bukan untuk mengaku sebagai produk ATLUS/SEGA.
 
-## Gagasan Bentuk
+## Riset Singkat
 
-- **R** dan **P** berdiri tegak, terbaca dari kiri ke kanan. Keduanya memakai modul batang 14 unit dan ruang dalam yang terbuka, sehingga bentuk tetap jelas ketika diperkecil sebagai favicon.
-- **Batang vertikal** mewakili fondasi: keandalan, tanggung jawab, dan konsistensi dalam pekerjaan infrastruktur serta operasi IT.
-- **Kaki diagonal R** diberi aksen biru muda: keputusan, gerak maju, dan kemampuan menjembatani masalah teknis dengan hasil yang nyata. Ini bukan petir, panah tempelan, atau simbol merek lain.
-- **P** tetap utuh dan tenang sebagai penyeimbang gerak R. Identitas harus mudah dipercaya juga ketika dibaca di CV, bukan hanya menarik di tab browser.
-- Bidang biru memakai dua nada, tanpa efek 3D. Sudut 18/128 melembutkan favicon; karakter huruf tetap tegas. Tidak ada aset, font, atau logo game yang disalin.
+- Screenshot rujukan dari pemilik memperlihatkan logo P3 Reload berbentuk **custom lettering**, berbeda dari huruf UI/dialog yang dapat dicari sebagai font. Yang relevan untuk RP ialah bentuk huruf, proporsi, ruang negatif, dan potongan, bukan mengganti tulisan ke font menu.
+- [DaFont: pencarian Persona 3 Reload](https://www.dafont.com/search.php?q=persona+3+reload) tidak mengembalikan font dengan nama itu pada saat pemeriksaan. Ini bukan bukti bahwa font resmi tak ada; hanya alasan untuk tidak mengambil unduhan berlisensi tak jelas.
+- Referensi bahasa visual game ada di [PERSONA-3-RELOAD.md](PERSONA-3-RELOAD.md). Logo tidak memakai materi game langsung. Kedekatan karakter grafis tidak berarti kemiripan persis setiap bentuk dari P3.
 
-## Warna dan Versi
+## Bentuk dan Filosofi
+
+- **R/P digambar per bentuk**, tanpa ketergantungan font. Dua lubang persegi membuat masing-masing huruf terbaca bahkan ketika kecil. R punya kaki diagonal panjang; P punya batang lurus. Pada 16 px, dua siluet harus tetap berbeda.
+- **Batang stabil** = sistem yang dapat diandalkan; **kaki R maju** = inisiatif dan kemampuan menyelesaikan pekerjaan. **P tetap tegak** = ketelitian, tanggung jawab, konsistensi.
+- **Potongan kecil** pada bagian atas dan kaki R menggambarkan proses: perubahan dilakukan dengan presisi, bukan dekorasi acak. **Pita sian horizontal** memberi arah dan penanda visual tersendiri saat ikon dipakai tanpa nama lengkap.
+- Sudut dibuat tegas. Tidak ada bingkai membulat, efek metalik, atau gradasi. Huruf di atas biru elektrik mencerminkan situs tetapi masih bisa dipakai sebagai monogram dokumen lewat versi transparan.
+
+## Warna dan Berkas
 
 | Warna | Kode | Fungsi |
 | --- | --- | --- |
-| Biru utama | `#0748C9` | Bidang dasar logo dan identitas digital. |
-| Biru terang | `#1466EF` | Bidang diagonal halus pada latar. |
-| Putih | `#FFFFFF` | Huruf pada latar biru. |
-| Sian | `#75EAFF` | Aksen gerak pada kaki R. |
-| Biru gelap | `#062B80` | Huruf versi transparan untuk latar terang. |
-| Biru sekunder | `#0754D9` | Aksen R pada versi transparan. |
+| Biru elektrik | `#0755D9` | Latar ikon. |
+| Biru malam | `#082866` | Garis dasar; huruf pada versi transparan. |
+| Putih | `#FFFFFF` | Siluet huruf pada ikon. |
+| Sian | `#44D8F5` | Potongan dan aksen dasar. |
 
-**Master:** [`public/assets/rp-logo.svg`](../public/assets/rp-logo.svg) untuk latar berwarna solid; [`public/assets/rp-monogram.svg`](../public/assets/rp-monogram.svg) transparan untuk dokumen berlatar terang. [`public/assets/rp-logo.png`](../public/assets/rp-logo.png) adalah ekspor 512 px. Master vektor dapat diskalakan tanpa pecah.
+- Master ikon: [`public/assets/rp-logo.svg`](../public/assets/rp-logo.svg); versi transparan berlatar terang: [`public/assets/rp-monogram.svg`](../public/assets/rp-monogram.svg).
+- Ekspor: `rp-logo.png` (512 px), `apple-touch-icon.png` (180 px), `favicon-16.png`, `favicon-32.png`, `favicon.png` (64 px). PNG dihasilkan dari master dengan `npm run logo`.
+- Pertahankan proporsi 128 x 128 dan area kosong di sekeliling huruf. Jangan memiringkan, menambahkan glow, atau mengubah hanya satu versi SVG.
+- Pakai master berwarna untuk latar gelap/terang dan versi transparan hanya pada latar terang. Ukuran 16 px untuk favicon; untuk kebutuhan identitas di halaman/dokumen, gunakan SVG atau PNG 512 px.
 
-**Favicon:** `favicon-16.png`, `favicon-32.png`, `favicon.png` (64 px) dihasilkan dari master SVG. **Layar beranda ponsel:** `apple-touch-icon.png` (180 px). SVG juga ditautkan sebagai favicon pada browser yang mendukungnya.
+## Pemeliharaan
 
-## Pemakaian
-
-- Pertahankan proporsi dan bentuk RP, serta jarak kosong minimal setara lebar batang huruf di sekeliling logo ketika ditempatkan di layout lain.
-- Pada latar terang gunakan `rp-monogram.svg`; pada latar gelap gunakan versi berlatar biru `rp-logo.svg`. Jangan membalik warna, mengubah huruf menjadi miring, atau menambah efek/slogan di dalam ikon.
-- Ukuran minimum: 16 x 16 px untuk favicon berwarna; untuk cetak atau ikon di UI gunakan paling tidak 24 x 24 px. Jangan pakai versi transparan gelap pada latar gelap.
-- Logo merujuk identitas personal, bukan sertifikasi perusahaan, game, atau komunitas. Gunakan foto, pengalaman, dan isi CV apa adanya.
-
-## Memperbarui
-
-Ubah hanya master `public/assets/rp-logo.svg`, lalu jalankan `npm run logo` untuk menghasilkan ulang seluruh PNG dari satu sumber. Periksa hasil pada 16/32 px dan 180 px sebelum publikasi. `scripts/prepare-assets.py` tidak boleh menghasilkan atau menimpa favicon. Jika bentuk atau warna berubah, sesuaikan versi transparan dan pedoman ini; uji `npm test` dan `npm run build` sebelum push.
+Jika desain master berubah, sesuaikan `rp-monogram.svg`, jalankan `npm run logo`, uji keterbacaan pada 16/32 px, kemudian naikkan parameter versi `?v=` pada ikon dalam `index.html` dan tes. Parameter itu membantu browser mengambil favicon baru saat desain diganti. `scripts/prepare-assets.py` tidak boleh menimpa favicon.
