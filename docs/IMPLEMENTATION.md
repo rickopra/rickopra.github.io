@@ -11,7 +11,10 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `index.html` | Root React, judul, SEO, Open Graph, favicon, fallback `noscript`. |
 | `src/main.tsx` | Mount React, Strict Mode, import font lokal dan CSS. |
 | `src/content.ts` | Identitas, teks EN/ID, proyek, pengalaman, kapabilitas. |
-| `src/App.tsx` | Portfolio, state interaksi, navigasi, `ProjectDialog`, dan `Resume`. |
+| `src/App.tsx` | Pemilih mode aplikasi, versi klasik, `ProjectDialog`, `EvidenceGallery`, dan `Resume`. |
+| `src/PersonaPortfolio.tsx` | Pengalaman utama: menu, layar hash, state, input, integrasi audio. |
+| `src/TideScene.tsx`, `src/persona.css` | Refleksi Three.js dan komposisi menu/detail bergaya Persona. |
+| `src/audio.ts` | Musik sintetis orisinal dan cue interaksi melalui Web Audio. |
 | `src/NetworkScene.tsx` | Scene dekoratif Three.js, pointer, resize, visibilitas, cleanup. |
 | `src/styles.css` | Layout, token warna/font, breakpoint, animasi, reduced motion, print. |
 | `public/assets/` | Foto, diagram ilustratif, social preview, favicon. |
@@ -19,11 +22,13 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `public/robots.txt`, `public/sitemap.xml` | Metadata crawler untuk domain saat ini. |
 | `scripts/generate-resume.mjs` | Cetak `/?resume` menjadi PDF menggunakan Chromium. |
 | `scripts/prepare-assets.py` | Pengolahan foto dan pembuatan diagram raster deterministik. |
+| `scripts/curate-archive.py` | Preview/ekstraksi arsip privat ke `.local`, ekspor foto pilihan dengan redaksi. |
+| `scripts/prepare-legacy-diagrams.py` | Diagram proses NOC dan FTTH tanpa konfigurasi jaringan asli. |
 | `tests/portfolio.spec.ts` | Tes fungsional, responsive, WebGL, preferensi, dan axe-core. |
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
-`App()` memilih `Resume()` ketika query memiliki `resume`; selain itu menampilkan `Portfolio()`. Navigasi menggunakan anchor satu halaman, bukan router. Karena itu refresh `/#work` dan `/?resume` tetap dilayani root GitHub Pages.
+`App()` memilih `Resume()` untuk `?resume`, portfolio klasik untuk `?classic`, selain itu `PersonaPortfolio`. Versi utama menggunakan layar berdasarkan hash, bukan scroll anchor. Refresh `/#work` dan `/?resume` tetap dilayani root GitHub Pages. Folder `.local` diabaikan Git dan watcher Vite karena berisi bahan privat serta alat kurasi lokal.
 
 ## 2. Setup Pertama
 
@@ -52,7 +57,8 @@ Di Windows, ganti `npm`/`npx` menjadi `npm.cmd`/`npx.cmd` jika shim PowerShell d
 - `identity`: nama, email profesional, LinkedIn, GitHub, lokasi.
 - `text(en, id)`: pasangan terjemahan bertipe `Localized`.
 - `copy`: teks UI dan ringkasan umum.
-- `experiences`: periode, jabatan, perusahaan, lokasi, ringkasan, poin kontribusi.
+- `careerRecords`: periode, jabatan, perusahaan, lokasi, ringkasan, kelompok `sections`, `tools`, dan `projectIds`.
+- `experiences`: hasil pemetaan `careerRecords`; `points` diturunkan dari `sections` untuk tampilan klasik, tidak diedit terpisah.
 - `capabilities`: kategori kemampuan dan daftar teknologi.
 
 Contoh pola yang sudah dipakai:
@@ -69,21 +75,21 @@ Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak din
 
 1. Tambahkan entri `Project` dalam `projects` di `src/content.ts`; isi kedua bahasa.
 2. Gunakan `id` unik dan kategori yang tersedia: `infrastructure`, `systems`, atau `governance`.
-3. Simpan diagram/foto yang layak publik di `public/assets/<id>.webp`; rasio saat ini `1100:650`.
+3. Diagram default memakai `public/assets/<id>.webp` berukuran `1100 x 650`. Foto memakai `cover: ProjectImage` dengan ukuran asli, caption, alt EN/ID, jenis, dan provenance. `projectCover()` menyamakan akses kedua bentuk tersebut.
 4. Periksa aksesibilitas gambar, judul, konteks, tantangan, kontribusi, hasil, dan teknologi.
 5. Jika ada `link`, gunakan tujuan publik yang benar. Tombol saat ini diberi label source/GitHub; tautan selain repositori memerlukan penyesuaian label dan ikon.
-6. Perbarui jumlah filter di `App.tsx`, karena `04`, `02`, dan `01` masih hardcoded.
+6. Isi `evidence: ProjectImage[]` untuk galeri foto. Jumlah filter kedua mode dihitung dari data; tidak perlu mengedit angka UI.
 7. Perbarui tes jumlah proyek dan CV bila relevan.
 
-Jangan memakai screenshot produksi yang berisi IP internal, akun, daftar karyawan, tiket, atau data pelanggan. Diagram yang sekarang dipakai diberi alt text sebagai ilustrasi.
+Jangan memakai screenshot produksi yang berisi IP internal, akun, daftar karyawan, tiket, atau data pelanggan. Diagram memiliki caption rekonstruksi; foto memiliki caption arsip dan nomor halaman sumber. Galeri menyediakan thumbnail, sebelum/berikutnya, serta tautan gambar penuh. Detail kurasi: [EVIDENCE.md](EVIDENCE.md).
 
 ### Menambah Pengalaman
 
-1. Tambahkan atau perbarui entri `experiences`, terbaru di atas.
+1. Tambahkan atau perbarui `careerRecords`, terbaru di atas. Gunakan kelompok tanggung jawab di `sections`, bukan satu paragraf panjang.
 2. Periksa fakta periode dan batas kewenangan terhadap bukti profesional.
 3. Tinjau `Resume()` di `App.tsx`. Ringkasan profil dan selected work masih memiliki paragraf tersendiri.
 4. Regenerasi PDF, periksa seluruh halaman.
-5. Sesuaikan pemisahan halaman cetak jika urutan berubah: `index === 2` saat ini memulai halaman kedua.
+5. Periksa pagination cetak. Kelompok tanggung jawab dijaga utuh; jabatan panjang dapat berlanjut ke halaman berikutnya. Tidak ada pemisahan berdasarkan indeks jabatan.
 
 ### Data yang Belum Sepenuhnya Terpusat
 
@@ -97,16 +103,16 @@ Script aset bersifat opsional; aset siap pakai sudah di-commit. Untuk regenerasi
 
 ```powershell
 python -m pip install Pillow
-python scripts/prepare-assets.py --portrait "C:\path\to\professional-photo.jpeg"
+python scripts/prepare-assets.py --portrait "C:\path\to\professional-photo.jpeg" --portrait-only
 ```
 
-Script menghapus background biru yang terhubung tepi, melakukan crop tetap `(68, 34, 422, height)`, lalu menghasilkan foto WebP, empat diagram, social preview, dan favicon. Ini dibuat khusus untuk foto sumber sebelumnya, bukan penghapus background universal.
+Script menerapkan orientasi EXIF, menghapus background biru yang terhubung tepi, serta mempertahankan seluruh ukuran foto. Crop tetap dihapus karena memotong wajah pada sumber 853 x 1280. `--portrait-only` hanya menulis portrait. Tanpa flag tersebut, script juga menghasilkan empat diagram, social preview, dan favicon. Ini bukan penghapus background universal: periksa hasil sebelum rilis.
 
 **Script menimpa aset yang dihasilkan.** Sebelum menjalankannya, commit aset yang ingin dipertahankan dan pastikan file foto benar. Untuk foto baru, tinjau ukuran, crop, dan kriteria background terlebih dahulu.
 
 Script memakai Arial di `C:/Windows/Fonts`; untuk OS lain perlu penyesuaian sumber font. Node build dan deployment tidak memerlukan Python atau foto pribadi sumber.
 
-Font web berasal dari package Fontsource: Barlow Condensed, DM Sans, IBM Plex Mono. Ikon berasal dari Lucide. Pertahankan lisensi upstream saat mengganti atau mendistribusikan aset.
+Font web berasal dari package Fontsource: Anton, Barlow Condensed, DM Sans, IBM Plex Mono. Ikon berasal dari Lucide. Pertahankan lisensi upstream saat mengganti atau mendistribusikan aset.
 
 ## 5. Memperbarui PDF
 
@@ -124,14 +130,14 @@ npm run resume
 Remove-Item Env:PORTFOLIO_URL
 ```
 
-Generator menunggu font selesai dimuat, mencetak A4 dengan margin, dan memberi nomor halaman. Layout cetak dikendalikan `@media print`. PDF saat ini dua halaman. Mengubah CSS atau konten dapat mengubah pagination, jadi jumlah halaman bukan jaminan permanen.
+Generator menunggu font selesai dimuat, mencetak A4 dengan margin, dan memberi nomor halaman. Layout cetak dikendalikan `@media print`. PDF setelah perluasan pengalaman berisi tiga halaman. Mengubah CSS atau konten dapat mengubah pagination, jadi jumlah halaman bukan jaminan permanen.
 
 ## 6. Interaksi dan Aksesibilitas
 
 - Gunakan elemen semantik untuk navigasi dan tombol. Ikon interaktif memiliki accessible name dan tooltip `title`.
 - Native `<dialog>` menangani modal; jangan mengganti dengan overlay visual tanpa fokus, Escape, dan pemulihan fokus.
 - Preferensi bahasa/animasi dibungkus `try/catch` agar localStorage yang diblokir tidak merusak halaman.
-- `NetworkScene` dimuat terpisah; Three.js berada pada chunk sendiri.
+- `TideScene` dimuat terpisah pada versi utama; `NetworkScene` hanya untuk klasik. Three.js berada pada chunk sendiri.
 - WebGL gagal dibuat: hero tetap memiliki foto dan bidang CSS. Halaman tidak harus menunggu canvas.
 - Loop animasi dihentikan saat tidak diperlukan; cleanup membatalkan frame, observer, listener, dan resource GPU.
 - `preserveDrawingBuffer` dipakai untuk pemeriksaan pixel; pertimbangkan dampak performa sebelum memperbesar scene.

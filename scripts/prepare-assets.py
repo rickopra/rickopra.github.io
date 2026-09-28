@@ -2,16 +2,18 @@ import argparse
 from collections import deque
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--portrait', required=True)
+parser.add_argument('--portrait-only', action='store_true')
 arguments = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 output = root / 'public' / 'assets'
 output.mkdir(parents=True, exist_ok=True)
-portrait = Image.open(arguments.portrait).convert('RGBA')
+portrait = ImageOps.exif_transpose(Image.open(arguments.portrait)).convert('RGBA')
+portrait.info.clear()
 pixels = portrait.load()
 width, height = portrait.size
 visited = set()
@@ -32,8 +34,10 @@ while queue:
             next_x, next_y = horizontal + offset_x, vertical + offset_y
             if 0 <= next_x < width and 0 <= next_y < height:
                 queue.append((next_x, next_y))
-portrait = portrait.crop((68, 34, 422, height))
 portrait.save(output / 'ricko-portrait.webp', quality=94, method=6)
+if arguments.portrait_only:
+    print(f'Generated uncropped portrait: {width} x {height}.')
+    raise SystemExit(0)
 
 
 def font(size, bold=False):
@@ -109,7 +113,7 @@ label(draw, (65, 65), 'IT OPERATIONS / INFRASTRUCTURE / GOVERNANCE', 21, '#adf7f
 label(draw, (55, 170), 'RICKO', 114, '#ffffff', True)
 label(draw, (55, 293), 'PRAYUDHA', 90, '#ffffff', True)
 label(draw, (65, 518), '500+ USERS   /   7 SITES   /   24/7 OPERATIONS', 21, '#ffffff')
-portrait_social = portrait.resize((460, 710), Image.Resampling.LANCZOS)
+portrait_social = ImageOps.contain(portrait, (460, 710), Image.Resampling.LANCZOS)
 social.paste(portrait_social, (760, 42), portrait_social)
 social.save(output / 'social-preview.jpg', quality=92)
 icon = Image.new('RGB', (96, 96), '#1552ee')

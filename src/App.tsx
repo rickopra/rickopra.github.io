@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronDown, Copy, Download, ExternalLink, Github, Linkedin, MapPin, Menu, Pause, Play, X } from 'lucide-react';
-import { capabilities, copy, experiences, identity, projects, text } from './content';
-import type { Language, Localized, Project, ProjectCategory } from './content';
+import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, ExternalLink, Github, Linkedin, MapPin, Menu, Pause, Play, X } from 'lucide-react';
+import { capabilities, copy, experiences, identity, projectCover, projects, text } from './content';
+import type { Language, Localized, Project, ProjectCategory, ProjectImage } from './content';
 
 const NetworkScene = lazy(() => import('./NetworkScene'));
 const PersonaPortfolio = lazy(() => import('./PersonaPortfolio'));
@@ -15,9 +15,28 @@ function savePreference(key: string, value: string) {
   try { localStorage.setItem(key, value); } catch { return; }
 }
 
+function EvidenceGallery({ images, language }: { images: ProjectImage[]; language: Language }) {
+  const [index, setIndex] = useState(0);
+  const image = images[index];
+  const t = (value: Localized) => value[language];
+  return <section className="evidence-gallery" aria-label={t(text('Project evidence', 'Bukti proyek'))}>
+    <div className="evidence-heading"><h3>{t(text('Field archive', 'Arsip lapangan'))}</h3><span className="mono">{index + 1} / {images.length}</span></div>
+    <figure aria-live="polite">
+      <a href={image.src} target="_blank" rel="noopener noreferrer" aria-label={t(text('Open full photograph', 'Buka foto ukuran penuh'))} title={t(text('Open full photograph', 'Buka foto ukuran penuh'))}><img src={image.src} alt={t(image.alt)} width={image.width} height={image.height} /></a>
+      <figcaption>{t(image.caption)}<small>{t(image.source)}</small></figcaption>
+    </figure>
+    {images.length > 1 && <div className="evidence-controls">
+      <button className="icon-button" onClick={() => setIndex((index - 1 + images.length) % images.length)} aria-label={t(text('Previous photograph', 'Foto sebelumnya'))} title={t(text('Previous photograph', 'Foto sebelumnya'))}><ChevronLeft size={21} /></button>
+      <div className="evidence-thumbnails">{images.map((item, number) => <button key={item.src} aria-pressed={number === index} aria-label={t(text(`Photograph ${number + 1}`, `Foto ${number + 1}`))} title={t(item.caption)} onClick={() => setIndex(number)}><img src={item.src} alt="" width={item.width} height={item.height} loading="lazy" /></button>)}</div>
+      <button className="icon-button" onClick={() => setIndex((index + 1) % images.length)} aria-label={t(text('Next photograph', 'Foto berikutnya'))} title={t(text('Next photograph', 'Foto berikutnya'))}><ChevronRight size={21} /></button>
+    </div>}
+  </section>;
+}
+
 export function ProjectDialog({ project, language, onClose }: { project: Project | null; language: Language; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const translate = (value: Localized) => value[language];
+  const cover = project ? projectCover(project) : null;
   useEffect(() => {
     if (!project || !dialog.current) return;
     const element = dialog.current;
@@ -42,8 +61,9 @@ export function ProjectDialog({ project, language, onClose }: { project: Project
       <div className="dialog-content">
         <span className="eyebrow">{translate(project.subtitle)}</span>
         <h2 id="case-title">{translate(project.title)}</h2>
-        <img src={`/assets/${project.id}.webp`} alt={translate(text(`Illustrative diagram: ${project.subtitle.en}`, `Diagram ilustratif: ${project.subtitle.id}`))} width="1100" height="650" />
+        {cover && !project.evidence?.length && <figure className="case-cover"><img src={cover.src} alt={translate(cover.alt)} width={cover.width} height={cover.height} /><figcaption>{translate(cover.caption)}<small>{translate(cover.source)}</small></figcaption></figure>}
         <div className="case-context"><span className="mono">{translate(copy.scope)}</span><p>{translate(project.context)}</p></div>
+        {!!project.evidence?.length && <EvidenceGallery key={project.id} images={project.evidence} language={language} />}
         <h3>{translate(copy.challenge)}</h3><p>{translate(project.challenge)}</p>
         <h3>{translate(copy.contribution)}</h3><ul>{project.contributions.map((point, index) => <li key={index}>{translate(point)}</li>)}</ul>
         <h3>{translate(copy.outcome)}</h3><p>{translate(project.outcome)}</p>
@@ -65,10 +85,9 @@ function Resume() {
     <h2>Core Capabilities</h2>
     {capabilities.map(capability => <p key={capability.title.en}><strong>{capability.title.en}:</strong> {capability.tools.join(', ')}</p>)}
     <h2>Professional Experience</h2>
-    {experiences.map((experience, index) => <section key={experience.role} className={`resume-job ${index === 2 ? 'resume-new-page' : ''}`}>
-      {index === 2 && <h2 className="resume-continuation">Professional Experience (continued)</h2>}
+    {experiences.map(experience => <section key={experience.role} className="resume-job">
       <h3>{experience.role} | {experience.company}</h3><p className="resume-period">{experience.period.en} | {experience.location}</p>
-      <ul>{experience.points.map(point => <li key={point.en}>{point.en}</li>)}</ul>
+      {experience.sections.map(section => <div className="resume-section" key={section.title.en}><h4>{section.title.en}</h4><ul>{section.points.map(point => <li key={point.en}>{point.en}</li>)}</ul></div>)}
     </section>)}
     <h2>Selected Work</h2>
     <p><strong>ATLAS:</strong> Self-hosted asset tracking and lifecycle administration. Next.js, Fastify, PostgreSQL, Docker. github.com/rickopra/ATLAS</p>
@@ -167,7 +186,7 @@ function Portfolio() {
         <div className="hero-plane-light" aria-hidden="true" />
         <Suspense fallback={null}><NetworkScene motion={motion} /></Suspense>
         <div className="hero-index mono" aria-hidden="true">PERSONAL PORTFOLIO <span>VOL. 01 / 2026</span></div>
-        <div className="hero-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="354" height="577" fetchPriority="high" /><div className="photo-caption mono"><span>RICKO PRAYUDHA</span><span>IT OPERATIONS</span></div></div>
+        <div className="hero-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="853" height="1280" fetchPriority="high" /><div className="photo-caption mono"><span>RICKO PRAYUDHA</span><span>IT OPERATIONS</span></div></div>
         <div className="hero-content">
           <p className="hero-eyebrow mono"><span className="tiny-cross" aria-hidden="true">+</span> {translate(copy.heroTag)}</p>
           <h1 id="hero-title"><span>RICKO</span><span>PRAYUDHA<span className="name-period">.</span></span></h1>
@@ -190,12 +209,12 @@ function Portfolio() {
         <div className="section-kicker"><span className="mono">01 / {translate(copy.work)}</span><span className="mono muted">2021 - 2026</span></div>
         <div className="section-heading"><h2 id="work-title">{translate(copy.workTitle)}</h2><p>{translate(copy.workIntro)}</p></div>
         <div className="work-filters" role="group" aria-label={translate(text('Filter projects', 'Filter proyek'))}>
-          {(['all', 'infrastructure', 'systems', 'governance'] as const).map(item => <button key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{translate(copy[item])}<span>{item === 'all' ? '04' : item === 'systems' ? '02' : '01'}</span></button>)}
+          {(['all', 'infrastructure', 'systems', 'governance'] as const).map(item => <button key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{translate(copy[item])}<span>{item === 'all' ? projects.length : projects.filter(project => project.category === item).length}</span></button>)}
         </div>
         <div className="project-grid" aria-live="polite">
           {visibleProjects.map(item => <article className={`project project-${item.id}`} key={item.id}>
             <button className="project-visual" onClick={() => setProject(item)} aria-label={`${translate(copy.caseStudy)}: ${translate(item.title)}`}>
-              <img src={`/assets/${item.id}.webp`} alt={translate(text(`Illustrative diagram: ${item.subtitle.en}`, `Diagram ilustratif: ${item.subtitle.id}`))} width="1100" height="650" loading="lazy" />
+              <img src={projectCover(item).src} alt={translate(projectCover(item).alt)} width={projectCover(item).width} height={projectCover(item).height} loading="lazy" />
               <span className="project-open" aria-hidden="true"><ArrowUpRight size={23} /></span>
             </button>
             <div className="project-meta"><span className="mono">{translate(copy[item.category])}</span><span className="mono">/{item.number}</span></div>

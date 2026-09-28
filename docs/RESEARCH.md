@@ -2,17 +2,18 @@
 
 Research date: 27 September 2026.
 
-Status update, 28 September 2026: the first published version uses only part of this visual influence. It is not a pixel-identical reproduction of Persona 3 Reload. The owner is reviewing the live baseline before further visual changes. See [the revision brief](PERSONA-3-RELOAD.md), [implementation flow](FLOW.md), and [verification status](STATUS.md) for the distinction between shipped behavior and planned work.
+Status update, 28 September 2026: the default experience now uses full-screen menu navigation, portrait composition, selection states, screen transitions, Three.js reflections, and original synthesized music. The current revision expands the portrait, career responsibilities, and archive evidence. It is not a pixel-identical reproduction of Persona 3 Reload. See [the design mapping](PERSONA-3-RELOAD.md), [implementation flow](FLOW.md), and [verification status](STATUS.md) for release status and limitations.
 
 ## Visual references
 
+- Owner-supplied [Persona-inspired website listing](https://karya.smkn1bawang.sch.id/karya/persona-3-1776145951) and [Fawwaz / Vloits demo](https://persona3.fayq.my.id/). This clarified that the request includes a menu-driven experience, animation, and audio, not just a color palette. No source or media from that website is bundled.
 - [Persona 3 Reload UI development interview, Persona Central, 29 November 2023](https://personacentral.com/p3r-interview-menu-ui/), translating the [Famitsu interview](https://www.famitsu.com/news/202311/29325647.html). Art director Tomohiro Kumagai describes sea-blue movement, underwater reflection, glass-like light, and a menu as a portrait of the protagonist. The interview explicitly distinguishes P3R's flowing approach from Persona 5's aggressive pop-punk movement.
 - [Persona 3 Reload development interview, 16 June 2023](https://personacentral.com/persona-3-reload-development-interview/): retain identity while modernizing function, not decoration alone.
 - The official ATLUS site returned a security checkpoint during research. It is not treated as a successfully inspected source.
 
 ## Translation into this portfolio
 
-An original design inspired by the visual language, not a reproduction of ATLUS assets. A vivid blue full-bleed portrait composition, condensed italic display typography, diagonal planes, gentle reflective motion, and decisive menu states. Neutral white editorial sections and coral/cyan project visuals balance the blue. Seven animated network gates connect the visual treatment to verified multi-site infrastructure work. No game characters, music, logos, extracted textures, loading gate, autoplay audio, or fictional RPG skill scores.
+An original implementation inspired by the visual language, not a reproduction of ATLUS assets. A blue full-bleed portrait composition, condensed italic display typography, diagonal planes, reflective motion, and decisive menu states. Light detail surfaces, field photographs, and coral/cyan project diagrams support professional content. Six hash-routed screens replace the original scrolling homepage. The seven network gates remain only in the optional classic view. After Hours is an original Web Audio composition, not game music. No game characters, logos, extracted textures, loading gate, autoplay audio, or fictional RPG skill scores.
 
 Recruiters can immediately identify the person, discipline, experience scope, selected work, contact links, and downloadable CV. Work and career history stay readable as normal HTML. English and Indonesian content share one structured source. Motion respects the operating-system preference and has a persistent pause control.
 
@@ -29,6 +30,6 @@ The older materials mention ISO/IEC 27001:2022 in a role ending October 2022. Be
 
 ## Publication boundaries
 
-Only curated professional facts, professional email, LinkedIn, GitHub, and a user-owned profile photograph are included. Original source PDFs, private filesystem paths, phone number, IDs, financial/medical records, internal addresses, live dashboards, customer records, and operational screenshots are not published. Case-study visuals are original, explicitly illustrative diagrams; they do not expose production data. The public PDF is newly generated from the same verified experience data.
+Public material includes curated professional facts, professional email, LinkedIn, GitHub, the owner's portrait, and seven redacted photographs from the owner's 63-page archive. Original source PDFs, private filesystem paths, phone numbers, IDs, financial/medical records, internal addresses, live dashboards, customer records, and raw operational screenshots are excluded. NOC/FTTH and earlier case-study diagrams are explicitly illustrative reconstructions. Archive page mappings and automated-redaction limitations are recorded in [EVIDENCE.md](EVIDENCE.md); manual owner privacy review is still needed. The three-page public CV is newly generated from the same experience data, not copied from a private PDF.
 
 The portrait is a deterministic background removal from the supplied professional photograph; it is not an AI-generated likeness. Social preview and icon are original local raster assets. Fonts are self-hosted from the Fontsource packages. Lucide supplies interface icons. No tracking scripts or third-party image requests run on the public website.

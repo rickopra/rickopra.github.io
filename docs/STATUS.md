@@ -1,99 +1,74 @@
 # Status, Pengujian, dan Review
 
-Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. GitHub menampilkan sebagian timestamp sebagai 27 September karena menggunakan UTC.
+Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub menggunakan UTC.
 
-## 1. Status Singkat
+## 1. Status Rilis
 
 | Bagian | Status |
 | --- | --- |
-| Website | Live: https://rickopra.github.io/ |
+| Website | https://rickopra.github.io/ |
 | Source | https://github.com/rickopra/rickopra.github.io |
-| Hosting | GitHub Pages, sumber `workflow`, hasil build `dist/`. |
-| Desain | Versi awal tersedia untuk review; belum sama persis dengan Persona 3 Reload. |
-| Revisi visual | Ditahan selama pemilik memeriksa versi live. |
-| Dokumentasi | Alur, implementasi, deployment, riset, rencana desain, dan status tersedia. |
-| CV | PDF publik dua halaman, dibuat terpisah dari dokumen sumber pribadi. |
-| Tes lokal | 13 lulus, 1 gagal; bukan seluruhnya hijau. |
+| Hosting | GitHub Pages, sumber `workflow`, artifact `dist/`. |
+| Baseline menu yang sudah terbit | Commit `119ddf1`, [run 36341173792](https://github.com/rickopra/rickopra.github.io/actions/runs/36341173792), sukses. |
+| Revisi foto/pengalaman/bukti | Lulus pemeriksaan lokal; deployment dan verifikasi live revisi ini belum selesai saat catatan kandidat rilis dibuat. |
+| CV | PDF publik tiga halaman, bukan salinan PDF sumber privat. |
+| Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
-Perbaikan hosting tidak mengubah CSS, konten karier, atau layout aplikasi. Pembaruan dokumentasi juga tidak mengubah tampilan versi yang sedang direview.
+## 2. Perubahan Revisi
 
-## 2. Verifikasi yang Sudah Dilakukan
+- Foto sumber 853 x 1280 dipertahankan penuh. Crop hardcoded yang memangkas wajah dihapus dari script; profil memakai `contain`, caption ikut tinggi frame.
+- Enam jabatan diperinci menjadi kelompok tanggung jawab dan teknologi: 14, 7, 6, 4, 9, dan 2 butir sesuai urutan karier.
+- Sembilan studi kasus, termasuk LAN, NOC automation, FTTH planning, wireless, dan fiber dari arsip lama.
+- Tujuh foto turunan dengan galeri, sumber halaman, thumbnail, panah, dan tautan ukuran penuh. NOC/FTTH menggunakan diagram yang jelas berlabel ilustratif.
+- Pengalaman terhubung langsung ke studi kasus; menutup dialog memulihkan fokus tanpa meninggalkan layar asal.
+- CV diregenerasi dari data pengalaman yang sama. Jumlah filter dihitung dari data, bukan angka hardcoded.
+- Menu Persona-inspired, soundtrack orisinal, animasi, EN/ID, keyboard/gamepad, dan versi klasik tetap tersedia.
+
+## 3. Hasil Lokal
 
 | Pemeriksaan | Hasil | Cakupan |
 | --- | --- | --- |
-| `npm run build` | Berhasil | TypeScript dan bundle Vite production. |
-| `npm audit --omit=dev` | 0 kerentanan terdeteksi | Dependensi produksi pada waktu pemeriksaan, bukan jaminan keamanan menyeluruh. |
-| `npm test` | 13/14 lulus | Chromium desktop dan emulasi ponsel. |
-| Axe di halaman dan modal | Lulus pada kedua konfigurasi | Aturan WCAG 2 A/AA dan 2.1 AA yang diuji otomatis. |
-| Filter, modal, Escape, pemulihan fokus | Lulus | Desktop dan ponsel. |
-| Bahasa dan persistensi motion | Lulus | EN/ID, reload, preferensi lokal. |
-| Reduced motion dan kegagalan storage | Lulus | Halaman tetap dapat digunakan tanpa storage. |
-| WebGL, perubahan frame, pause | Lulus | Pixel canvas tidak kosong, animasi berjalan lalu berhenti. |
-| Navigasi dan detail pengalaman | Lulus | Anchor, disclosure, target tautan kontak. |
-| Uji langsung situs production | Berhasil | Halaman, WebGL, modal ATLAS, EN/ID, PDF; tanpa pageerror atau response HTTP gagal pada skenario yang diuji. |
+| `npm test` | **37 lulus, 1 dilewati, 0 gagal** | 38 tes Chromium desktop dan emulasi iPhone 13. |
+| Pengecualian tes | Sengaja | Matrix viewport dijalankan sekali pada proyek desktop, tidak diulang pada mobile. |
+| `npm run build` | Berhasil | TypeScript dan bundle production Vite. |
+| `npm audit --omit=dev` | 0 kerentanan terdeteksi | Dependensi produksi pada waktu pemeriksaan, bukan audit keamanan menyeluruh. |
+| Axe | Tidak ada pelanggaran pada aturan yang diuji | Seluruh layar, dialog, dan galeri; WCAG 2 A/AA serta 2.1 AA. |
+| Navigasi | Lulus | Hash, deep link layar, history, keyboard, gamepad simulasi, fokus, Escape, skip link. |
+| Portrait / pengalaman / proyek | Lulus | Dimensi sumber utuh, caption, enam jabatan, sembilan kasus, filter, galeri, gambar dapat dimuat. |
+| Responsif | Lulus pada matrix tes | Menu 320x568 sampai 1920x1080, termasuk lanskap dan tablet, EN/ID; profil/galeri juga 320 px. |
+| Audio | Lulus | Senyap sebelum persetujuan, sampel nonzero setelah play, mute, volume tersimpan, reload senyap. |
+| WebGL | Lulus | Canvas nonblank, variasi warna, frame bergerak, pause, fallback tanpa WebGL. |
+| CV | 3 halaman dengan teks | Tidak ada halaman kosong; endpoint PDF diperiksa pada tes lokal. |
+| Tautan `.md` | Valid | Tidak ada target dokumentasi lokal yang hilang. |
 
-Uji production memakai viewport desktop 1440 x 900 dan ponsel 390 x 664. Canvas menghasilkan pixel nontransparan pada keduanya; jumlah pixel bergantung frame dan viewport, bukan metrik visual yang harus dipertahankan.
+Tes geometri profil membaca elemen dalam frame browser yang sama agar animasi masuk tidak menyebabkan perbandingan koordinat antarframe. Batas assertion tidak dilonggarkan. Screenshot hasil tes disimpan lokal dalam `.local/screenshots/`, tidak di-commit.
 
-HTML live kini merujuk asset JavaScript dan CSS hasil build. Tidak lagi merujuk `/src/main.tsx`. CV live berstatus HTTP 200 dan memiliki signature `%PDF`.
+## 4. Batas Verifikasi
 
-Run pemulihan hosting: [36338090845](https://github.com/rickopra/rickopra.github.io/actions/runs/36338090845), sukses. Commit source aplikasi saat pemulihan: `636f264`.
+- Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
+- Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
+- Emulasi iPhone memakai Chromium, bukan Safari. Axe tanpa temuan bukan sertifikasi aksesibilitas.
+- Audio diuji melalui sampel sinyal, bukan review kualitas musik dengan mendengarkan langsung.
+- Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
+- Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 3. Masalah yang Masih Terbuka
+## 5. Pemeliharaan Berikutnya
 
-### Hero pada Viewport Pendek
+- CI belum menjalankan Playwright/audit atau regenerasi PDF; masih menjadi langkah lokal sebelum push.
+- Sebagian metrik, label, dan paragraf CV masih berada dalam komponen selain `content.ts`.
+- Script diagram bergantung font Windows; script portrait hanya cocok untuk karakteristik background sumber saat ini.
+- Filter/proyek aktif belum memiliki URL sendiri. History tersedia untuk layar utama.
+- Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
+- Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-- Ponsel `390 x 664`: `.stats-band` mulai pada y=765, di bawah viewport. Ini penyebab satu tes Playwright gagal.
-- Ponsel `320 x 568`: hasil pengukuran juga menunjukkan awal stats y=765. Pengunjung harus scroll lebih jauh sebelum melihat konten berikutnya.
-- Desktop `1440 x 720`: batas hero y=646, sementara bagian bawah `.hero-actions` sekitar y=667. Dengan `overflow:hidden`, bagian CTA berisiko terpotong.
-- Ponsel `390 x 844` dan desktop `1920 x 1080`: stats mulai sebelum akhir viewport dalam pemeriksaan yang sama.
+## 6. Checklist Pemilik
 
-Prioritas berikutnya: ubah komposisi/spacing pada viewport pendek, jangan sekadar menghapus assertion tes. Uji kedua bahasa dan zoom setelah perbaikan. Masalah ini sengaja belum diubah selama review visual pemilik.
+- [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
+- [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.
+- [ ] Lingkup 500+ pengguna, 7 lokasi BGP, dan koordinasi 24/7 tepat.
+- [ ] Bukti foto aman dipublikasikan; tidak ada wajah rekan atau informasi organisasi yang perlu disamarkan lagi.
+- [ ] Narasi proyek sesuai kontribusi, tidak mengesankan hasil/metrik yang belum terukur.
+- [ ] Desain, gerakan, dan musik nyaman di perangkat sehari-hari.
+- [ ] CV PDF terbaru terbaca dengan pemisahan halaman yang sesuai.
 
-### Kesetiaan Desain Persona 3 Reload
-
-Versi sekarang baru menggunakan sebagian pengaruh visual, masih berupa layout portfolio scrolling. Sistem menu, komposisi layar, keadaan pilihan, dan transisi menyeluruh belum disamakan dengan referensi final game. Rencana dan kriteria penerimaan ada di [PERSONA-3-RELOAD.md](PERSONA-3-RELOAD.md).
-
-### Pemeliharaan
-
-- PDF belum otomatis diregenerasi oleh CI.
-- Workflow deploy belum menjalankan Playwright atau audit.
-- Jumlah filter, beberapa label/tahun, metrik, serta paragraf CV tertentu belum terpusat seluruhnya dalam data.
-- Script aset bergantung pada font Windows dan crop khusus foto sumber.
-- Belum ada URL untuk filter atau proyek yang dipilih.
-- Kegagalan import chunk Three.js akibat jaringan belum memiliki error boundary khusus.
-
-## 4. Batas Pengujian
-
-Belum ada bukti tes browser Safari/Firefox, perangkat ponsel fisik, pembaca layar manual, kondisi jaringan buruk, atau audit performa Lighthouse. Emulasi iPhone menggunakan Chromium, bukan Safari. Pemeriksaan axe bukan sertifikasi aksesibilitas.
-
-Fallback WebGL dan clipboard failure tersedia dalam kode, tetapi belum memiliki tes regresi khusus. Pengujian pixel membuktikan canvas terisi, bukan membuktikan kesamaan dengan game. Kesetiaan desain memerlukan review referensi dan gerakan oleh pemilik.
-
-## 5. Checklist Review Pemilik
-
-- [ ] Identitas, foto, email, LinkedIn, GitHub benar.
-- [ ] Periode ATI berakhir Agustus 2026 sesuai CV terbaru.
-- [ ] Metrik 500+ pengguna, 7 lokasi, dan koordinasi 24/7 sesuai lingkup kerja.
-- [ ] Isi ATLAS, SHIFT/CHECKLIST, infrastruktur, dan governance akurat.
-- [ ] Tidak ada informasi internal yang seharusnya privat.
-- [ ] Isi CV unduhan dan status pendidikan benar.
-- [ ] Pilihan bahasa memenuhi kebutuhan HR yang dituju.
-- [ ] Bagian versi awal yang perlu dipertahankan sudah ditentukan.
-- [ ] Layar final Persona 3 Reload yang menjadi acuan sudah ditetapkan.
-- [ ] Feedback komposisi, menu, animasi, desktop, dan ponsel sudah terkumpul.
-
-## 6. Prosedur Melanjutkan
-
-1. Selesaikan review versi live sebelum mengganti desain production.
-2. Catat feedback dan referensi yang disetujui pada dokumen desain.
-3. Buat branch revisi; perbaiki masalah viewport bersama perubahan komposisi.
-4. Perbarui konten/CV hanya bila ada fakta atau arahan baru.
-5. Jalankan pengujian, tinjau screenshot dan gerakan, perbarui tabel hasil di dokumen ini.
-6. Setelah review selesai, gabungkan perubahan dan deploy; verifikasi hasil live, bukan hanya workflow.
-
-## 7. Riwayat Singkat
-
-| Tanggal | Perubahan |
-| --- | --- |
-| 27-28 September 2026 | Riset sumber, kurasi fakta profesional, pembuatan versi awal, PDF publik, dan push repositori. |
-| 28 September 2026 | Ditemukan Pages legacy menayangkan source walaupun workflow berhasil; diubah ke workflow lalu diverifikasi ulang. |
-| 28 September 2026 | Desain dibekukan untuk review pemilik; dokumentasi operasional dan rencana revisi ditambahkan. |
+Prosedur publikasi dan pemulihan ada di [DEPLOYMENT.md](DEPLOYMENT.md). Insiden konfigurasi Pages awal tetap dicatat di sana, terpisah dari revisi konten ini.

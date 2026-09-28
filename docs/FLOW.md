@@ -20,14 +20,21 @@ flowchart TD
     Work --> Filter["Semua / Infrastruktur / Sistem / Governance"]
     Filter --> Dialog["Studi kasus: konteks, kontribusi, hasil"]
     Dialog --> Source["Repositori publik bila tersedia"]
+    Dialog --> Evidence["Galeri foto arsip + caption + sumber"]
+    Evidence --> Full["Buka gambar penuh di tab baru"]
     Dialog -->|Tutup atau Escape| Filter
     Profile --> CV["Unduh CV PDF"]
     Career --> CV
+    Career --> Responsibilities["Kelompok tanggung jawab + teknologi"]
+    Responsibilities --> Related["Studi kasus terkait jabatan"]
+    Related --> Dialog
     Contact --> CV
     File -->|Kembali atau Escape| Menu
 ```
 
 CV selalu tersedia dari header. Studi kasus menggunakan dialog HTML dengan fokus terkelola. Tombol berikutnya berpindah antarbagian; tombol kembali membuka menu. Browser Back/Forward mengikuti riwayat hash. Tidak ada login atau halaman pembuka yang menghalangi akses HR.
+
+Dialog dapat dibuka dari karya maupun pengalaman. Escape mengembalikan fokus ke pemicu tanpa keluar dari layar asal. Galeri kembali ke foto pertama ketika proyek dibuka ulang; thumbnail dan tombol panah mengubah foto tanpa mengubah URL.
 
 ## 2. Rute dan State
 
@@ -103,6 +110,19 @@ flowchart LR
 ```
 
 Beberapa kalimat CV dan metrik masih ditulis langsung pada komponen. Perubahan `content.ts` tidak otomatis memperbarui PDF yang sudah disimpan. Script PDF memakai `PORTFOLIO_URL` atau server lokal 5173; gunakan versi yang memang sedang diperbarui.
+
+```mermaid
+flowchart LR
+    Archive["CV dan portfolio privat"] --> Local["Ekstraksi lokal dalam .local"]
+    Local --> Review["Pilih bukti, periksa data sensitif"]
+    Review --> Photos["Foto terpilih, redaksi, hapus metadata"]
+    Review --> Diagram["Konfigurasi privat diganti diagram proses"]
+    Photos --> Public["public/assets + ProjectImage EN/ID"]
+    Diagram --> Public
+    Public --> Gallery["Studi kasus dan galeri"]
+```
+
+PDF sumber dan hasil OCR privat tidak melewati batas `.local`. Panduan rinci: [EVIDENCE.md](EVIDENCE.md).
 
 ## 6. Rilis
 

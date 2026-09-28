@@ -41,7 +41,7 @@ test('keyboard selection, browser history, deep links, and focus restoration', a
   await page.goBack();
   await expect(page.locator('.persona-app')).toHaveAttribute('data-screen', 'work');
   await page.reload();
-  await expect(page.locator('.case-file')).toHaveCount(4);
+  await expect(page.locator('.case-file')).toHaveCount(9);
   await page.goto('/#unknown');
   await expect(nav).toBeVisible();
 });
@@ -49,7 +49,7 @@ test('keyboard selection, browser history, deep links, and focus restoration', a
 test('filters, case study, Escape, and modal focus', async ({ page }) => {
   await page.goto('/#work');
   await page.getByRole('button', { name: /Internal systems/ }).click();
-  await expect(page.locator('.case-file')).toHaveCount(2);
+  await expect(page.locator('.case-file')).toHaveCount(3);
   const trigger = page.getByRole('button', { name: 'View case study: ATLAS' });
   await trigger.click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -62,7 +62,7 @@ test('filters, case study, Escape, and modal focus', async ({ page }) => {
   await page.getByRole('button', { name: /^Governance/ }).click();
   await expect(page.locator('.case-file')).toHaveCount(1);
   await page.getByRole('button', { name: /All work/ }).click();
-  await expect(page.locator('.case-file')).toHaveCount(4);
+  await expect(page.locator('.case-file')).toHaveCount(9);
 });
 
 test('skip links focus content without changing the screen route', async ({ page }) => {
@@ -86,6 +86,8 @@ test('gamepad selection, confirm, and back preserve the modal route', async ({ p
   });
   await page.goto('/');
   await expect(page.locator('.persona-menu')).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(700);
   const press = async (button: number) => {
     for (const pressed of [true, false]) {
       await page.evaluate(async ({ index, pressed }) => {
@@ -271,5 +273,122 @@ test('printable CV and classic view remain available', async ({ page }) => {
   await expect(page.getByText('Degree not completed.', { exact: false })).toBeVisible();
   await page.goto('/?classic');
   await expect(page.getByRole('heading', { name: /RICKO\s*PRAYUDHA/ })).toBeVisible();
-  await expect(page.locator('.project')).toHaveCount(4);
+  await expect(page.locator('.project')).toHaveCount(9);
+});
+
+test('profile preserves the full portrait within its frame', async ({ page }) => {
+  await page.goto('/#profile');
+  const portrait = page.locator('.profile-photo img');
+  await expect(portrait).toBeVisible();
+  await expect.poll(() => portrait.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBe(853);
+  await page.evaluate(() => document.fonts.ready);
+  const layout = await portrait.evaluate(element => {
+    const image = element as HTMLImageElement;
+    const box = image.getBoundingClientRect();
+    const parent = image.parentElement!.getBoundingClientRect();
+    return { naturalHeight: image.naturalHeight, ratio: box.width / box.height, left: box.left - parent.left, right: box.right - parent.right, bottom: box.bottom - parent.bottom, fit: getComputedStyle(image).objectFit };
+  });
+  expect(layout.naturalHeight).toBe(1280);
+  expect(layout.ratio).toBeCloseTo(853 / 1280, 2);
+  expect(layout.left).toBeGreaterThanOrEqual(-1);
+  expect(layout.right).toBeLessThanOrEqual(1);
+  expect(layout.bottom).toBeLessThanOrEqual(1);
+  expect(layout.fit).toBe('contain');
+  const geometry = await page.locator('.profile-file').evaluate(element => {
+    const frame = element.querySelector('.profile-photo')!.getBoundingClientRect();
+    const caption = element.querySelector('.profile-photo>span')!.getBoundingClientRect();
+    const content = element.querySelector('.profile-copy')!.getBoundingClientRect();
+    return { captionOverflow: caption.bottom - frame.bottom, contentGap: content.top - caption.bottom };
+  });
+  expect(geometry.captionOverflow).toBeLessThanOrEqual(1);
+  if (page.viewportSize()!.width <= 600) expect(geometry.contentGap).toBeGreaterThanOrEqual(0);
+});
+
+test('profile and evidence fit narrow screens in both languages', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  for (const language of ['EN', 'ID']) {
+    await page.goto('/#profile');
+    await page.getByRole('button', { name: language, exact: true }).click();
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(800);
+    const caption = await page.locator('.profile-photo>span').boundingBox();
+    const content = await page.locator('.profile-copy').boundingBox();
+    expect(content!.y).toBeGreaterThanOrEqual(caption!.y + caption!.height);
+    await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 320);
+    await page.goto('/#work');
+    await page.locator('.case-trigger').nth(8).click();
+    const gallery = page.locator('.evidence-gallery');
+    await gallery.locator('.evidence-controls').scrollIntoViewIfNeeded();
+    await expect.poll(() => gallery.locator('figure img').evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    const geometry = await page.locator('.case-dialog').evaluate(dialog => {
+      const controls = dialog.querySelector('.evidence-controls')!.getBoundingClientRect();
+      const frame = dialog.getBoundingClientRect();
+      return { scroll: dialog.scrollWidth, client: dialog.clientWidth, left: controls.left - frame.left, right: controls.right - frame.right };
+    });
+    expect(geometry.scroll).toBe(geometry.client);
+    expect(geometry.left).toBeGreaterThanOrEqual(0);
+    expect(geometry.right).toBeLessThanOrEqual(0);
+    await page.screenshot({ path: `.local/screenshots/narrow-gallery-${language}-${test.info().project.name}.png` });
+    await page.keyboard.press('Escape');
+  }
+});
+
+test('six roles contain CV-level responsibilities and linked evidence', async ({ page }) => {
+  await page.goto('/#experience');
+  const roles = page.locator('.career-list button');
+  await expect(roles).toHaveCount(6);
+  for (const [index, count] of [14, 7, 6, 4, 9, 2].entries()) {
+    await roles.nth(index).click();
+    await expect(page.locator('.career-detail li')).toHaveCount(count);
+    await expect(page.locator('.career-detail .skill-tags')).toBeVisible();
+    await expect(page.locator('body')).toHaveJSProperty('scrollWidth', page.viewportSize()!.width);
+  }
+  await roles.nth(4).click();
+  const trigger = page.getByRole('button', { name: 'View case study: Wireless links, end to end' });
+  await trigger.click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.locator('.evidence-gallery')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(trigger).toBeFocused();
+  await expect(page).toHaveURL(/#experience$/);
+  await page.getByRole('button', { name: 'ID', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Jaringan pelanggan & operasional ISP' })).toBeVisible();
+});
+
+test('archive galleries load, cycle, reset, and expose full images', async ({ page }, testInfo) => {
+  const failures: string[] = [];
+  page.on('response', response => { if (response.status() >= 400 && response.url().includes('/assets/')) failures.push(response.url()); });
+  await page.goto('/#work');
+  for (const title of ['LAN reconstruction', 'Wireless links, end to end', 'Fiber-optic field delivery']) {
+    await page.getByRole('button', { name: `View case study: ${title}`, exact: true }).click();
+    const gallery = page.locator('.evidence-gallery');
+    await expect(gallery).toBeVisible();
+    const main = gallery.locator('figure img');
+    await expect.poll(() => main.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(500);
+    const first = await main.getAttribute('src');
+    await gallery.getByRole('button', { name: 'Next photograph', exact: true }).click();
+    await expect(main).not.toHaveAttribute('src', first!);
+    await expect(gallery.getByRole('link', { name: 'Open full photograph' })).toHaveAttribute('href', (await main.getAttribute('src'))!);
+    await gallery.getByRole('button', { name: 'Previous photograph', exact: true }).click();
+    await expect(main).toHaveAttribute('src', first!);
+    const report = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+    expect(report.violations).toEqual([]);
+    await page.screenshot({ path: `.local/screenshots/${testInfo.project.name}-archive-${title.split(' ')[0]}.png` });
+    await page.keyboard.press('Escape');
+  }
+  expect(failures).toEqual([]);
+});
+
+test('every case image loads and reconstructions are labeled', async ({ page }) => {
+  await page.goto('/#work');
+  const triggers = page.locator('.case-trigger');
+  for (let i = 0; i < 9; i++) {
+    await triggers.nth(i).click();
+    const image = page.locator('.case-dialog figure img').first();
+    await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    await page.keyboard.press('Escape');
+  }
+  await page.getByRole('button', { name: 'View case study: FTTH planning & mapping' }).click();
+  await expect(page.getByText('Illustrative reconstruction of the project scope.')).toBeVisible();
+  await expect(page.getByText('Not a production screenshot or a live network topology.')).toBeVisible();
 });

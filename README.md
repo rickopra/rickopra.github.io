@@ -25,6 +25,7 @@ Ini adaptasi independen, **bukan salinan persis game atau situs referensi**, buk
 | [AUDIO.md](docs/AUDIO.md) | Komposisi, Web Audio, lifecycle, volume, dan hak penggunaan. |
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | GitHub Pages, publikasi, verifikasi, pemulihan. |
 | [RESEARCH.md](docs/RESEARCH.md) | Sumber riset, fakta profesional, batas publikasi. |
+| [EVIDENCE.md](docs/EVIDENCE.md) | Pemetaan arsip lama, bukti proyek, kurasi, dan pembaruan konten. |
 | [STATUS.md](docs/STATUS.md) | Hasil tes, catatan rilis, keterbatasan, checklist pemilik. |
 
 ## Menjalankan Lokal
@@ -53,4 +54,4 @@ Push `main` memicu `.github/workflows/deploy.yml`. Sumber GitHub Pages wajib **G
 
 ## Teknologi dan Privasi
 
-React 19, TypeScript, Vite 7, Three.js, Web Audio, Lucide, Fontsource, Playwright, axe-core. Tidak ada backend, analytics, atau formulir pengiriman data. Font, foto, diagram, dan PDF di-host lokal. Foto milik pemilik; diagram proyek ilustratif. PDF sumber pribadi, nomor telepon, kredensial, dan data internal tidak dipublikasikan.
+React 19, TypeScript, Vite 7, Three.js, Web Audio, Lucide, Fontsource, Playwright, axe-core. Tidak ada backend, analytics, atau formulir pengiriman data. Font, foto, diagram, dan PDF di-host lokal. Sembilan studi kasus mencakup tujuh foto bukti dari arsip pemilik; diagram tetap diberi label ilustratif. Enam posisi dijelaskan per bidang tanggung jawab, terhubung ke studi kasus terkait. PDF sumber pribadi, nomor telepon, kredensial, dan konfigurasi jaringan mentah tidak dipublikasikan.
