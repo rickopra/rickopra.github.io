@@ -14,6 +14,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | CV | **Live**: salinan byte-persis CV utama pemilik, 4 halaman; commit `20b48f4`, [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536) sukses. |
 | Penyempurnaan Persona / anti-slop | **Live**, commit `e41b195`, [run 36392243909](https://github.com/rickopra/rickopra.github.io/actions/runs/36392243909) sukses. Lokal dan production masing-masing **59 lulus, 1 dilewati, 0 gagal**. |
 | Kontak sosial | **Live**, commit `e9ca7f4`, [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551) sukses. Instagram, X, pencarian Facebook tersedia pada kedua tampilan. |
+| Iris biru dashboard | **Live**, commit `1b7a49c`, [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577) sukses. Kedua portrait asli tetap identik; aksen hanya pada menu. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -115,7 +116,8 @@ Verifikasi production revisi ini:
 - Enam tes baru lulus: hash foto asli, mask/warna/pupil, tujuh ukuran viewport, keselarasan waktu animasi, pause/reduced motion, navigasi menu/Profile/klasik, serta selisih pixel screenshot desktop/ponsel yang terbatas pada iris.
 - Seluruh suite lokal: **69 lulus, 1 dilewati, 0 gagal**, 2.2 menit. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada proyek desktop. `npm run build` berhasil. Hash CV sumber, publik, dan build tetap identik.
 - Flow render, koordinat mask, regenerasi, dan pengujian tercatat pada [IMPLEMENTATION.md](IMPLEMENTATION.md#aksen-iris-dashboard). Screenshot dibuat, tetapi alat penampil gambar tetap tidak menampilkan hasil; verifikasi estetika manual belum dapat dikonfirmasi.
-- Verifikasi deployment dan URL publik dicatat setelah workflow rilis selesai.
+- GitHub Pages [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577), commit `1b7a49c`: sukses. **14 tes production lulus, 0 gagal**: enam tes iris serta regresi CV, semua rute, foto Profile, dan canvas WebGL pada desktop/mobile. Ini bukan pengulangan seluruh suite production.
+- HTML live memakai `/assets/index-CeI5kEFS.js`. PNG iris live: HTTP 200, 2634 byte, SHA-256 `cf8318ceb1aa8c2c0e73b968cb9ab2b1209a1712f33b9f99331386027b1f1b6c`, identik dengan build. CV dan kedua portrait live juga cocok dengan hash lokal. Commit pencatatan sesudah rilis tidak mengubah source/aset aplikasi yang diuji.
 
 ## 9. Batas Verifikasi
 
