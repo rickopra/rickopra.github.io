@@ -13,6 +13,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Revisi foto/pengalaman/bukti | **Live**, commit `c01f4cd`, [run 36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), build dan deploy sukses. |
 | CV | **Live**: salinan byte-persis CV utama pemilik, 4 halaman; commit `20b48f4`, [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536) sukses. |
 | Penyempurnaan Persona / anti-slop | **Live**, commit `e41b195`, [run 36392243909](https://github.com/rickopra/rickopra.github.io/actions/runs/36392243909) sukses. Lokal dan production masing-masing **59 lulus, 1 dilewati, 0 gagal**. |
+| Kontak sosial | **Live**, commit `e9ca7f4`, [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551) sukses. Instagram, X, pencarian Facebook tersedia pada kedua tampilan. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -104,7 +105,8 @@ Verifikasi production revisi ini:
 - `SocialLinks.tsx` menjaga label dan tujuan kedua tampilan konsisten. Semua tautan eksternal menggunakan tab baru dengan `noopener noreferrer`. Tidak ada embed atau pelacak sosial.
 - Lokal: **4 tes kontak sosial lulus** pada Chromium desktop/mobile, EN/ID, viewport awal/tablet/320 px, tujuan tautan, fokus, tab baru tanpa opener, geometri teks, dan axe. **10 tes regresi terpilih lulus** untuk CV asli, rute/menu/portrait, kontak/clipboard, mode klasik, dan aksesibilitas semua layar/dialog. Ini bukan pengulangan seluruh suite.
 - `npm run build` berhasil. Hash CV sumber, publik, dan build tetap sama seperti bagian CV utama. Screenshot kontak dibuat; batas inspeksi visual manual tetap berlaku.
-- Deployment dan verifikasi live revisi kontak ini belum dicatat selesai.
+- GitHub Pages [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551), commit `e9ca7f4`: sukses. Keempat tes kontak diulang pada URL publik: **4 lulus, 0 gagal**. HTML live memakai `/assets/index-B-M25gjz.js`; hash bundle dan CV live sama dengan build lokal.
+- Tes tab baru memakai respons profil tiruan agar tidak bergantung login platform. Pengujian memverifikasi tujuan yang diberikan, bukan kepemilikan/status akun Instagram, Facebook, atau X. Commit dokumentasi sesudah rilis ini tidak mengubah kode/aset yang diuji.
 
 ## 8. Batas Verifikasi
 
