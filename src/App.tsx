@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Github, Linkedin, MapPin, Menu, Pause, Play, X } from 'lucide-react';
 import { capabilities, copy, experiences, identity, projectCover, projects, text } from './content';
 import type { Language, Localized, Project, ProjectCategory, ProjectImage } from './content';
+import SocialLinks from './SocialLinks';
 
 const NetworkScene = lazy(() => import('./NetworkScene'));
 const PersonaPortfolio = lazy(() => import('./PersonaPortfolio'));
@@ -221,7 +222,7 @@ function Portfolio() {
       <section className="contact-section section-padding" id="contact" aria-labelledby="contact-title">
         <div className="section-kicker"><span className="mono">04 / {translate(copy.contact)}</span><MapPin size={18} /><span className="mono">JAKARTA, ID</span></div>
         <div className="contact-layout"><h2 id="contact-title">{translate(copy.contactTitle)}</h2><div className="contact-content"><p>{translate(copy.contactIntro)}</p><a className="button button-white" href={`mailto:${identity.email}`}>{translate(copy.email)}<ArrowUpRight size={22} /></a><div className="email-row"><a href={`mailto:${identity.email}`}>{identity.email}</a><button className="icon-button" title={translate(copy.copyEmail)} aria-label={translate(copy.copyEmail)} onClick={copyEmail}>{copyStatus === 'copied' ? <Check size={17} /> : <Copy size={17} />}</button></div><p className="copy-status" role="status">{copyStatus === 'copied' ? translate(copy.copied) : copyStatus === 'failed' ? translate(copy.copyFailed) : ''}</p></div></div>
-        <div className="contact-links"><a href={identity.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={18} />LinkedIn<ArrowUpRight size={17} /></a><a href={identity.github} target="_blank" rel="noopener noreferrer"><Github size={18} />GitHub<ArrowUpRight size={17} /></a><a href="/ricko-prayudha-cv.pdf" download><Download size={18} />{translate(copy.cv)}<ArrowDown size={17} /></a></div>
+        <div className="contact-links"><a href={identity.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={18} />LinkedIn<ArrowUpRight size={17} /></a><a href={identity.github} target="_blank" rel="noopener noreferrer"><Github size={18} />GitHub<ArrowUpRight size={17} /></a><SocialLinks language={language} /><a href="/ricko-prayudha-cv.pdf" download><Download size={18} />{translate(copy.cv)}<ArrowDown size={17} /></a></div>
       </section>
     </main>
     <footer className="site-footer"><a className="footer-name" href="#profile">RICKO PRAYUDHA<span> / 2026</span></a><span>{translate(copy.footer)}</span><a href="#profile" className="icon-button" title={translate(copy.back)} aria-label={translate(copy.back)}><ArrowUp size={18} /></a></footer>

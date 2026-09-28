@@ -15,7 +15,7 @@ flowchart TD
     Menu --> Work["Karya pilihan"]
     Menu --> Career["Daftar pengalaman + detail"]
     Menu --> Skills["Kapabilitas sesuai riwayat kerja"]
-    Menu --> Contact["Email, LinkedIn, GitHub"]
+    Menu --> Contact["Email, LinkedIn, GitHub, Instagram, Facebook, X"]
     Menu --> Credits["Referensi, aset, musik"]
     Work --> Filter["Semua / Infrastruktur / Sistem / Governance"]
     Filter --> Dialog["Studi kasus: konteks, kontribusi, hasil"]

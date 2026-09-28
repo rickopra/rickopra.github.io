@@ -117,6 +117,9 @@
 @media(max-width:900px){.career-list{position:static}.profile-file{gap:30px;grid-template-columns:minmax(210px,35%) minmax(0,1fr)}}
 @media(max-width:600px){.profile-file{gap:40px}.profile-photo{height:auto;min-height:0;width:min(100%,300px);align-self:center}.profile-photo img{position:static;inset:auto;width:100%;height:auto}.profile-photo>span{width:100%;font-size:16px;padding:9px}.career-section h3{font-size:22px}.career-detail li{font-size:13px}.career-projects button{font-size:12px}}
 
+.contact-destinations .social-link small{color:#3e5c7b}
+.contact-destinations>a>svg{flex-shrink:0}
+
 /* One brief arrival sequence; selection remains immediate under every input. */
 .persona-app{--ease-arrive:cubic-bezier(.16,1,.3,1);--ease-wipe:cubic-bezier(.65,0,.25,1)}
 .persona-option{animation:option-arrive .24s var(--ease-arrive) both;animation-delay:.08s}

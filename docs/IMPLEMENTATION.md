@@ -13,6 +13,7 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `src/content.ts` | Identitas, teks EN/ID, proyek, pengalaman, kapabilitas. |
 | `src/App.tsx` | Pemilih mode aplikasi, versi klasik, `ProjectDialog`, dan `EvidenceGallery`. |
 | `src/PersonaPortfolio.tsx` | Pengalaman utama: menu, layar hash, state, input, integrasi audio. |
+| `src/SocialLinks.tsx` | Tautan Instagram, Facebook, dan X yang digunakan bersama oleh Contact Persona dan versi klasik. |
 | `src/TideScene.tsx`, `src/persona.css` | Refleksi Three.js dan komposisi menu/detail bergaya Persona. |
 | `src/audio.ts` | Musik sintetis orisinal dan cue interaksi melalui Web Audio. |
 | `src/SoundDeck.tsx` | Pilihan lagu, next, volume, mute, meter analyser, penghentian RAF saat tersembunyi. |
@@ -27,6 +28,7 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `scripts/prepare-legacy-diagrams.py` | Diagram proses NOC dan FTTH tanpa konfigurasi jaringan asli. |
 | `tests/portfolio.spec.ts` | Tes fungsional, responsive, WebGL, preferensi, dan axe-core. |
 | `tests/enhancements.spec.ts` | Transisi nonblocking, reduced motion, dua lagu, meter nyata, audio ditolak/pending, footer 320 px. |
+| `tests/social-links.spec.ts` | Tujuan sosial, EN/ID, tab baru tanpa opener, geometri 320 px/tablet/desktop, axe pada kedua tampilan. |
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
@@ -58,7 +60,7 @@ Di Windows, ganti `npm`/`npx` menjadi `npm.cmd`/`npx.cmd` jika shim PowerShell d
 
 ### Identitas dan Bahasa
 
-- `identity`: nama, email profesional, LinkedIn, GitHub, lokasi.
+- `identity`: nama, email profesional, LinkedIn, GitHub, Instagram, X, pencarian Facebook, lokasi.
 - `text(en, id)`: pasangan terjemahan bertipe `Localized`.
 - `copy`: teks UI dan ringkasan umum.
 - `careerRecords`: periode, jabatan, perusahaan, lokasi, ringkasan, kelompok `sections`, `tools`, dan `projectIds`.
@@ -74,6 +76,10 @@ text('View case study', 'Buka studi kasus')
 Bahasa awal adalah Inggris, kecuali pengunjung pernah memilih Indonesia. CV saat ini hanya bahasa Inggris. Nama teknologi, jabatan, dan beberapa label editorial memang tetap Inggris; versi Indonesia bukan terjemahan seluruh string di aplikasi.
 
 Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak dinyatakan selesai. Jangan menampilkan teknologi sebagai kemampuan atau pengalaman profesional tanpa konfirmasi pemilik dan bukti yang sesuai.
+
+### Kontak Sosial
+
+Instagram `@rickoprayudha` dan X `@rickopra` berasal dari handle yang diberikan pemilik. Facebook baru diberikan sebagai nama "Ricko Prayudha", bukan URL profil unik: `identity.facebookSearch` sementara membuka pencarian orang, diberi label "Find profile" / "Cari profil". Jangan menganggap pencarian tersebut sebagai profil terverifikasi. Setelah pemilik memberi URL profil, ubah tujuan dan label secara bersamaan di `SocialLinks.tsx`, lalu perbarui tes. Semua tautan eksternal membuka tab baru dengan `noopener noreferrer`; tidak ada embed atau pelacak media sosial. CV asli tidak diubah oleh pembaruan kontak website.
 
 ### Menambah Proyek
 

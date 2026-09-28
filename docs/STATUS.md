@@ -97,7 +97,16 @@ Verifikasi production revisi ini:
 - PDF live: HTTP 200, `application/pdf`, 113874 byte; SHA-256 tetap identik dengan CV utama. Kedua portrait live juga cocok dengan aset lokal; dashboard tetap crop menu, Profile tetap foto utuh.
 - Hasil otomatis tidak menggantikan review estetika atau pendengaran manual. Commit dokumentasi sesudah rilis ini tidak mengubah source/aset aplikasi yang diuji.
 
-## 7. Batas Verifikasi
+## 7. Penambahan Kontak Sosial
+
+- Contact Persona dan versi klasik memakai tautan Instagram `@rickoprayudha`, X `@rickopra`, serta Facebook "Ricko Prayudha". Email, LinkedIn, GitHub, dan unduhan CV tetap tersedia.
+- Facebook sementara menuju pencarian orang, bukan URL profil yang sudah terverifikasi. Label "Find profile" / "Cari profil" membedakan tujuan ini; pemilik perlu memberi URL profil unik untuk menggantinya.
+- `SocialLinks.tsx` menjaga label dan tujuan kedua tampilan konsisten. Semua tautan eksternal menggunakan tab baru dengan `noopener noreferrer`. Tidak ada embed atau pelacak sosial.
+- Lokal: **4 tes kontak sosial lulus** pada Chromium desktop/mobile, EN/ID, viewport awal/tablet/320 px, tujuan tautan, fokus, tab baru tanpa opener, geometri teks, dan axe. **10 tes regresi terpilih lulus** untuk CV asli, rute/menu/portrait, kontak/clipboard, mode klasik, dan aksesibilitas semua layar/dialog. Ini bukan pengulangan seluruh suite.
+- `npm run build` berhasil. Hash CV sumber, publik, dan build tetap sama seperti bagian CV utama. Screenshot kontak dibuat; batas inspeksi visual manual tetap berlaku.
+- Deployment dan verifikasi live revisi kontak ini belum dicatat selesai.
+
+## 8. Batas Verifikasi
 
 - Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
 - Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
@@ -106,7 +115,7 @@ Verifikasi production revisi ini:
 - Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
 - Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 8. Pemeliharaan Berikutnya
+## 9. Pemeliharaan Berikutnya
 
 - CI belum menjalankan Playwright/audit; masih menjadi langkah lokal sebelum push.
 - Sebagian metrik dan label website masih berada dalam komponen selain `content.ts`; CV asli terpisah sepenuhnya dari komponen.
@@ -115,7 +124,7 @@ Verifikasi production revisi ini:
 - Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
 - Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-## 9. Checklist Pemilik
+## 10. Checklist Pemilik
 
 - [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
 - [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.
