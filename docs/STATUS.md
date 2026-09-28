@@ -108,7 +108,16 @@ Verifikasi production revisi ini:
 - GitHub Pages [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551), commit `e9ca7f4`: sukses. Keempat tes kontak diulang pada URL publik: **4 lulus, 0 gagal**. HTML live memakai `/assets/index-B-M25gjz.js`; hash bundle dan CV live sama dengan build lokal.
 - Tes tab baru memakai respons profil tiruan agar tidak bergantung login platform. Pengujian memverifikasi tujuan yang diberikan, bukan kepemilikan/status akun Instagram, Facebook, atau X. Commit dokumentasi sesudah rilis ini tidak mengubah kode/aset yang diuji.
 
-## 8. Batas Verifikasi
+## 8. Aksen Iris Biru Dashboard
+
+- Tambahan PNG transparan 2.6 KB mewarnai hanya iris yang terlihat pada portrait dashboard. Pupil, kelopak, kacamata, dan area wajah lain tidak mendapat aksen. Kedua aset foto asli tidak berubah; Profile tetap utuh tanpa aksen.
+- Lapisan berada di luar filter grayscale/luminosity, hanya terlihat pada menu. Ukuran, crop, posisi portrait, animasi mengambang, dan perilaku pause/reduced motion dipertahankan di seluruh breakpoint. Tidak ada perubahan CV, konten, musik, logo, atau kontak.
+- Enam tes baru lulus: hash foto asli, mask/warna/pupil, tujuh ukuran viewport, keselarasan waktu animasi, pause/reduced motion, navigasi menu/Profile/klasik, serta selisih pixel screenshot desktop/ponsel yang terbatas pada iris.
+- Seluruh suite lokal: **69 lulus, 1 dilewati, 0 gagal**, 2.2 menit. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada proyek desktop. `npm run build` berhasil. Hash CV sumber, publik, dan build tetap identik.
+- Flow render, koordinat mask, regenerasi, dan pengujian tercatat pada [IMPLEMENTATION.md](IMPLEMENTATION.md#aksen-iris-dashboard). Screenshot dibuat, tetapi alat penampil gambar tetap tidak menampilkan hasil; verifikasi estetika manual belum dapat dikonfirmasi.
+- Verifikasi deployment dan URL publik dicatat setelah workflow rilis selesai.
+
+## 9. Batas Verifikasi
 
 - Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
 - Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
@@ -117,7 +126,7 @@ Verifikasi production revisi ini:
 - Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
 - Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 9. Pemeliharaan Berikutnya
+## 10. Pemeliharaan Berikutnya
 
 - CI belum menjalankan Playwright/audit; masih menjadi langkah lokal sebelum push.
 - Sebagian metrik dan label website masih berada dalam komponen selain `content.ts`; CV asli terpisah sepenuhnya dari komponen.
@@ -126,7 +135,7 @@ Verifikasi production revisi ini:
 - Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
 - Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-## 10. Checklist Pemilik
+## 11. Checklist Pemilik
 
 - [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
 - [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.

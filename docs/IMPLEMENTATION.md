@@ -112,6 +112,16 @@ Portrait dashboard dan Profile sengaja memakai aset terpisah:
 - `public/assets/ricko-portrait-menu.webp` (354 x 1246): crop wajah sebagian dari desain awal yang disetujui, dipulihkan persis dari commit `119ddf1`. Dipakai dashboard dan mask `.portrait-echo`. Pertahankan crop, posisi, ukuran tampilan, serta animasi dashboard saat mengubah Profile.
 - `public/assets/ricko-portrait.webp` (853 x 1280): foto utuh untuk Profile dan versi klasik. Script `prepare-assets.py` hanya meregenerasi portrait ini; tidak menulis aset dashboard.
 
+### Aksen Iris Dashboard
+
+`public/assets/ricko-iris-menu.png` adalah lapisan transparan 354 x 1246; hanya 200 pixel iris memiliki alpha. Batas berwarna adalah x=290..313, y=468..481 pada koordinat aset dashboard. Mask mengikuti bagian iris yang terlihat, menyisakan pupil gelap, tidak mewarnai putih mata, kelopak, atau kacamata. Tekstur warna berasal dari luminance foto, bukan regenerasi wajah.
+
+Flow render: portrait asli + filter monokrom, lalu aksen iris tanpa filter melalui `.portrait-stage::after`. Pseudo-element hanya terlihat dalam `.at-menu`; halaman Profile, layar detail lain, dan mode klasik tidak mendapat aksen. `--portrait-height` menyamakan ukuran gambar dan lapisan di seluruh breakpoint; posisi flex serta `portrait-float` memakai koordinat dan waktu animasi yang sama. Pause/reduced motion berlaku pada keduanya. Jangan memindahkan lapisan ke dalam filter grayscale atau `mix-blend-mode:luminosity`, karena warna biru akan hilang.
+
+Regenerasi opsional: `python scripts/prepare-menu-iris.py` dengan Pillow. Script hanya menimpa PNG aksen, tidak mengubah kedua portrait asli. Hash sumber diperiksa sebelum mask dipakai; bila portrait dashboard diganti, script sengaja berhenti sampai koordinat mask dikalibrasi ulang. Jangan hanya mengganti hash tanpa memeriksa posisi mata. Python tidak diperlukan saat build/deploy.
+
+Tes khusus: `npm test -- tests/portrait-iris.spec.ts`. Cakupan: hash kedua foto asli, transparansi di luar iris/pupil, keselarasan tujuh viewport, waktu animasi, pause/reduced motion, batas dashboard, serta selisih screenshot yang hanya berada pada area mata. Screenshot tersedia di `.local/screenshots/*-blue-iris.png`. Tetap periksa estetika dan posisi mask secara visual sebelum mengubah koordinat.
+
 Logo RP memakai master `public/assets/rp-logo.svg` (ikon biru) dan `public/assets/rp-monogram.svg` (transparan untuk latar terang). `npm run logo` mengekspor favicon PNG 16/32/64 px, ikon layar beranda 180 px, dan versi 512 px. Sumber, filosofi, palet, dan aturan penggunaan ada di [LOGO.md](LOGO.md). Tidak ada perubahan tampilan header/menu dashboard karena monogram awalnya diminta untuk favicon.
 
 Script aset bersifat opsional; aset siap pakai sudah di-commit. Untuk regenerasi pada Windows:
