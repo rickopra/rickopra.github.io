@@ -14,7 +14,7 @@ flowchart TD
     Menu --> Profile["Profil dan pendidikan"]
     Menu --> Work["Karya pilihan"]
     Menu --> Career["Daftar pengalaman + detail"]
-    Menu --> Skills["Kapabilitas + proyek pembelajaran"]
+    Menu --> Skills["Kapabilitas sesuai riwayat kerja"]
     Menu --> Contact["Email, LinkedIn, GitHub"]
     Menu --> Credits["Referensi, aset, musik"]
     Work --> Filter["Semua / Infrastruktur / Sistem / Governance"]
@@ -59,11 +59,14 @@ Hash bukan path server: refresh langsung pada `/#work` tetap meminta `/` kepada 
 | Bahasa | `portfolio-language` | localStorage, default EN. |
 | Animasi | `portfolio-motion` atau preferensi OS | Pilihan manual tersimpan; tanpa pilihan manual mengikuti OS. |
 | Volume | `portfolio-volume` | localStorage, default 30%. |
+| Lagu | `portfolio-track` | localStorage; After Hours default, Blue Current alternatif. Tidak menyimpan status putar. |
 | Musik aktif | Klik speaker | Tidak disimpan; reload selalu senyap. |
 | Filter, studi kasus, pengalaman | Interaksi komponen | Tidak disimpan dalam URL/storage. |
 | Status salin email | Clipboard API | Hilang setelah 3,5 detik. |
 
 Kegagalan localStorage tidak menghalangi aplikasi. Pergantian hash menutup dialog. Pergantian layar mengembalikan scroll ke atas dan memindahkan fokus ke judul; kembali ke menu memulihkan fokus pilihan. Skip link memindahkan fokus tanpa mengubah hash. Di ponsel/tablet, memilih pengalaman memfokuskan detail supaya perubahan langsung terlihat.
+
+`ScreenTransition` dipetakan per layar: Profile diagonal, Work/Experience baris dossier, Skills/Contact/Credits strip vertikal, kembali ke menu arah kiri. Lapisan maksimal 520 ms, tidak menerima pointer/fokus. Konten dan hash tidak menunggu animasi. Reduced motion/pause menghilangkan lapisan. Urutan dan keputusan desain: [DESIGN-REVIEW.md](DESIGN-REVIEW.md).
 
 ## 3. Input
 
@@ -92,9 +95,11 @@ stateDiagram-v2
     Hidden --> Playing: Tab kembali, pilihan putar masih aktif
     Hidden --> Silent: Mute atau unmount
     Playing --> Silent: Reload
+    Silent --> Silent: Ganti lagu, simpan pilihan
+    Playing --> Playing: Ganti lagu, fade singkat dan reset aransemen
 ```
 
-Volume mengendalikan musik dan suara UI. Musik tidak menentukan navigasi: seluruh konten tetap tersedia ketika audio gagal. Menonaktifkan animasi menghentikan shader, portrait, equalizer, dan transisi, tanpa mematikan musik. Three.js menggunakan fallback CSS ketika WebGL tidak tersedia. RAF dan jadwal audio berhenti ketika tab disembunyikan; sumber daya dibersihkan saat unmount.
+Volume mengendalikan musik dan suara UI. Musik tidak menentukan navigasi: seluruh konten tetap tersedia ketika audio gagal. Menonaktifkan animasi menghentikan shader, portrait, meter audio, dan transisi, tanpa mematikan musik. Meter membaca empat band analyser, bukan animasi CSS berulang. Three.js menggunakan fallback CSS ketika WebGL tidak tersedia. RAF dan jadwal audio berhenti ketika tab disembunyikan; sumber daya dibersihkan saat unmount.
 
 ## 5. Konten dan CV
 

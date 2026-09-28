@@ -14,6 +14,7 @@ Tidak ada skor kemampuan fiktif, gelar tambahan, atau posisi kerja rekaan demi m
 - [Wawancara UI, Persona Central, 29 November 2023](https://personacentral.com/p3r-interview-menu-ui/), terjemahan [Famitsu](https://www.famitsu.com/news/202311/29325647.html).
 - [Gambar menu dalam wawancara](https://personacentral.com/wp-content/uploads/2023/11/P3R-Menu.jpg) dan [gambar kedua](https://personacentral.com/wp-content/uploads/2023/11/P3R-Menu-2.webp).
 - [Wawancara pengembangan, 16 Juni 2023](https://personacentral.com/persona-3-reload-development-interview/).
+- [blairxu13/persona3-website](https://github.com/blairxu13/persona3-website): menu bertahap dan transisi berlapis sesuai rute. Riset source, penilaian anti-slop, dan keputusan adaptasi ada di [DESIGN-REVIEW.md](DESIGN-REVIEW.md).
 
 Wawancara menjelaskan inspirasi air/laut, pantulan, kilau kaca, dan menu sebagai ekspresi protagonis. Sumber tersebut juga memuat konsep sebelum rilis; gambar konsep tidak otomatis sama dengan UI final game. Tidak dilakukan audit frame-by-frame atau pengukuran kesamaan pixel. Durasi CSS dan shader adalah keputusan implementasi web, bukan spesifikasi ATLUS.
 
@@ -24,9 +25,9 @@ Wawancara menjelaskan inspirasi air/laut, pantulan, kilau kaca, dan menu sebagai
 | Komposisi | Menu utama layar penuh dengan portrait, nama besar, bidang diagonal, metadata karier; bukan header website generik. |
 | Navigasi | Enam pilihan dengan idle, hover, focus, selected; klik/Enter membuka layar hash. |
 | Tipografi | Anton dan Barlow Condensed untuk judul/pilihan; DM Sans dan IBM Plex Mono untuk isi/metadata. |
-| Gerak | Refleksi Three.js, gerak portrait, highlight, transisi masuk layar; tersedia pause dan reduced motion. |
+| Gerak | Refleksi Three.js, portrait, stagger menu, empat variant reveal berlapis; tersedia pause dan reduced motion. |
 | Kedalaman | Shader full-bleed di belakang konten; fallback CSS jika WebGL tidak tersedia. |
-| Audio | Loop sintetis orisinal After Hours, cue pilihan/konfirmasi/kembali, volume; tidak autoplay. |
+| Audio | After Hours dan Blue Current, cue pilihan/konfirmasi/kembali, volume, pilihan lagu, meter sinyal nyata; tidak autoplay. |
 | Profil | Foto profesional autentik, seluruh foto sumber dipertahankan; frame memakai `contain`. |
 | Karya | Daftar sembilan studi kasus, filter, dialog, galeri bukti lapangan dengan sumber. |
 | Pengalaman | Enam jabatan, kelompok tanggung jawab, teknologi, tautan studi kasus terkait. |

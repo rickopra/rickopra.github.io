@@ -15,6 +15,8 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `src/PersonaPortfolio.tsx` | Pengalaman utama: menu, layar hash, state, input, integrasi audio. |
 | `src/TideScene.tsx`, `src/persona.css` | Refleksi Three.js dan komposisi menu/detail bergaya Persona. |
 | `src/audio.ts` | Musik sintetis orisinal dan cue interaksi melalui Web Audio. |
+| `src/SoundDeck.tsx` | Pilihan lagu, next, volume, mute, meter analyser, penghentian RAF saat tersembunyi. |
+| `src/ScreenTransition.tsx` | Pemetaan rute ke empat reveal; tanpa antrean atau penundaan navigasi. |
 | `src/NetworkScene.tsx` | Scene dekoratif Three.js, pointer, resize, visibilitas, cleanup. |
 | `src/styles.css` | Layout, token warna/font, breakpoint, animasi, reduced motion, print. |
 | `public/assets/` | Foto, diagram ilustratif, social preview, favicon. |
@@ -24,10 +26,13 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `scripts/curate-archive.py` | Preview/ekstraksi arsip privat ke `.local`, ekspor foto pilihan dengan redaksi. |
 | `scripts/prepare-legacy-diagrams.py` | Diagram proses NOC dan FTTH tanpa konfigurasi jaringan asli. |
 | `tests/portfolio.spec.ts` | Tes fungsional, responsive, WebGL, preferensi, dan axe-core. |
+| `tests/enhancements.spec.ts` | Transisi nonblocking, reduced motion, dua lagu, meter nyata, audio ditolak/pending, footer 320 px. |
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
 `src/main.tsx` mengalihkan `?resume` ke `/ricko-prayudha-cv.pdf`. `App()` memilih portfolio klasik untuk `?classic`, selain itu `PersonaPortfolio`. Versi utama menggunakan layar berdasarkan hash, bukan scroll anchor. Refresh `/#work` dan `/?resume` tetap dilayani root GitHub Pages. Folder `.local` diabaikan Git dan watcher Vite karena berisi bahan privat serta alat kurasi lokal.
+
+Keputusan penyempurnaan Persona/anti-slop tercatat di [DESIGN-REVIEW.md](DESIGN-REVIEW.md). Tidak ada tambahan paket animasi atau audio; reveal memakai CSS, musik tetap Web Audio. Detail memakai bidang baca penuh, bukan panel bershadow bertingkat.
 
 ## 2. Setup Pertama
 

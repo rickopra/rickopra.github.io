@@ -12,6 +12,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Baseline menu yang sudah terbit | Commit `119ddf1`, [run 36341173792](https://github.com/rickopra/rickopra.github.io/actions/runs/36341173792), sukses. |
 | Revisi foto/pengalaman/bukti | **Live**, commit `c01f4cd`, [run 36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), build dan deploy sukses. |
 | CV | **Live**: salinan byte-persis CV utama pemilik, 4 halaman; commit `20b48f4`, [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536) sukses. |
+| Penyempurnaan Persona / anti-slop | Uji lokal selesai: **59 lulus, 1 dilewati, 0 gagal**. Publikasi dan verifikasi production revisi ini belum selesai. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -68,7 +69,28 @@ GitHub memberi peringatan runtime action Node.js 20 yang dipaksa Node.js 24 sert
 - PDF live `https://rickopra.github.io/ricko-prayudha-cv.pdf` memberi HTTP 200, `application/pdf`, 113874 byte, SHA-256 cocok persis dengan sumber. Tes live tautan CV, redirect `?resume`, dan mode klasik: **6 lulus, 0 gagal** (Chromium desktop dan mobile).
 - Commit dokumentasi setelah rilis tidak mengubah PDF, tautan, atau kode aplikasi.
 
-## 6. Batas Verifikasi
+## 6. Penyempurnaan Persona / Anti-Slop
+
+Riset dan keputusan lengkap: [DESIGN-REVIEW.md](DESIGN-REVIEW.md). Referensi source `blairxu13/persona3-website`, Hallmark, dan Gesso dibaca tanpa mengambil source/aset atau memasang dependensi baru.
+
+- Empat reveal berlapis sesuai layar, menu masuk bertahap, respons panah seleksi, arah kembali yang konsisten. Navigasi tidak menunggu animasi; reduced motion/pause tetap berlaku.
+- Detail memakai bidang baca penuh, proyek berupa baris bergaris, pilihan pengalaman memakai potongan diagonal. Tidak ada tambahan kartu bertumpuk, angka rekaan, atau teks pemasaran.
+- After Hours 104 BPM dan Blue Current 92 BPM, pilihan lagu tersimpan, tombol next, fade pergantian, empat band meter dari sinyal audio nyata. Tetap senyap sebelum persetujuan dan setelah reload.
+- Dashboard setengah wajah, Profile foto utuh, logo RP, isi karier/proyek, serta penghapusan CyberArk dipertahankan. SHA-256 CV sumber, publik, dan build tetap identik: `55adb186dd0f648b029d313da3438dd31f8772ebf95b5038fa7263e956602347`.
+
+| Pemeriksaan lokal revisi ini | Hasil |
+| --- | --- |
+| `npm test` | **59 lulus, 1 dilewati, 0 gagal**. Chromium desktop dan emulasi iPhone 13; matrix viewport sengaja tidak diulang pada proyek mobile. |
+| Cakupan tambahan | Reveal selesai di luar viewport, klik/history cepat, reduced motion, kedua lagu/meter, pilihan tanpa autoplay, kegagalan audio/retry, pembatalan consent tertunda, perpindahan tab, kontrol footer 320 px EN/ID. |
+| Regresi | Seluruh suite navigasi, fokus, gamepad simulasi, portrait, karier, studi kasus/galeri, CV asli, EN/ID, axe, dan canvas nonblank/bergerak/pause lulus. |
+| `npm run build` | Berhasil. |
+| `npm audit --omit=dev` | 0 kerentanan dependensi produksi terdeteksi saat pemeriksaan. |
+| `git diff --check` | Tidak ada kesalahan whitespace. Peringatan konversi LF/CRLF berasal dari pengaturan Git Windows. |
+| Screenshot | Desktop/mobile dan frame tengah transisi dibuat di `.local/screenshots/`; penampil gambar belum mengembalikan hasil yang dapat ditinjau. |
+
+Hasil di atas adalah pengujian lokal, bukan bukti deployment atau review estetika/pendengaran manual. Verifikasi production dicatat setelah publikasi selesai.
+
+## 7. Batas Verifikasi
 
 - Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
 - Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
@@ -77,7 +99,7 @@ GitHub memberi peringatan runtime action Node.js 20 yang dipaksa Node.js 24 sert
 - Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
 - Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 7. Pemeliharaan Berikutnya
+## 8. Pemeliharaan Berikutnya
 
 - CI belum menjalankan Playwright/audit; masih menjadi langkah lokal sebelum push.
 - Sebagian metrik dan label website masih berada dalam komponen selain `content.ts`; CV asli terpisah sepenuhnya dari komponen.
@@ -86,7 +108,7 @@ GitHub memberi peringatan runtime action Node.js 20 yang dipaksa Node.js 24 sert
 - Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
 - Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-## 8. Checklist Pemilik
+## 9. Checklist Pemilik
 
 - [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
 - [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.

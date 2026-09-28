@@ -6,6 +6,8 @@ Status update, 28 September 2026: the default experience now uses full-screen me
 
 ## Visual references
 
+Penyempurnaan 28 September 2026: [DESIGN-REVIEW.md](DESIGN-REVIEW.md) mencatat riset source `blairxu13/persona3-website` pada commit `31d3f5521cdfa7cd3ca1b8422038404dfb8bc779`, kritik Hallmark dan Gesso anti-slop, batas lisensi, serta pemetaan ke transisi/menu/audio portfolio. Tidak ada source/aset pihak ketiga atau paket baru yang diambil dari referensi tersebut.
+
 - Owner-supplied [Persona-inspired website listing](https://karya.smkn1bawang.sch.id/karya/persona-3-1776145951) and [Fawwaz / Vloits demo](https://persona3.fayq.my.id/). This clarified that the request includes a menu-driven experience, animation, and audio, not just a color palette. No source or media from that website is bundled.
 - [Persona 3 Reload UI development interview, Persona Central, 29 November 2023](https://personacentral.com/p3r-interview-menu-ui/), translating the [Famitsu interview](https://www.famitsu.com/news/202311/29325647.html). Art director Tomohiro Kumagai describes sea-blue movement, underwater reflection, glass-like light, and a menu as a portrait of the protagonist. The interview explicitly distinguishes P3R's flowing approach from Persona 5's aggressive pop-punk movement.
 - [Persona 3 Reload development interview, 16 June 2023](https://personacentral.com/persona-3-reload-development-interview/): retain identity while modernizing function, not decoration alone.

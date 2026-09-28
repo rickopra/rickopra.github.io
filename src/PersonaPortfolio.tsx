@@ -1,9 +1,13 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Copy, Download, Github, Linkedin, Mail, MapPin, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 import { capabilities, copy, experiences, identity, projectCover, projects, text } from './content';
 import type { Language, Localized, Project, ProjectCategory } from './content';
 import { ProjectDialog } from './App';
-import { PortfolioAudio } from './audio';
+import { PortfolioAudio, soundtracks } from './audio';
+import type { Soundtrack } from './audio';
+import SoundDeck from './SoundDeck';
+import ScreenTransition from './ScreenTransition';
+import type { PortfolioScreen } from './ScreenTransition';
 import './persona.css';
 
 const TideScene = lazy(() => import('./TideScene'));
@@ -15,7 +19,7 @@ const entries = [
   { id: 'contact', label: text('CONTACT', 'KONTAK'), sub: text('The next conversation starts here.', 'Percakapan berikutnya dimulai di sini.') },
   { id: 'credits', label: text('CREDITS', 'KREDIT'), sub: text('References, assets, and the original soundtrack.', 'Referensi, aset, dan musik orisinal.') },
 ] as const;
-type Screen = 'menu' | typeof entries[number]['id'];
+type Screen = PortfolioScreen;
 function read(key: string) { try { return localStorage.getItem(key); } catch { return null; } }
 function save(key: string, value: string) { try { localStorage.setItem(key, value); } catch { /* Preferences are optional. */ } }
 function route(): Screen {
@@ -29,6 +33,7 @@ export default function PersonaPortfolio() {
   const [language, setLanguage] = useState<Language>(() => read('portfolio-language') === 'id' ? 'id' : 'en');
   const [motion, setMotion] = useState(() => read('portfolio-motion') ? read('portfolio-motion') === 'on' : !matchMedia('(prefers-reduced-motion: reduce)').matches);
   const [sound, setSound] = useState(false);
+  const [track, setTrack] = useState<Soundtrack>(() => soundtracks.find(item => item.id === read('portfolio-track'))?.id ?? 'after-hours');
   const [volume, setVolume] = useState(() => {
     const value = Number(read('portfolio-volume') ?? 30);
     return Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : 30;
@@ -40,16 +45,30 @@ export default function PersonaPortfolio() {
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
   const audio = useRef<PortfolioAudio | null>(null);
   const audioRequest = useRef(0);
+  const soundWanted = useRef(false);
   const menu = useRef<HTMLElement>(null);
   const panelTitle = useRef<HTMLHeadingElement>(null);
   const careerDetail = useRef<HTMLElement>(null);
   const lastScreen = useRef(screen);
   const t = (value: Localized) => value[language];
   const current = entries.find(entry => entry.id === screen);
+  const startAudio = useCallback(async () => {
+    const request = ++audioRequest.current;
+    try {
+      await audio.current?.start();
+      if (request !== audioRequest.current || !soundWanted.current) return;
+      if (document.hidden) audio.current?.pause();
+      setSound(true); setAudioError(false);
+    } catch {
+      if (request !== audioRequest.current) return;
+      soundWanted.current = false;
+      setAudioError(true); setSound(false);
+    }
+  }, []);
 
   useEffect(() => {
     audio.current = new PortfolioAudio();
-    return () => { audio.current?.dispose(); audio.current = null; };
+    return () => { audioRequest.current++; soundWanted.current = false; audio.current?.dispose(); audio.current = null; };
   }, []);
   useEffect(() => { document.documentElement.lang = language; save('portfolio-language', language); }, [language]);
   useEffect(() => { document.documentElement.dataset.motion = motion ? 'on' : 'off'; }, [motion]);
@@ -60,6 +79,7 @@ export default function PersonaPortfolio() {
     return () => media.removeEventListener('change', update);
   }, []);
   useEffect(() => { audio.current?.volume(volume / 100); save('portfolio-volume', String(volume)); }, [volume]);
+  useEffect(() => { audio.current?.selectTrack(track); save('portfolio-track', track); }, [track]);
   useEffect(() => {
     const update = () => { setScreen(route()); setProject(null); };
     window.addEventListener('hashchange', update);
@@ -76,12 +96,12 @@ export default function PersonaPortfolio() {
   }, [screen, selected, language, current]);
   useEffect(() => {
     const onVisibility = () => {
-      if (document.hidden) audio.current?.pause();
-      else if (sound) void audio.current?.start().catch(() => { setSound(false); setAudioError(true); });
+      if (document.hidden) { audioRequest.current++; audio.current?.pause(); }
+      else if (soundWanted.current) void startAudio();
     };
     document.addEventListener('visibilitychange', onVisibility);
     return () => document.removeEventListener('visibilitychange', onVisibility);
-  }, [sound]);
+  }, [startAudio]);
   useEffect(() => {
     if (copyStatus === 'idle') return;
     const timer = window.setTimeout(() => setCopyStatus('idle'), 3500);
@@ -94,14 +114,9 @@ export default function PersonaPortfolio() {
   };
   const choose = (index: number) => { if (index !== selected) audio.current?.cue('select'); setSelected(index); };
   const toggleSound = async () => {
-    const request = ++audioRequest.current;
-    if (sound) { audio.current?.pause(); setSound(false); return; }
-    try {
-      await audio.current?.start();
-      if (request !== audioRequest.current) return;
-      if (document.hidden) audio.current?.pause();
-      setSound(true); setAudioError(false);
-    } catch { setAudioError(true); setSound(false); }
+    if (soundWanted.current) { audioRequest.current++; soundWanted.current = false; audio.current?.pause(); setSound(false); return; }
+    soundWanted.current = true;
+    await startAudio();
   };
 
   useEffect(() => {
@@ -228,12 +243,12 @@ export default function PersonaPortfolio() {
         </div>}
         {screen === 'skills' && <div className="skills-file"><div className="capability-list">{capabilities.map((item, index) => <section key={item.title.en}><span>0{index + 1}</span><div><h2>{t(item.title)}</h2><div className="skill-tags">{item.tools.map(tool => <span key={tool}>{tool}</span>)}</div></div></section>)}</div></div>}
         {screen === 'contact' && <div className="contact-file"><div><span className="file-tag">JAKARTA, INDONESIA</span><h2>{t(text("LET'S TALK.", 'MARI BICARA.'))}</h2><p className="file-lead">{t(copy.contactIntro)}</p><a className="contact-email" href={`mailto:${identity.email}`}>{identity.email}<ArrowUpRight size={22} /></a><button className="p-command secondary" onClick={copyEmail}>{copyStatus === 'copied' ? <Check size={17} /> : <Copy size={17} />}{t(copy.copyEmail)}</button><p className="p-status" role="status">{copyStatus === 'copied' ? t(copy.copied) : copyStatus === 'failed' ? t(copy.copyFailed) : ''}</p></div><div className="contact-destinations"><a href={`mailto:${identity.email}`}><Mail /><span>{t(copy.email)}</span><ArrowUpRight /></a><a href={identity.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin /><span>LinkedIn</span><ArrowUpRight /></a><a href={identity.github} target="_blank" rel="noopener noreferrer"><Github /><span>GitHub</span><ArrowUpRight /></a><a href="/ricko-prayudha-cv.pdf" download><Download /><span>{t(copy.cv)}</span><ArrowUpRight /></a></div></div>}
-        {screen === 'credits' && <div className="credits-file"><section><span className="file-tag">01 / ART DIRECTION</span><h2>Persona 3 Reload</h2><p>{t(text('Visual reference: the menu design of Persona 3 Reload by ATLUS / SEGA. This is an independent professional portfolio, not an official or affiliated website.', 'Referensi visual: desain menu Persona 3 Reload oleh ATLUS / SEGA. Ini portfolio profesional independen, bukan situs resmi atau terafiliasi.'))}</p><a href="https://persona3.fayq.my.id/" target="_blank" rel="noopener noreferrer">Fawwaz / Vloits: {t(text('web reference', 'referensi web'))}<ArrowUpRight size={16} /></a><a href="https://personacentral.com/p3r-interview-menu-ui/" target="_blank" rel="noopener noreferrer">Persona Central: {t(text('UI development interview', 'wawancara pengembangan UI'))}<ArrowUpRight size={16} /></a></section><section><span className="file-tag">02 / SOUNDTRACK</span><h2>After Hours</h2><p>{t(text('Original instrumental loop: electric keys, syncopated bass, drums, and a restrained lead. Composed for this portfolio. No game audio or sampled recordings.', 'Loop instrumental orisinal: electric keys, bass sinkopasi, drum, dan lead. Dibuat untuk portfolio ini. Tidak menggunakan audio game atau sampel rekaman.'))}</p><button className="p-command" onClick={toggleSound}>{sound ? <VolumeX size={18} /> : <Volume2 size={18} />}{t(text(sound ? 'Mute soundtrack' : 'Play soundtrack', sound ? 'Bisukan musik' : 'Putar musik'))}</button></section><section><span className="file-tag">03 / ASSETS & SOURCE</span><h2>Ricko Prayudha</h2><p>{t(text('Owner portrait and curated field photographs from the owner archive. Original illustrative project diagrams. Anton, Barlow Condensed, DM Sans, IBM Plex Mono via Fontsource. Lucide icons. React and Three.js.', 'Portrait pemilik dan foto lapangan pilihan dari arsip pemilik. Diagram proyek ilustratif orisinal. Anton, Barlow Condensed, DM Sans, IBM Plex Mono melalui Fontsource. Ikon Lucide. React dan Three.js.'))}</p><a href="https://github.com/rickopra/rickopra.github.io" target="_blank" rel="noopener noreferrer">GitHub / {t(text('source & documentation', 'kode & dokumentasi'))}<ArrowUpRight size={16} /></a></section></div>}
+        {screen === 'credits' && <div className="credits-file"><section><span className="file-tag">01 / ART DIRECTION</span><h2>Persona 3 Reload</h2><p>{t(text('Visual reference: the menu design of Persona 3 Reload by ATLUS / SEGA. This is an independent professional portfolio, not an official or affiliated website.', 'Referensi visual: desain menu Persona 3 Reload oleh ATLUS / SEGA. Ini portfolio profesional independen, bukan situs resmi atau terafiliasi.'))}</p><a href="https://persona3.fayq.my.id/" target="_blank" rel="noopener noreferrer">Fawwaz / Vloits: {t(text('web reference', 'referensi web'))}<ArrowUpRight size={16} /></a><a href="https://github.com/blairxu13/persona3-website" target="_blank" rel="noopener noreferrer">blairxu13 / persona3-website<ArrowUpRight size={16} /></a><a href="https://personacentral.com/p3r-interview-menu-ui/" target="_blank" rel="noopener noreferrer">Persona Central: {t(text('UI development interview', 'wawancara pengembangan UI'))}<ArrowUpRight size={16} /></a></section><section><span className="file-tag">02 / SOUNDTRACK</span><h2>After Hours / Blue Current</h2><p>{t(text('Two original instrumental loops: electric keys, syncopated bass, drums, and a restrained lead. Composed for this portfolio. No game audio or sampled recordings.', 'Dua loop instrumental orisinal: electric keys, bass sinkopasi, drum, dan lead. Dibuat untuk portfolio ini. Tidak menggunakan audio game atau sampel rekaman.'))}</p><button className="p-command" onClick={toggleSound}>{sound ? <VolumeX size={18} /> : <Volume2 size={18} />}{t(text(sound ? 'Mute soundtrack' : 'Play soundtrack', sound ? 'Bisukan musik' : 'Putar musik'))}</button></section><section><span className="file-tag">03 / ASSETS & SOURCE</span><h2>Ricko Prayudha</h2><p>{t(text('Owner portrait and curated field photographs from the owner archive. Original illustrative project diagrams. Anton, Barlow Condensed, DM Sans, IBM Plex Mono via Fontsource. Lucide icons. React and Three.js.', 'Portrait pemilik dan foto lapangan pilihan dari arsip pemilik. Diagram proyek ilustratif orisinal. Anton, Barlow Condensed, DM Sans, IBM Plex Mono melalui Fontsource. Ikon Lucide. React dan Three.js.'))}</p><a href="https://github.com/rickopra/rickopra.github.io" target="_blank" rel="noopener noreferrer">GitHub / {t(text('source & documentation', 'kode & dokumentasi'))}<ArrowUpRight size={16} /></a></section></div>}
       </div>
     </main>}
 
-    <footer className="p-footer"><div className={`sound-deck ${sound ? 'is-playing' : ''}`} data-audio={sound ? 'playing' : 'off'}><button className="p-icon" onClick={toggleSound} aria-label={t(text(sound ? 'Mute soundtrack' : 'Play soundtrack', sound ? 'Bisukan musik' : 'Putar musik'))} title={t(text(sound ? 'Mute soundtrack' : 'Play soundtrack', sound ? 'Bisukan musik' : 'Putar musik'))}>{sound ? <Volume2 size={21} /> : <VolumeX size={21} />}</button><span className="equalizer" aria-hidden="true"><i /><i /><i /><i /></span><span className="track-name">AFTER HOURS<small>{t(text('ORIGINAL SOUNDTRACK', 'MUSIK ORISINAL'))}</small></span><input type="range" min="0" max="100" value={volume} onChange={event => setVolume(Number(event.target.value))} aria-label={t(text('Soundtrack volume', 'Volume musik'))} /></div><span className="audio-error" role="status">{audioError ? t(text('Audio unavailable. Try again.', 'Audio tidak tersedia. Coba lagi.')) : ''}</span><span className="footer-edition">PERSONAL ARCHIVE <b>/</b> 2026</span><a className="footer-contact" href={`mailto:${identity.email}`} aria-label={t(copy.email)} title={t(copy.email)}><Mail size={19} /></a></footer>
-    <div className="transition-slash" key={`transition-${screen}`} aria-hidden="true" />
+    <footer className="p-footer"><SoundDeck audio={audio} playing={sound} motion={motion} language={language} track={track} volume={volume} onToggle={toggleSound} onTrack={setTrack} onVolume={setVolume} /><span className="audio-error" role="status">{audioError ? t(text('Audio unavailable. Try again.', 'Audio tidak tersedia. Coba lagi.')) : ''}</span><span className="footer-edition">PERSONAL ARCHIVE <b>/</b> 2026</span><a className="footer-contact" href={`mailto:${identity.email}`} aria-label={t(copy.email)} title={t(copy.email)}><Mail size={19} /></a></footer>
+    <ScreenTransition screen={screen} key={`transition-${screen}`} />
     <ProjectDialog project={project} language={language} onClose={() => { audio.current?.cue('back'); setProject(null); }} />
   </div>;
 }
