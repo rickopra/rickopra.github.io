@@ -26,6 +26,7 @@ Ini adaptasi independen, **bukan salinan persis game atau situs referensi**, buk
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | GitHub Pages, publikasi, verifikasi, pemulihan. |
 | [RESEARCH.md](docs/RESEARCH.md) | Sumber riset, fakta profesional, batas publikasi. |
 | [EVIDENCE.md](docs/EVIDENCE.md) | Pemetaan arsip lama, bukti proyek, kurasi, dan pembaruan konten. |
+| [LOGO.md](docs/LOGO.md) | Filosofi identitas RP, warna, master vektor, ekspor favicon, aturan pemakaian. |
 | [STATUS.md](docs/STATUS.md) | Hasil tes, catatan rilis, keterbatasan, checklist pemilik. |
 
 ## Menjalankan Lokal

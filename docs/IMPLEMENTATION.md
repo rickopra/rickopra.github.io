@@ -104,6 +104,8 @@ Portrait dashboard dan Profile sengaja memakai aset terpisah:
 - `public/assets/ricko-portrait-menu.webp` (354 x 1246): crop wajah sebagian dari desain awal yang disetujui, dipulihkan persis dari commit `119ddf1`. Dipakai dashboard dan mask `.portrait-echo`. Pertahankan crop, posisi, ukuran tampilan, serta animasi dashboard saat mengubah Profile.
 - `public/assets/ricko-portrait.webp` (853 x 1280): foto utuh untuk Profile dan versi klasik. Script `prepare-assets.py` hanya meregenerasi portrait ini; tidak menulis aset dashboard.
 
+Logo RP memakai master `public/assets/rp-logo.svg` (ikon biru) dan `public/assets/rp-monogram.svg` (transparan untuk latar terang). `npm run logo` mengekspor favicon PNG 16/32/64 px, ikon layar beranda 180 px, dan versi 512 px. Sumber, filosofi, palet, dan aturan penggunaan ada di [LOGO.md](LOGO.md). Tidak ada perubahan tampilan header/menu dashboard karena monogram awalnya diminta untuk favicon.
+
 Script aset bersifat opsional; aset siap pakai sudah di-commit. Untuk regenerasi pada Windows:
 
 ```powershell
@@ -111,7 +113,7 @@ python -m pip install Pillow
 python scripts/prepare-assets.py --portrait "C:\path\to\professional-photo.jpeg" --portrait-only
 ```
 
-Script menerapkan orientasi EXIF, menghapus background biru yang terhubung tepi, serta mempertahankan seluruh ukuran foto. Crop hardcoded dihapus karena memotong wajah pada sumber 853 x 1280. `--portrait-only` hanya menulis portrait. Tanpa flag tersebut, script juga menghasilkan empat diagram, social preview, dan favicon. Ini bukan penghapus background universal: periksa hasil sebelum rilis.
+Script menerapkan orientasi EXIF, menghapus background biru yang terhubung tepi, serta mempertahankan seluruh ukuran foto. Crop hardcoded dihapus karena memotong wajah pada sumber 853 x 1280. `--portrait-only` hanya menulis portrait. Tanpa flag tersebut, script juga menghasilkan empat diagram dan social preview. Favicon hanya dihasilkan lewat `npm run logo`. Ini bukan penghapus background universal: periksa hasil sebelum rilis.
 
 **Script menimpa aset yang dihasilkan.** Sebelum menjalankannya, commit aset yang ingin dipertahankan dan pastikan file foto benar. Untuk foto baru, tinjau ukuran, crop, dan kriteria background terlebih dahulu.
 

@@ -1,6 +1,47 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ page }) => {
+  await page.goto('/');
+  const icons = await page.locator('head link[rel="icon"]').evaluateAll(elements => elements.map(element => ({
+    href: (element as HTMLLinkElement).getAttribute('href'),
+    type: (element as HTMLLinkElement).type,
+  })));
+  expect(icons).toEqual([
+    { href: '/assets/favicon-16.png', type: 'image/png' },
+    { href: '/assets/favicon-32.png', type: 'image/png' },
+    { href: '/assets/rp-logo.svg', type: 'image/svg+xml' },
+  ]);
+  await expect(page.locator('head link[rel="apple-touch-icon"]')).toHaveAttribute('href', '/assets/apple-touch-icon.png');
+  for (const [file, size] of [['favicon-16.png', 16], ['favicon-32.png', 32], ['favicon.png', 64], ['apple-touch-icon.png', 180], ['rp-logo.png', 512]] as const) {
+    const image = await page.evaluate(async ({ file, size }) => {
+      const icon = new Image();
+      icon.src = `/assets/${file}`;
+      await icon.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = size;
+      canvas.getContext('2d')!.drawImage(icon, 0, 0);
+      const { data } = canvas.getContext('2d')!.getImageData(0, 0, size, size);
+      let light = 0;
+      let blue = 0;
+      for (let index = 0; index < data.length; index += 4) {
+        if (data[index] > 220 && data[index + 1] > 220 && data[index + 2] > 220 && data[index + 3] > 220) light++;
+        if (data[index + 2] > 115 && data[index] < 100 && data[index + 3] > 220) blue++;
+      }
+      return { width: icon.naturalWidth, height: icon.naturalHeight, light, blue };
+    }, { file, size });
+    expect(image.width, file).toBe(size);
+    expect(image.height, file).toBe(size);
+    expect(image.light, file).toBeGreaterThan(size * size * 0.07);
+    expect(image.blue, file).toBeGreaterThan(size * size * 0.20);
+  }
+  for (const file of ['rp-logo.svg', 'rp-monogram.svg']) {
+    const response = await page.request.get(`/assets/${file}`);
+    expect(response.ok(), file).toBeTruthy();
+    expect(await response.text()).toContain('Ricko Prayudha');
+  }
+});
+
 test('menu, portrait, CV, and working screen routes', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
