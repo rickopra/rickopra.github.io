@@ -173,7 +173,7 @@ export default function PersonaPortfolio() {
     }}>{t(copy.skip)}</a>
     <Suspense fallback={null}><TideScene motion={motion} /></Suspense>
     <div className="scene-planes" aria-hidden="true"><i /><i /><i /></div>
-    <div className="portrait-stage" aria-hidden="true"><div className="portrait-echo" /><img src="/assets/ricko-portrait.webp" alt="" width="853" height="1280" fetchPriority="high" /></div>
+    <div className="portrait-stage" aria-hidden="true"><div className="portrait-echo" /><img src="/assets/ricko-portrait-menu.webp" alt="" width="354" height="1246" fetchPriority="high" /></div>
     <div className="scene-word" aria-hidden="true">RELOAD<br />YOUR PERSPECTIVE.</div>
 
     <header className="p-header">

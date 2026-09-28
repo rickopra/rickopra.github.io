@@ -10,7 +10,7 @@
 .scene-planes i:nth-child(3){background:#fff;clip-path:polygon(0 95%,100% 70%,100% 74%,0 100%);opacity:.8}
 .portrait-stage{position:fixed;inset:75px 0 0 43%;z-index:-2;pointer-events:none;transition:opacity .35s;display:flex;align-items:center;justify-content:center;transform:rotate(-9deg)}
 .portrait-stage>img{height:min(84svh,900px);width:auto;max-width:none;object-fit:contain;filter:grayscale(1) contrast(1.12) drop-shadow(15px 8px 0 #003a9f);mix-blend-mode:luminosity;animation:portrait-float 9s ease-in-out infinite alternate}
-.portrait-echo{position:absolute;inset:0;background:#84f0ff;mask:url('/assets/ricko-portrait.webp') center/contain no-repeat;transform:translate(12%,-7%) scale(1.18);opacity:.22}
+.portrait-echo{position:absolute;inset:0;background:#84f0ff;mask:url('/assets/ricko-portrait-menu.webp') center/contain no-repeat;transform:translate(12%,-7%) scale(1.18);opacity:.22}
 .scene-word{position:fixed;right:2%;top:31%;z-index:-3;font:118px/.88 'Anton',sans-serif;transform:rotate(-90deg) translateX(28%);transform-origin:right center;color:#28a2ff;opacity:.38;white-space:nowrap;pointer-events:none}
 .p-header{height:90px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:5;padding:0 4.2%;gap:20px;background:#032a79}
 .p-wordmark{display:flex;align-items:center;font:45px/1 'Anton',sans-serif;gap:7px}

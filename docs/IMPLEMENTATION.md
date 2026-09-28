@@ -99,6 +99,11 @@ Angka `500+`, `07`, `24/7`, periode editorial `2021 - 2026`, tahun footer, sejum
 
 Browser mengambil gambar dan font dari situs sendiri. Tidak ada ketergantungan CDN font atau hotlink gambar.
 
+Portrait dashboard dan Profile sengaja memakai aset terpisah:
+
+- `public/assets/ricko-portrait-menu.webp` (354 x 1246): crop wajah sebagian dari desain awal yang disetujui, dipulihkan persis dari commit `119ddf1`. Dipakai dashboard dan mask `.portrait-echo`. Pertahankan crop, posisi, ukuran tampilan, serta animasi dashboard saat mengubah Profile.
+- `public/assets/ricko-portrait.webp` (853 x 1280): foto utuh untuk Profile dan versi klasik. Script `prepare-assets.py` hanya meregenerasi portrait ini; tidak menulis aset dashboard.
+
 Script aset bersifat opsional; aset siap pakai sudah di-commit. Untuk regenerasi pada Windows:
 
 ```powershell

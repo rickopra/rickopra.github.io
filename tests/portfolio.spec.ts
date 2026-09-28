@@ -10,7 +10,12 @@ test('menu, portrait, CV, and working screen routes', async ({ page }, testInfo)
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(800);
   const portrait = page.locator('.portrait-stage img');
-  expect(await portrait.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  await expect(portrait).toHaveAttribute('src', '/assets/ricko-portrait-menu.webp');
+  await expect.poll(() => portrait.evaluate(element => {
+    const image = element as HTMLImageElement;
+    return [image.naturalWidth, image.naturalHeight];
+  })).toEqual([354, 1246]);
+  await expect(page.locator('.portrait-echo')).toHaveCSS('mask-image', /ricko-portrait-menu\.webp/);
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', page.viewportSize()!.width);
   await page.screenshot({ path: `.local/screenshots/${testInfo.project.name}-reload-menu.png` });
   const cv = await page.request.get('/ricko-prayudha-cv.pdf');
@@ -280,6 +285,7 @@ test('profile preserves the full portrait within its frame', async ({ page }) =>
   await page.goto('/#profile');
   const portrait = page.locator('.profile-photo img');
   await expect(portrait).toBeVisible();
+  await expect(portrait).toHaveAttribute('src', '/assets/ricko-portrait.webp');
   await expect.poll(() => portrait.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBe(853);
   await page.evaluate(() => document.fonts.ready);
   const layout = await portrait.evaluate(element => {
