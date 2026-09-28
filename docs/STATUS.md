@@ -15,6 +15,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Penyempurnaan Persona / anti-slop | **Live**, commit `e41b195`, [run 36392243909](https://github.com/rickopra/rickopra.github.io/actions/runs/36392243909) sukses. Lokal dan production masing-masing **59 lulus, 1 dilewati, 0 gagal**. |
 | Kontak sosial | **Live**, commit `e9ca7f4`, [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551) sukses. Instagram, X, pencarian Facebook tersedia pada kedua tampilan. |
 | Iris biru dashboard | **Live**, commit `1b7a49c`, [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577) sukses. Kedua portrait asli tetap identik; aksen hanya pada menu. |
+| URL Facebook & label sosial | **Live**, commit `82521f4`, [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850) sukses. Tiga tautan sosial tanpa subteks; Facebook menuju profil langsung. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -124,7 +125,7 @@ Verifikasi production revisi ini:
 - Facebook kini menuju URL profil dari pemilik: `https://web.facebook.com/ricko.prayudha`, bukan pencarian orang.
 - Ketiga baris Instagram, Facebook, dan X hanya menampilkan nama platform; subteks/handle di bawah label dihapus pada tampilan Persona dan klasik. Klik tetap membuka masing-masing profil langsung di tab baru.
 - Tes sosial: **4 lulus** pada desktop/ponsel, kedua bahasa dan lebar hingga 320 px. Ketiga URL, ketiadaan subteks, tab baru, fokus, geometri, dan axe diuji. **10 tes regresi terpilih lulus** untuk CV asli, menu, Profile, mode klasik, serta aksesibilitas semua layar. `npm run build` berhasil; hash CV sumber/publik/build tetap identik. Tes memakai respons tiruan saat membuka platform eksternal; kepemilikan akun/login platform tidak diuji.
-- Deployment dan verifikasi pada situs publik dicatat setelah workflow rilis selesai.
+- GitHub Pages [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850), commit `82521f4`: sukses. **4 tes production sosial lulus, 0 gagal** pada desktop/mobile, kedua mode serta EN/ID. HTML live memakai bundle `/assets/index-CAh5Jl-L.js` sesuai build; PDF live tetap cocok dengan CV sumber. Commit dokumentasi sesudah rilis tidak mengubah aplikasi yang diuji.
 
 ## 10. Batas Verifikasi
 
