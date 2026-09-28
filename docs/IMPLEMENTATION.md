@@ -69,7 +69,7 @@ text('View case study', 'Buka studi kasus')
 
 Bahasa awal adalah Inggris, kecuali pengunjung pernah memilih Indonesia. CV saat ini hanya bahasa Inggris. Nama teknologi, jabatan, dan beberapa label editorial memang tetap Inggris; versi Indonesia bukan terjemahan seluruh string di aplikasi.
 
-Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak dinyatakan selesai. CyberArk L2 Rolebook tetap proyek pembelajaran mandiri, bukan bukti jabatan atau sertifikasi.
+Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak dinyatakan selesai. Jangan menampilkan teknologi sebagai kemampuan atau pengalaman profesional tanpa konfirmasi pemilik dan bukti yang sesuai.
 
 ### Menambah Proyek
 

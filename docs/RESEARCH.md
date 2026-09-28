@@ -23,7 +23,6 @@ Recruiters can immediately identify the person, discipline, experience scope, se
 - General selected-work portfolio: enterprise operations, SHIFT, CHECKLIST, ATLAS, ISP automation, wireless, fiber, and FTTH delivery.
 - Governance CV and governance portfolio: PCI DSS SAQ support in the 2024 and 2025 cycles, operational risk-owner scope, cross-department internal audit, and supporting technical controls. Not an external auditor, ISMS steering committee member, or claimed certification holder.
 - Public GitHub repository [ATLAS](https://github.com/rickopra/ATLAS): confirms the publicly described IT asset-management project and its technology choices.
-- Public [CyberArk L2 Rolebook](https://github.com/rickopra/cyberark-l2-rolebook): presented strictly as an independent learning/runbook project, not proof of employment or a CyberArk certification.
 - Education remains degree not completed. No invented degree, certification, uptime percentage, business savings, testimonial, or current employer.
 
 The older materials mention ISO/IEC 27001:2022 in a role ending October 2022. Because the edition-specific chronology is ambiguous, public wording for that earlier role says ISO 27001 server-room implementation support without asserting the edition.

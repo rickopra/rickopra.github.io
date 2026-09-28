@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, ExternalLink, Github, Linkedin, MapPin, Menu, Pause, Play, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Github, Linkedin, MapPin, Menu, Pause, Play, X } from 'lucide-react';
 import { capabilities, copy, experiences, identity, projectCover, projects, text } from './content';
 import type { Language, Localized, Project, ProjectCategory, ProjectImage } from './content';
 
@@ -92,7 +92,6 @@ function Resume() {
     <h2>Selected Work</h2>
     <p><strong>ATLAS:</strong> Self-hosted asset tracking and lifecycle administration. Next.js, Fastify, PostgreSQL, Docker. github.com/rickopra/ATLAS</p>
     <p><strong>SHIFT & CHECKLIST:</strong> Internal shift handover and recurring operational-control workspaces.</p>
-    <p><strong>CyberArk L2 Rolebook:</strong> Independent learning and operational-runbook project. Not a certification or employment claim. rickopra.github.io/cyberark-l2-rolebook</p>
     <h2>Education & Languages</h2>
     <p>{copy.educationValue.en}</p><p>{copy.languagesValue.en}</p>
   </main>;
@@ -240,7 +239,6 @@ function Portfolio() {
         <div className="about-layout"><div><h2 id="about-title">{translate(copy.aboutTitle)}</h2><p>{translate(copy.about)}</p><p className="approach">{translate(copy.approach)}</p><div className="about-facts"><div><span className="mono">{translate(copy.education)}</span><p>{translate(copy.educationValue)}</p></div><div><span className="mono">{translate(copy.languages)}</span><p>{translate(copy.languagesValue)}</p></div></div></div>
           <div className="capabilities">{capabilities.map((capability, index) => <div className="capability" key={capability.title.en}><span className="mono">0{index + 1}</span><div><h3>{translate(capability.title)}</h3><p>{capability.tools.join(' / ')}</p></div><ArrowUpRight size={20} aria-hidden="true" /></div>)}</div>
         </div>
-        <div className="learning-row"><span className="mono">{translate(copy.learning)}</span><div><h3>CyberArk L2 Rolebook</h3><p>{translate(copy.rolebook)}</p></div><a className="text-link" href="https://rickopra.github.io/cyberark-l2-rolebook/" target="_blank" rel="noopener noreferrer">{translate(copy.openRolebook)}<ExternalLink size={17} /></a></div>
       </section>
 
       <section className="contact-section section-padding" id="contact" aria-labelledby="contact-title">

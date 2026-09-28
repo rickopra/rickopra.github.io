@@ -148,12 +148,6 @@ h2{font-family:var(--display);font-size:55px;line-height:1.04;font-weight:700;wh
 .capability h3{font-size:17px;font-weight:500;line-height:1.4}
 .capability p{font-size:11px;color:#adc4b9;line-height:2;margin-top:12px}
 .capability>svg{color:#b9f3da}
-.learning-row{display:grid;grid-template-columns:.6fr 1.5fr auto;gap:35px;align-items:center;margin-top:56px;padding-top:34px;border-top:1px solid #40534b}
-.learning-row>.mono{font-size:9px;color:#abc5b7}
-.learning-row h3{font-size:16px;font-weight:500}
-.learning-row p{font-size:11px;line-height:1.9;color:#b2c9bb;margin-top:9px;max-width:430px}
-.learning-row .text-link{font-size:11px;border-color:#758b7f}
-.learning-row .text-link:hover{color:#b9f3da;border-color:#b9f3da}
 .contact-section{background:#1050e9;color:#fff;position:relative;overflow:hidden}
 .contact-section .section-kicker{border-color:#ffffff38;justify-content:flex-start;gap:8px;color:#c6dcff}
 .contact-section .section-kicker>span:first-child{margin-right:auto}

@@ -41,7 +41,7 @@ Mode utama ada di `PersonaPortfolio.tsx`, `persona.css`, `TideScene.tsx`, dan `a
 | Profile | Identitas, foto, ringkasan, lokasi, pendidikan, bahasa, CV. |
 | Selected Work | Infrastruktur, sistem internal, governance, serta proyek LAN/NOC/FTTH/wireless/fiber dari arsip. |
 | Experience | Perusahaan, jabatan, periode, tanggung jawab, tools, bukti terkait. |
-| Capabilities | Teknologi dan lingkup kemampuan; CyberArk Rolebook sebagai pembelajaran mandiri. |
+| Capabilities | Teknologi dan lingkup kemampuan yang didukung riwayat kerja. |
 | Contact | Email, LinkedIn, GitHub, CV. |
 | Credits | Referensi visual, musik, foto, diagram, font, ikon, source. |
 

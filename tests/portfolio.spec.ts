@@ -57,6 +57,19 @@ test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ 
   expect(mark.pStem).not.toEqual(mark.pCounter);
 });
 
+test('capabilities and CV do not claim CyberArk experience', async ({ page }) => {
+  await page.goto('/#skills');
+  await expect(page.locator('.capability-list section')).toHaveCount(4);
+  await expect(page.locator('.skills-file')).not.toContainText(/CyberArk|Rolebook/i);
+  await expect(page.locator('a[href*="cyberark"]')).toHaveCount(0);
+  await page.getByRole('button', { name: 'ID', exact: true }).click();
+  await expect(page.locator('.skills-file')).not.toContainText(/CyberArk|Rolebook/i);
+  await page.goto('/?classic');
+  await expect(page.locator('.about-section')).not.toContainText(/CyberArk|Rolebook/i);
+  await page.goto('/?resume');
+  await expect(page.locator('.resume-page')).not.toContainText(/CyberArk|Rolebook/i);
+});
+
 test('menu, portrait, CV, and working screen routes', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
