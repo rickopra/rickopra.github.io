@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { createHash } from 'node:crypto';
+
+const cvPath = '/ricko-prayudha-cv.pdf';
+const cvSha256 = '55adb186dd0f648b029d313da3438dd31f8772ebf95b5038fa7263e956602347';
 
 test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ page }) => {
   await page.goto('/');
@@ -57,7 +61,7 @@ test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ 
   expect(mark.pStem).not.toEqual(mark.pCounter);
 });
 
-test('capabilities and CV do not claim CyberArk experience', async ({ page }) => {
+test('capabilities do not claim CyberArk experience', async ({ page }) => {
   await page.goto('/#skills');
   await expect(page.locator('.capability-list section')).toHaveCount(4);
   await expect(page.locator('.skills-file')).not.toContainText(/CyberArk|Rolebook/i);
@@ -66,8 +70,31 @@ test('capabilities and CV do not claim CyberArk experience', async ({ page }) =>
   await expect(page.locator('.skills-file')).not.toContainText(/CyberArk|Rolebook/i);
   await page.goto('/?classic');
   await expect(page.locator('.about-section')).not.toContainText(/CyberArk|Rolebook/i);
-  await page.goto('/?resume');
-  await expect(page.locator('.resume-page')).not.toContainText(/CyberArk|Rolebook/i);
+});
+
+test('all CV downloads use the unchanged original PDF', async ({ page, request }) => {
+  const response = await request.get(cvPath);
+  expect(response.ok()).toBeTruthy();
+  const pdf = await response.body();
+  expect(response.headers()['content-type']).toContain('application/pdf');
+  expect(pdf.subarray(0, 4).toString()).toBe('%PDF');
+  expect(createHash('sha256').update(pdf).digest('hex')).toBe(cvSha256);
+
+  for (const route of ['/', '/#profile', '/#experience', '/#contact', '/?classic']) {
+    await page.goto(route);
+    const links = page.locator(`a[href='${cvPath}']`);
+    await expect.poll(() => links.count(), { message: route }).toBeGreaterThan(0);
+    for (const link of await links.all()) await expect(link).toHaveAttribute('download', '');
+    await expect(page.locator(`a[href$='.pdf']:not([href='${cvPath}'])`)).toHaveCount(0);
+  }
+});
+
+test('legacy resume URL redirects to original PDF', async ({ page }) => {
+  // Chromium's PDF viewer does not signal DOM readiness; check the destination with an HTML stub.
+  await page.route(`**${cvPath}`, route => route.fulfill({ status: 200, contentType: 'text/html', body: 'CV destination' }));
+  await page.goto('/?resume', { waitUntil: 'domcontentloaded' });
+  await expect(page).toHaveURL(/\/ricko-prayudha-cv\.pdf$/);
+  await expect(page.getByText('CV destination')).toBeVisible();
 });
 
 test('menu, portrait, CV, and working screen routes', async ({ page }, testInfo) => {
@@ -341,10 +368,7 @@ test('menu text and controls fit small, short, tablet, and wide viewports', asyn
   }
 });
 
-test('printable CV and classic view remain available', async ({ page }) => {
-  await page.goto('/?resume');
-  await expect(page.getByRole('heading', { name: 'Ricko Prayudha', exact: true })).toBeVisible();
-  await expect(page.getByText('Degree not completed.', { exact: false })).toBeVisible();
+test('classic view remains available', async ({ page }) => {
   await page.goto('/?classic');
   await expect(page.getByRole('heading', { name: /RICKO\s*PRAYUDHA/ })).toBeVisible();
   await expect(page.locator('.project')).toHaveCount(9);

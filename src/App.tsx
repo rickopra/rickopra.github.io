@@ -74,29 +74,6 @@ export function ProjectDialog({ project, language, onClose }: { project: Project
   </dialog>;
 }
 
-function Resume() {
-  useEffect(() => { document.title = 'Ricko Prayudha | Professional CV'; }, []);
-  return <main className="resume-page">
-    <h1>Ricko Prayudha</h1>
-    <p className="resume-role">IT Operations | Infrastructure | Network Engineering | Governance</p>
-    <p>Jakarta, Indonesia | {identity.email}<br />linkedin.com/in/ricko-prayudha | github.com/rickopra | rickopra.github.io</p>
-    <h2>Professional Profile</h2>
-    <p>IT Operations professional with experience spanning ISP and field network engineering, enterprise infrastructure, operational supervision, and compliance support. Supported 500+ users, delivered BGP routing across 7 sites, and coordinated 24/7 operations. Hands-on with monitoring, virtualization, Windows administration, ITSM/ITAM, and internal workflow systems.</p>
-    <h2>Core Capabilities</h2>
-    {capabilities.map(capability => <p key={capability.title.en}><strong>{capability.title.en}:</strong> {capability.tools.join(', ')}</p>)}
-    <h2>Professional Experience</h2>
-    {experiences.map(experience => <section key={experience.role} className="resume-job">
-      <h3>{experience.role} | {experience.company}</h3><p className="resume-period">{experience.period.en} | {experience.location}</p>
-      {experience.sections.map(section => <div className="resume-section" key={section.title.en}><h4>{section.title.en}</h4><ul>{section.points.map(point => <li key={point.en}>{point.en}</li>)}</ul></div>)}
-    </section>)}
-    <h2>Selected Work</h2>
-    <p><strong>ATLAS:</strong> Self-hosted asset tracking and lifecycle administration. Next.js, Fastify, PostgreSQL, Docker. github.com/rickopra/ATLAS</p>
-    <p><strong>SHIFT & CHECKLIST:</strong> Internal shift handover and recurring operational-control workspaces.</p>
-    <h2>Education & Languages</h2>
-    <p>{copy.educationValue.en}</p><p>{copy.languagesValue.en}</p>
-  </main>;
-}
-
 function Portfolio() {
   const [language, setLanguage] = useState<Language>(() => preference('portfolio-language') === 'id' ? 'id' : 'en');
   const [motion, setMotion] = useState(() => {
@@ -254,7 +231,6 @@ function Portfolio() {
 
 export default function App() {
   const params = new URLSearchParams(window.location.search);
-  if (params.has('resume')) return <Resume />;
   if (params.has('classic')) return <Portfolio />;
   return <Suspense fallback={<div className="portfolio-loading" role="status">Ricko Prayudha</div>}><PersonaPortfolio /></Suspense>;
 }

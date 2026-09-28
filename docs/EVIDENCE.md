@@ -1,6 +1,6 @@
 # Sumber dan Kurasi Bukti Proyek
 
-Pembaruan: 28 September 2026. Data profesional di `src/content.ts` bersumber dari CV terbaru dan portfolio lama milik Ricko. Dokumen sumber tetap lokal; repositori hanya berisi ringkasan profesional, aset turunan terpilih, dan CV publik yang dibuat ulang.
+Pembaruan: 28 September 2026. Data profesional di `src/content.ts` bersumber dari CV utama dan portfolio lama milik Ricko. Atas permintaan pemilik, repositori memuat salinan byte-persis CV utama di `public/ricko-prayudha-cv.pdf`; sumber arsip lain tetap lokal.
 
 ## 1. Sumber dan Prioritas
 
@@ -31,7 +31,7 @@ Empat studi kasus sebelumnya tetap tersedia: enterprise infrastructure, ATLAS, S
 
 ## 3. Batas Publikasi
 
-- Jangan commit PDF sumber, file konfigurasi, kredensial, screenshot dashboard operasional, alamat internal, daftar pelanggan, koordinat, nomor telepon pribadi, atau identitas rekan kerja.
+- Pengecualian yang diminta pemilik: CV utama disalin tanpa perubahan ke PDF publik; nomor kontak di dalamnya ikut terbit. Jangan commit PDF arsip lain, file konfigurasi, kredensial, screenshot dashboard operasional, alamat internal, daftar pelanggan, koordinat, atau identitas rekan kerja di luar CV utama.
 - Foto kandidat dipilih dari dokumentasi perangkat dan pekerjaan lapangan. Script menutup teks yang terdeteksi OCR dan wajah yang terdeteksi OpenCV, lalu membuang EXIF/XMP.
 - Redaksi berupa bidang solid, bukan blur yang menyisakan keterbacaan. Laporan berisi teks asli hasil OCR, sehingga **laporan juga privat**.
 - OCR dan deteksi wajah dapat melewatkan teks, wajah miring, logo, atau detail sensitif lain. Pemeriksaan otomatis **bukan persetujuan privasi manual**.
@@ -66,6 +66,6 @@ Script dapat menimpa aset turunan. Mengganti sumber memerlukan peninjauan mappin
 
 `ProjectImage` menyimpan `src`, `width`, `height`, `alt`, `caption`, `source`, dan `kind`. `projectCover()` memilih foto atau diagram default. `EvidenceGallery` membaca array `evidence`; tombol panah dan thumbnail mengganti gambar, tautan membuka ukuran penuh.
 
-Tanggung jawab jabatan ditulis dalam `careerRecords.sections`. Array `experiences.points` diturunkan otomatis untuk kompatibilitas tampilan klasik. PDF membaca kelompok tanggung jawab yang sama; setelah perubahan fakta, regenerasi PDF dengan `npm run resume` dan periksa pagination sebelum build.
+Tanggung jawab jabatan ditulis dalam `careerRecords.sections`. Array `experiences.points` diturunkan otomatis untuk kompatibilitas tampilan klasik. PDF CV utama tidak dibuat dari data website; perubahan website tidak mengubah PDF. Hanya pemilik yang menentukan pembaruan isi CV. Lihat [IMPLEMENTATION.md](IMPLEMENTATION.md) untuk alur penggantian salinan asli.
 
 Checklist setiap bukti baru: sumber jelas, lingkup kontribusi tepat, izin penggunaan memadai, informasi sensitif tersamarkan, caption tidak melebihkan bukti, kedua bahasa tersedia, gambar dapat dimuat di desktop/ponsel.

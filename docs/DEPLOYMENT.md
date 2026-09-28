@@ -42,15 +42,15 @@ Izin workflow: `contents: read`, `pages: write`, `id-token: write`. Workflow mem
 
 `concurrency.group = pages` menserialkan publikasi. `cancel-in-progress: false` berarti deployment yang sedang berjalan tidak otomatis dibatalkan oleh push berikutnya.
 
-Workflow saat ini belum menjalankan Playwright, audit dependensi, atau regenerasi PDF. Langkah tersebut dilakukan lokal sebelum publikasi. Menambahkan quality gate ke CI adalah pekerjaan lanjutan, bukan fitur yang sudah aktif.
+Workflow saat ini belum menjalankan Playwright atau audit dependensi. Langkah tersebut dilakukan lokal sebelum publikasi. CV asli disalin oleh Vite dari `public/` ke `dist/`; tidak ada regenerasi PDF. Menambahkan quality gate ke CI adalah pekerjaan lanjutan, bukan fitur yang sudah aktif.
 
 ## 3. Prosedur Rilis
 
 1. Jalankan aplikasi lokal dan periksa perubahan pada desktop serta ponsel, kedua bahasa.
-2. Jika isi CV berubah, jalankan `npm run resume` dengan server lokal aktif; periksa PDF.
+2. Jika pemilik memberikan versi baru CV utama, salin tanpa edit ke `public/ricko-prayudha-cv.pdf`; cocokkan SHA-256 sumber dan salinan. Jangan ubah CV karena perubahan konten website.
 3. Jalankan `npm test`, `npm run build`, dan `npm audit --omit=dev`.
 4. Jika ada tes gagal, perbaiki atau dokumentasikan pengecualian yang disepakati. Jangan menyatakan seluruh tes lulus.
-5. Periksa berkas yang akan dipublikasikan menggunakan `git status --short` dan `git diff`. Jangan menambahkan file privat.
+5. Periksa berkas yang akan dipublikasikan menggunakan `git status --short` dan `git diff`. Kecuali CV utama yang pemilik minta publikasi, jangan menambahkan arsip privat.
 6. Stage hanya file yang dimaksud, buat commit, lalu `git push origin main`.
 7. Pantau workflow dan verifikasi website sesuai bagian berikut.
 
@@ -90,7 +90,7 @@ Lanjutkan di browser:
 - Animasi tampil; pause menghentikannya. Pada perangkat tanpa WebGL, informasi tetap terbaca.
 - Filter proyek dan dialog ATLAS bekerja; Escape menutup dialog.
 - EN/ID bekerja dan pilihan bertahan setelah refresh jika localStorage diizinkan.
-- CV dapat diunduh, benar-benar PDF, isinya terbaru.
+- CV dapat diunduh; SHA-256 PDF live sama dengan CV utama pemilik, salinan publik, dan `dist/`.
 - Link email, LinkedIn, dan GitHub benar.
 - Tidak ada error JavaScript; tidak ada overflow/overlap pada ukuran yang ditinjau.
 
@@ -121,7 +121,7 @@ Pemulihan yang sudah dilakukan:
 | --- | --- | --- |
 | Layar kosong, HTTP 200 | Referensi `/src/main.tsx`, `build_type` | Gunakan `workflow`, deploy artifact `dist/`. |
 | Asset 404 | Path, kapitalisasi filename, isi `dist/` | Sesuaikan path; Linux case-sensitive. |
-| CV lama | Waktu regenerasi PDF dan urutan build | Regenerasi sebelum build, commit PDF baru. |
+| CV lama | Hash PDF pada `public/`, `dist/`, dan situs live | Salin CV utama yang baru tanpa edit ke `public/`, build, commit, deploy; periksa cache jika hash live masih lama. |
 | `npm ci` gagal | Versi Node, sinkronisasi manifest/lockfile | Pakai Node 24, perbarui lockfile secara sengaja. |
 | Deployment ditolak | Settings Pages, environment `github-pages`, permissions | Periksa izin yang tercantum dan aturan environment. |
 | Perubahan branch tidak terbit | Workflow hanya mendengar `main` | Review branch, gabungkan ke `main` ketika siap. |
@@ -142,4 +142,4 @@ Jika masalah hanya konfigurasi Pages seperti insiden di atas, perbaiki konfigura
 
 ## 8. Perubahan Domain atau Repo
 
-Repo user site saat ini berjalan di root domain. Migrasi ke custom domain atau project subpath memerlukan pemeriksaan path aset, `base` Vite, canonical/Open Graph, sitemap, robots, isi CV, footer PDF, serta link dokumentasi. Jangan hanya mengganti nama repo lalu menganggap seluruh URL otomatis benar.
+Repo user site saat ini berjalan di root domain. Migrasi ke custom domain atau project subpath memerlukan pemeriksaan path aset, `base` Vite, canonical/Open Graph, sitemap, robots, tautan CV, serta link dokumentasi. Jangan hanya mengganti nama repo lalu menganggap seluruh URL otomatis benar.

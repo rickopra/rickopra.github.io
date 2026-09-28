@@ -9,18 +9,17 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | Lokasi | Tanggung jawab |
 | --- | --- |
 | `index.html` | Root React, judul, SEO, Open Graph, favicon, fallback `noscript`. |
-| `src/main.tsx` | Mount React, Strict Mode, import font lokal dan CSS. |
+| `src/main.tsx` | Alihkan `?resume` ke PDF asli; selain itu mount React, Strict Mode, import font lokal dan CSS. |
 | `src/content.ts` | Identitas, teks EN/ID, proyek, pengalaman, kapabilitas. |
-| `src/App.tsx` | Pemilih mode aplikasi, versi klasik, `ProjectDialog`, `EvidenceGallery`, dan `Resume`. |
+| `src/App.tsx` | Pemilih mode aplikasi, versi klasik, `ProjectDialog`, dan `EvidenceGallery`. |
 | `src/PersonaPortfolio.tsx` | Pengalaman utama: menu, layar hash, state, input, integrasi audio. |
 | `src/TideScene.tsx`, `src/persona.css` | Refleksi Three.js dan komposisi menu/detail bergaya Persona. |
 | `src/audio.ts` | Musik sintetis orisinal dan cue interaksi melalui Web Audio. |
 | `src/NetworkScene.tsx` | Scene dekoratif Three.js, pointer, resize, visibilitas, cleanup. |
 | `src/styles.css` | Layout, token warna/font, breakpoint, animasi, reduced motion, print. |
 | `public/assets/` | Foto, diagram ilustratif, social preview, favicon. |
-| `public/ricko-prayudha-cv.pdf` | CV publik yang diunduh, bukan PDF source pribadi. |
+| `public/ricko-prayudha-cv.pdf` | Salinan byte-persis CV utama pemilik; semua tautan unduh memakai berkas ini. |
 | `public/robots.txt`, `public/sitemap.xml` | Metadata crawler untuk domain saat ini. |
-| `scripts/generate-resume.mjs` | Cetak `/?resume` menjadi PDF menggunakan Chromium. |
 | `scripts/prepare-assets.py` | Pengolahan foto dan pembuatan diagram raster deterministik. |
 | `scripts/curate-archive.py` | Preview/ekstraksi arsip privat ke `.local`, ekspor foto pilihan dengan redaksi. |
 | `scripts/prepare-legacy-diagrams.py` | Diagram proses NOC dan FTTH tanpa konfigurasi jaringan asli. |
@@ -28,7 +27,7 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
-`App()` memilih `Resume()` untuk `?resume`, portfolio klasik untuk `?classic`, selain itu `PersonaPortfolio`. Versi utama menggunakan layar berdasarkan hash, bukan scroll anchor. Refresh `/#work` dan `/?resume` tetap dilayani root GitHub Pages. Folder `.local` diabaikan Git dan watcher Vite karena berisi bahan privat serta alat kurasi lokal.
+`src/main.tsx` mengalihkan `?resume` ke `/ricko-prayudha-cv.pdf`. `App()` memilih portfolio klasik untuk `?classic`, selain itu `PersonaPortfolio`. Versi utama menggunakan layar berdasarkan hash, bukan scroll anchor. Refresh `/#work` dan `/?resume` tetap dilayani root GitHub Pages. Folder `.local` diabaikan Git dan watcher Vite karena berisi bahan privat serta alat kurasi lokal.
 
 ## 2. Setup Pertama
 
@@ -79,7 +78,7 @@ Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak din
 4. Periksa aksesibilitas gambar, judul, konteks, tantangan, kontribusi, hasil, dan teknologi.
 5. Jika ada `link`, gunakan tujuan publik yang benar. Tombol saat ini diberi label source/GitHub; tautan selain repositori memerlukan penyesuaian label dan ikon.
 6. Isi `evidence: ProjectImage[]` untuk galeri foto. Jumlah filter kedua mode dihitung dari data; tidak perlu mengedit angka UI.
-7. Perbarui tes jumlah proyek dan CV bila relevan.
+7. Perbarui tes jumlah proyek bila relevan; CV asli tidak berubah saat proyek berubah.
 
 Jangan memakai screenshot produksi yang berisi IP internal, akun, daftar karyawan, tiket, atau data pelanggan. Diagram memiliki caption rekonstruksi; foto memiliki caption arsip dan nomor halaman sumber. Galeri menyediakan thumbnail, sebelum/berikutnya, serta tautan gambar penuh. Detail kurasi: [EVIDENCE.md](EVIDENCE.md).
 
@@ -87,9 +86,7 @@ Jangan memakai screenshot produksi yang berisi IP internal, akun, daftar karyawa
 
 1. Tambahkan atau perbarui `careerRecords`, terbaru di atas. Gunakan kelompok tanggung jawab di `sections`, bukan satu paragraf panjang.
 2. Periksa fakta periode dan batas kewenangan terhadap bukti profesional.
-3. Tinjau `Resume()` di `App.tsx`. Ringkasan profil dan selected work masih memiliki paragraf tersendiri.
-4. Regenerasi PDF, periksa seluruh halaman.
-5. Periksa pagination cetak. Kelompok tanggung jawab dijaga utuh; jabatan panjang dapat berlanjut ke halaman berikutnya. Tidak ada pemisahan berdasarkan indeks jabatan.
+3. Periksa kedua tampilan website, EN/ID, dan tautan pengalaman terkait. CV utama adalah dokumen pemilik yang terpisah; jangan mengubah isi atau mengganti PDF tanpa versi baru dari pemilik.
 
 ### Data yang Belum Sepenuhnya Terpusat
 
@@ -123,21 +120,23 @@ Font web berasal dari package Fontsource: Anton, Barlow Condensed, DM Sans, IBM 
 
 ## 5. Memperbarui PDF
 
-1. Jalankan server dev pada terminal pertama.
-2. Pada terminal kedua, jalankan `npm run resume`.
-3. Buka `public/ricko-prayudha-cv.pdf`; periksa isi, pemisahan halaman, dan kontak.
-4. Jalankan `npm run build` setelah PDF selesai, agar `dist/` berisi PDF baru.
-5. Commit PDF bersama perubahan sumbernya.
+CV utama saat ini `D:\CV Ricko Prayudha.pdf` (4 halaman); salinan publik harus identik byte-per-byte. Jangan menyunting PDF, membuatnya ulang dari `content.ts`, atau menggunakan generator HTML. Saat pemilik menyediakan CV utama baru:
 
-Jika server memakai port lain:
+1. Pastikan pemilik bermaksud memublikasikan seluruh isi dokumen, termasuk informasi kontaknya.
+2. Salin dokumen baru byte-persis ke `public/ricko-prayudha-cv.pdf` tanpa transformasi.
+3. Cocokkan hash sumber, salinan, dan hasil build. Periksa jumlah halaman serta semua tautan unduh.
+4. Jalankan tes, build, audit; commit PDF baru; push; cocokkan hash PDF live.
+
+Contoh verifikasi pada Windows:
 
 ```powershell
-$env:PORTFOLIO_URL = 'http://127.0.0.1:5174'
-npm run resume
-Remove-Item Env:PORTFOLIO_URL
+Get-FileHash -Algorithm SHA256 'D:\CV Ricko Prayudha.pdf'
+Get-FileHash -Algorithm SHA256 'public/ricko-prayudha-cv.pdf'
+npm run build
+Get-FileHash -Algorithm SHA256 'dist/ricko-prayudha-cv.pdf'
 ```
 
-Generator menunggu font selesai dimuat, mencetak A4 dengan margin, dan memberi nomor halaman. Layout cetak dikendalikan `@media print`. PDF setelah perluasan pengalaman berisi tiga halaman. Mengubah CSS atau konten dapat mengubah pagination, jadi jumlah halaman bukan jaminan permanen.
+Ketiga hash harus cocok. SHA-256 CV saat ini: `55adb186dd0f648b029d313da3438dd31f8772ebf95b5038fa7263e956602347`. Jika CV utama berubah, perbarui hash tetap pada tes dan dokumentasi. `/?resume` membuka PDF tersebut, bukan halaman cetak.
 
 ## 6. Interaksi dan Aksesibilitas
 

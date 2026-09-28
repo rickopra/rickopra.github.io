@@ -48,7 +48,7 @@ Dialog dapat dibuka dari karya maupun pengalaman. Escape mengembalikan fokus ke 
 | `/#contact` | Kontak. |
 | `/#credits` | Referensi dan atribusi. |
 | `/?classic` | Portfolio scrolling versi awal. |
-| `/?resume` | Halaman CV untuk cetak. |
+| `/?resume` | Tautan lama; langsung membuka PDF CV asli. |
 
 Hash bukan path server: refresh langsung pada `/#work` tetap meminta `/` kepada GitHub Pages, sehingga tidak memerlukan rewrite SPA.
 
@@ -102,18 +102,18 @@ Volume mengendalikan musik dan suara UI. Musik tidak menentukan navigasi: seluru
 flowchart LR
     Evidence["Bukti profesional terverifikasi"] --> Data["src/content.ts, EN/ID"]
     Data --> Portfolio["Menu, profil, proyek, pengalaman"]
-    Data --> Resume["Resume di App.tsx, /?resume"]
-    Resume --> Review["Tinjau teks dan page break"]
-    Review --> Generate["npm run resume"]
-    Generate --> PDF["public/ricko-prayudha-cv.pdf"]
-    PDF --> Build["npm run build"]
+    Original["D:\CV Ricko Prayudha.pdf, dokumen utama pemilik"] --> Copy["Salin byte-persis, tanpa edit"]
+    Copy --> PDF["public/ricko-prayudha-cv.pdf"]
+    PDF --> Verify["Cocokkan SHA-256 sumber dan salinan"]
+    Verify --> Build["npm run build dan uji PDF live"]
+    PDF --> Links["Semua tombol CV dan /?resume"]
 ```
 
-Beberapa kalimat CV dan metrik masih ditulis langsung pada komponen. Perubahan `content.ts` tidak otomatis memperbarui PDF yang sudah disimpan. Script PDF memakai `PORTFOLIO_URL` atau server lokal 5173; gunakan versi yang memang sedang diperbarui.
+Konten website di `src/content.ts` terpisah dari CV asli. Mengubah konten website tidak mengubah PDF. Hanya ganti salinan publik jika pemilik menyediakan versi baru dokumen utama; jangan memodifikasi isi CV melalui kode atau generator.
 
 ```mermaid
 flowchart LR
-    Archive["CV dan portfolio privat"] --> Local["Ekstraksi lokal dalam .local"]
+    Archive["Portfolio lama dan arsip privat lainnya"] --> Local["Ekstraksi lokal dalam .local"]
     Local --> Review["Pilih bukti, periksa data sensitif"]
     Review --> Photos["Foto terpilih, redaksi, hapus metadata"]
     Review --> Diagram["Konfigurasi privat diganti diagram proses"]
@@ -122,7 +122,7 @@ flowchart LR
     Public --> Gallery["Studi kasus dan galeri"]
 ```
 
-PDF sumber dan hasil OCR privat tidak melewati batas `.local`. Panduan rinci: [EVIDENCE.md](EVIDENCE.md).
+Pengecualian: CV utama yang diminta pemilik untuk dipublikasikan disalin ke `public/`, termasuk informasi kontak di dalamnya. PDF arsip lain dan hasil OCR privat tetap di luar repo. Panduan rinci: [EVIDENCE.md](EVIDENCE.md).
 
 ## 6. Rilis
 

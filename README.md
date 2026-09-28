@@ -47,12 +47,12 @@ npm run build
 npm audit --omit=dev
 ```
 
-Build menghasilkan `dist/`, tidak menjalankan tes atau regenerasi PDF. Untuk perubahan CV, jalankan `npm run resume` dengan server lokal aktif, periksa PDF, lalu build ulang.
+Build menghasilkan `dist/` dan menyalin `public/ricko-prayudha-cv.pdf` tanpa mengubah isinya. CV ini salinan byte-persis dari dokumen utama pemilik `D:\CV Ricko Prayudha.pdf`; jangan sunting atau buat ulang isinya. Prosedur penggantian: [IMPLEMENTATION.md](docs/IMPLEMENTATION.md).
 
 ## Publikasi
 
-Push `main` memicu `.github/workflows/deploy.yml`. Sumber GitHub Pages wajib **GitHub Actions**, artifact **`dist/`**. Workflow menjalankan install/build/deploy; tes, audit, dan regenerasi PDF masih dilakukan sebelum rilis. Jangan menyatakan deployment selesai hanya berdasarkan HTTP 200: periksa aplikasi di browser.
+Push `main` memicu `.github/workflows/deploy.yml`. Sumber GitHub Pages wajib **GitHub Actions**, artifact **`dist/`**. Workflow menjalankan install/build/deploy; tes dan audit dilakukan sebelum rilis. Jangan menyatakan deployment selesai hanya berdasarkan HTTP 200: periksa aplikasi dan hash PDF live.
 
 ## Teknologi dan Privasi
 
-React 19, TypeScript, Vite 7, Three.js, Web Audio, Lucide, Fontsource, Playwright, axe-core. Tidak ada backend, analytics, atau formulir pengiriman data. Font, foto, diagram, dan PDF di-host lokal. Sembilan studi kasus mencakup tujuh foto bukti dari arsip pemilik; diagram tetap diberi label ilustratif. Enam posisi dijelaskan per bidang tanggung jawab, terhubung ke studi kasus terkait. PDF sumber pribadi, nomor telepon, kredensial, dan konfigurasi jaringan mentah tidak dipublikasikan.
+React 19, TypeScript, Vite 7, Three.js, Web Audio, Lucide, Fontsource, Playwright, axe-core. Tidak ada backend, analytics, atau formulir pengiriman data. Font, foto, diagram, dan PDF di-host lokal. Sembilan studi kasus mencakup tujuh foto bukti dari arsip pemilik; diagram tetap diberi label ilustratif. Enam posisi dijelaskan per bidang tanggung jawab, terhubung ke studi kasus terkait. **CV asli yang diminta pemilik untuk dipublikasikan memuat nomor telepon**; arsip privat lain, kredensial, dan konfigurasi jaringan mentah tetap tidak dipublikasikan.

@@ -12,6 +12,10 @@ import '@fontsource/ibm-plex-mono/latin-400.css';
 import App from './App';
 import './styles.css';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode><App /></React.StrictMode>,
-);
+if (new URLSearchParams(window.location.search).has('resume')) {
+  window.location.replace('/ricko-prayudha-cv.pdf');
+} else {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode><App /></React.StrictMode>,
+  );
+}
