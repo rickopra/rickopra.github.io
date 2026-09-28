@@ -12,7 +12,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Baseline menu yang sudah terbit | Commit `119ddf1`, [run 36341173792](https://github.com/rickopra/rickopra.github.io/actions/runs/36341173792), sukses. |
 | Revisi foto/pengalaman/bukti | **Live**, commit `c01f4cd`, [run 36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), build dan deploy sukses. |
 | CV | **Live**: salinan byte-persis CV utama pemilik, 4 halaman; commit `20b48f4`, [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536) sukses. |
-| Penyempurnaan Persona / anti-slop | Uji lokal selesai: **59 lulus, 1 dilewati, 0 gagal**. Publikasi dan verifikasi production revisi ini belum selesai. |
+| Penyempurnaan Persona / anti-slop | **Live**, commit `e41b195`, [run 36392243909](https://github.com/rickopra/rickopra.github.io/actions/runs/36392243909) sukses. Lokal dan production masing-masing **59 lulus, 1 dilewati, 0 gagal**. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -86,9 +86,16 @@ Riset dan keputusan lengkap: [DESIGN-REVIEW.md](DESIGN-REVIEW.md). Referensi sou
 | `npm run build` | Berhasil. |
 | `npm audit --omit=dev` | 0 kerentanan dependensi produksi terdeteksi saat pemeriksaan. |
 | `git diff --check` | Tidak ada kesalahan whitespace. Peringatan konversi LF/CRLF berasal dari pengaturan Git Windows. |
+| Tautan dokumentasi | 42 tautan lokal dalam 11 dokumen diperiksa; tidak ada target yang hilang. |
 | Screenshot | Desktop/mobile dan frame tengah transisi dibuat di `.local/screenshots/`; penampil gambar belum mengembalikan hasil yang dapat ditinjau. |
 
-Hasil di atas adalah pengujian lokal, bukan bukti deployment atau review estetika/pendengaran manual. Verifikasi production dicatat setelah publikasi selesai.
+Verifikasi production revisi ini:
+
+- GitHub Pages [run 36392243909](https://github.com/rickopra/rickopra.github.io/actions/runs/36392243909), commit `e41b1957714db3360ec10fe37fa93af46efb6cb9`: job build dan deploy sukses. Deploy selesai `2026-09-28T07:33:43Z`.
+- Seluruh suite dijalankan ulang dengan `PORTFOLIO_URL=https://rickopra.github.io`: **59 lulus, 1 dilewati, 0 gagal**, 1,9 menit. Pengecualian sama dengan tes lokal; bukan kegagalan yang dilewati.
+- Browser live memuat `/assets/index-6i2IAEf6.js`, dua pilihan musik, serta reveal baru. SHA-256 bundle live sama dengan build lokal: `00cd98961318aa572e1af9087a2f2bfbea09aa734b90c6be20fe892c72ddd1db`.
+- PDF live: HTTP 200, `application/pdf`, 113874 byte; SHA-256 tetap identik dengan CV utama. Kedua portrait live juga cocok dengan aset lokal; dashboard tetap crop menu, Profile tetap foto utuh.
+- Hasil otomatis tidak menggantikan review estetika atau pendengaran manual. Commit dokumentasi sesudah rilis ini tidak mengubah source/aset aplikasi yang diuji.
 
 ## 7. Batas Verifikasi
 
