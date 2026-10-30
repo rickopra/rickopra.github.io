@@ -101,6 +101,8 @@ test('rendered blue accent changes only the small iris region', async ({ page },
     await accent.decode();
   });
   await page.waitForTimeout(500);
+  // Isolate the iris comparison from nondeterministic WebGL pixels.
+  await page.addStyleTag({ content: '.tide-scene canvas{visibility:hidden!important}' });
   const after = await page.screenshot({ path: `.local/screenshots/${testInfo.project.name}-blue-iris.png`, scale: 'css' });
   const hidden = await page.addStyleTag({ content: '.portrait-stage::after{visibility:hidden!important}' });
   const before = await page.screenshot({ scale: 'css' });
