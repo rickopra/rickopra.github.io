@@ -162,7 +162,7 @@ function Portfolio() {
         <div className="hero-plane" aria-hidden="true" />
         <div className="hero-plane-light" aria-hidden="true" />
         <Suspense fallback={null}><NetworkScene motion={motion} /></Suspense>
-        <div className="hero-index mono" aria-hidden="true">PERSONAL PORTFOLIO <span>VOL. 01 / 2026</span></div>
+        <div className="hero-index mono" aria-hidden="true">PERSONAL PORTFOLIO</div>
         <div className="hero-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="853" height="1280" fetchPriority="high" /><div className="photo-caption mono"><span>RICKO PRAYUDHA</span><span>CYBERARK PAM</span></div></div>
         <div className="hero-content">
           <p className="hero-eyebrow mono"><span className="tiny-cross" aria-hidden="true">+</span> {translate(copy.heroTag)}</p>
@@ -183,7 +183,7 @@ function Portfolio() {
       </section>
 
       <section className="work-section section-padding" id="work" aria-labelledby="work-title">
-        <div className="section-kicker"><span className="mono">01 / {translate(copy.work)}</span><span className="mono muted">2021 - 2026</span></div>
+        <div className="section-kicker"><span className="mono">01 / {translate(copy.work)}</span></div>
         <div className="section-heading"><h2 id="work-title">{translate(copy.workTitle)}</h2><p>{translate(copy.workIntro)}</p></div>
         <div className="work-filters" role="group" aria-label={translate(text('Filter projects', 'Filter proyek'))}>
           {(['all', 'infrastructure', 'systems', 'governance'] as const).map(item => <button key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{translate(copy[item])}<span>{item === 'all' ? projects.length : projects.filter(project => project.category === item).length}</span></button>)}
@@ -225,7 +225,7 @@ function Portfolio() {
         <div className="contact-links"><a href={identity.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={18} />LinkedIn<ArrowUpRight size={17} /></a><a href={identity.github} target="_blank" rel="noopener noreferrer"><Github size={18} />GitHub<ArrowUpRight size={17} /></a><SocialLinks /><a href="/ricko-prayudha-cv.pdf" download><Download size={18} />{translate(copy.cv)}<ArrowDown size={17} /></a></div>
       </section>
     </main>
-    <footer className="site-footer"><a className="footer-name" href="#profile">RICKO PRAYUDHA<span> / 2026</span></a><span>{translate(copy.footer)}</span><a href="#profile" className="icon-button" title={translate(copy.back)} aria-label={translate(copy.back)}><ArrowUp size={18} /></a></footer>
+    <footer className="site-footer"><a className="footer-name" href="#profile">RICKO PRAYUDHA</a><span>{translate(copy.footer)}</span><a href="#profile" className="icon-button" title={translate(copy.back)} aria-label={translate(copy.back)}><ArrowUp size={18} /></a></footer>
     <ProjectDialog project={project} language={language} onClose={() => setProject(null)} />
   </>;
 }

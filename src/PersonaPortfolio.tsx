@@ -204,7 +204,7 @@ export default function PersonaPortfolio() {
     {screen === 'menu' ? <main className="menu-screen" key="menu">
       <div className="owner-heading"><span className="p-label">{t(copy.heroTag)}</span><h1>RICKO<br /><span>PRAYUDHA</span></h1><span className="owner-location"><MapPin size={12} />JAKARTA, INDONESIA</span></div>
       <div className="menu-composition">
-        <p className="menu-kicker"><span>PORTFOLIO</span> / 2026</p>
+        <p className="menu-kicker"><span>PORTFOLIO</span></p>
         <nav className="persona-menu" id="main-menu" ref={menu} tabIndex={-1} aria-label={t(text('Main menu', 'Menu utama'))}>
           {entries.map((entry, index) => <a className={`persona-option option-${index} ${selected === index ? 'selected' : ''}`} href={`#${entry.id}`} aria-label={t(entry.label)} key={entry.id} onPointerEnter={() => choose(index)} onFocus={() => choose(index)} onClick={() => audio.current?.cue('confirm')}>
             <span className="option-index" aria-hidden="true">0{index + 1}</span><span className="option-label" data-label={t(entry.label)}>{t(entry.label)}</span><ArrowRight className="option-arrow" size={25} aria-hidden="true" />
@@ -248,7 +248,7 @@ export default function PersonaPortfolio() {
       </div>
     </main>}
 
-    <footer className="p-footer"><SoundDeck audio={audio} playing={sound} motion={motion} language={language} track={track} volume={volume} onToggle={toggleSound} onTrack={setTrack} onVolume={setVolume} /><span className="audio-error" role="status">{audioError ? t(text('Audio unavailable. Try again.', 'Audio tidak tersedia. Coba lagi.')) : ''}</span><span className="footer-edition">PERSONAL ARCHIVE <b>/</b> 2026</span><a className="footer-contact" href={`mailto:${identity.email}`} aria-label={t(copy.email)} title={t(copy.email)}><Mail size={19} /></a></footer>
+    <footer className="p-footer"><SoundDeck audio={audio} playing={sound} motion={motion} language={language} track={track} volume={volume} onToggle={toggleSound} onTrack={setTrack} onVolume={setVolume} /><span className="audio-error" role="status">{audioError ? t(text('Audio unavailable. Try again.', 'Audio tidak tersedia. Coba lagi.')) : ''}</span><span className="footer-edition">RICKO PRAYUDHA</span><a className="footer-contact" href={`mailto:${identity.email}`} aria-label={t(copy.email)} title={t(copy.email)}><Mail size={19} /></a></footer>
     <ScreenTransition screen={screen} key={`transition-${screen}`} />
     <ProjectDialog project={project} language={language} onClose={() => { audio.current?.cue('back'); setProject(null); }} />
   </div>;

@@ -17,6 +17,7 @@ Tanggal pemeriksaan terbaru: **30 Oktober 2026, Asia/Bangkok**. Catatan Septembe
 | Iris biru dashboard | **Live**, commit `1b7a49c`, [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577) sukses. Kedua portrait asli tetap identik; aksen hanya pada menu. |
 | URL Facebook & label sosial | **Live**, commit `82521f4`, [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850) sukses. Tiga tautan sosial tanpa subteks; Facebook menuju profil langsung. |
 | Karier / CV Oktober 2026 | **Live**, commit `1632fd4`, [run 40999048724](https://github.com/rickopra/rickopra.github.io/actions/runs/40999048724) sukses. Lokal dan production masing-masing **75 lulus, 1 dilewati, 0 gagal**. |
+| Branding jangka panjang | Label tahun, edisi, dan rentang tahun karya dihapus dari Persona/klasik. **79 tes lokal lulus, 1 dilewati, 0 gagal**; build berhasil. Menunggu publikasi. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -168,3 +169,10 @@ Verifikasi production revisi ini:
 - [ ] CV asli empat halaman terbaca dengan baik; informasi kontak di dalamnya memang boleh publik.
 
 Prosedur publikasi dan pemulihan ada di [DEPLOYMENT.md](DEPLOYMENT.md). Insiden konfigurasi Pages awal tetap dicatat di sana, terpisah dari revisi konten ini.
+
+## 14. Branding Jangka Panjang
+
+- Hapus tahun dari label menu, ganti `PERSONAL ARCHIVE / 2026` dengan nama pemilik, serta hapus `VOL. 01 / 2026`, rentang editorial `2021 - 2026`, dan tahun footer klasik. Tidak mengganti dengan tahun dinamis atau nomor edisi baru.
+- Tanggal kerja/proyek, siklus audit, tanggal dokumentasi, dan PDF CV tidak diubah. Desain, portrait/iris, audio, animasi, kontak, serta isi pengalaman tetap sama.
+- Empat tes baru lulus lokal pada desktop/mobile, EN/ID, kedua mode dan seluruh layar Persona; sekaligus memastikan tanggal peran Solugenix tetap tersedia.
+- Seluruh suite lokal: **79 lulus, 1 sengaja dilewati, 0 gagal**, 2.2 menit. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada desktop. `npm run build` dan `git diff --check` berhasil. Hasil deployment dan tes production dicatat sesudah publikasi.

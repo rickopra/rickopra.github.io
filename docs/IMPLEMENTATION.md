@@ -30,6 +30,7 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `tests/enhancements.spec.ts` | Transisi nonblocking, reduced motion, dua lagu, meter nyata, audio ditolak/pending, footer 320 px. |
 | `tests/social-links.spec.ts` | Tujuan sosial, EN/ID, tab baru tanpa opener, geometri 320 px/tablet/desktop, axe pada kedua tampilan. |
 | `tests/career-update.spec.ts` | Peran Solugenix, produk CyberArk PAM, batas lab, urutan karier, branding EN/ID, metadata, geometri teks. |
+| `tests/evergreen-branding.spec.ts` | Branding tanpa tahun/edisi pada kedua tampilan dan bahasa; tanggal karier tetap utuh. |
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
@@ -78,6 +79,12 @@ Bahasa awal adalah Inggris, kecuali pengunjung pernah memilih Indonesia. CV saat
 
 Jangan mengubah riwayat menjadi `Present` tanpa fakta baru. Pendidikan tidak dinyatakan selesai. Jangan menampilkan teknologi sebagai kemampuan atau pengalaman profesional tanpa konfirmasi pemilik dan bukti yang sesuai.
 
+### Branding Jangka Panjang
+
+Menu memakai `PORTFOLIO`, footer memakai nama pemilik, dan tampilan klasik memakai `PERSONAL PORTFOLIO` tanpa edisi. Jangan menambahkan tahun, `VOL.`, rentang tahun karya sebagai branding, atau label demo/draft/preview. Jangan mengganti tahun statis dengan tahun otomatis; identitas portfolio tidak dibatasi tahun.
+
+Tanggal pengalaman kerja, konteks proyek, siklus audit, nomor versi standar, serta tanggal catatan rilis tetap dipertahankan karena menjelaskan fakta, bukan edisi website. PDF CV tetap milik pemilik dan tidak diedit. Tes `tests/evergreen-branding.spec.ts` mengunci perbedaan ini pada Persona dan klasik, EN/ID, desktop/mobile.
+
 ### Kontak Sosial
 
 Instagram `@rickoprayudha`, X `@rickopra`, serta URL Facebook `https://web.facebook.com/ricko.prayudha` diberikan pemilik. `SocialLinks.tsx` dipakai oleh Contact Persona dan klasik: tampilkan satu label platform tanpa subteks. Tujuan profil disimpan di `identity` (`instagram`, `x`, `facebook`), bukan pencarian nama. Semua tautan eksternal membuka profil langsung di tab baru dengan `noopener noreferrer`; tidak ada embed atau pelacak media sosial. Tes `tests/social-links.spec.ts` memeriksa label, ketiadaan subteks, URL, serta navigasi tab baru untuk ketiganya. CV asli tidak diubah oleh pembaruan kontak website.
@@ -104,7 +111,7 @@ Per 30 Oktober 2026, `careerRecords[0]` adalah L2 Support Engineer - CyberArk PA
 
 ### Data yang Belum Sepenuhnya Terpusat
 
-Angka `500+`, `07`, `24/7`, periode editorial `2021 - 2026`, tahun footer, sejumlah label, metadata SEO, dan teks pada bitmap masih terpisah dari `identity`. Perubahan nama, domain, angka, atau tahun perlu pencarian lintas berkas, bukan hanya edit `content.ts`.
+Angka `500+`, `07`, `24/7`, sejumlah label, metadata SEO, dan teks pada bitmap masih terpisah dari `identity`. Perubahan nama, domain, atau angka perlu pencarian lintas berkas, bukan hanya edit `content.ts`. Label tahun/edisi dan rentang tahun editorial sudah dihapus dari branding.
 
 ## 4. Aset dan Font
 
