@@ -28,7 +28,7 @@ function route(): Screen {
   return entries.some(entry => entry.id === hash) ? hash as Screen : 'menu';
 }
 
-export default function PersonaPortfolio() {
+export default function PersonaPortfolio({ introActive = false, focusAfterIntro = false }: { introActive?: boolean; focusAfterIntro?: boolean }) {
   const [screen, setScreen] = useState<Screen>(route);
   const [selected, setSelected] = useState(0);
   const [language, setLanguage] = useState<Language>(() => read('portfolio-language') === 'id' ? 'id' : 'en');
@@ -51,6 +51,9 @@ export default function PersonaPortfolio() {
   const panelTitle = useRef<HTMLHeadingElement>(null);
   const careerDetail = useRef<HTMLElement>(null);
   const lastScreen = useRef(screen);
+  useEffect(() => {
+    if (!introActive && focusAfterIntro) menu.current?.querySelector('a')?.focus({ preventScroll: true });
+  }, [introActive, focusAfterIntro]);
   const t = (value: Localized) => value[language];
   const current = entries.find(entry => entry.id === screen);
   const startAudio = useCallback(async () => {
@@ -122,7 +125,7 @@ export default function PersonaPortfolio() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey || project) return;
+      if (introActive || event.altKey || event.ctrlKey || event.metaKey || project) return;
       if (event.key === 'Escape' && screen !== 'menu') { event.preventDefault(); go('menu'); }
       const target = event.target as HTMLElement;
       if (screen !== 'menu' || (target !== document.body && !menu.current?.contains(target))) return;
@@ -139,7 +142,7 @@ export default function PersonaPortfolio() {
 
   const gamepadAction = useRef<(key: string) => void>(() => {});
   gamepadAction.current = key => {
-    if (document.hidden) return;
+    if (introActive || document.hidden) return;
     if (key === 'back') { if (project) setProject(null); else go('menu'); return; }
     if (screen !== 'menu' || project) {
       const scope = project ? document.querySelector('.case-dialog') : document.querySelector('.file-screen');

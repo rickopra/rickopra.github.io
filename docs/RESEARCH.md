@@ -6,6 +6,8 @@ Status update, 28 September 2026: the default experience now uses full-screen me
 
 ## Visual references
 
+Riset pembuka orisinal, sumber opening resmi dan wawancara, batas akses video, storyboard, serta keputusan durasi: [INTRO.md](INTRO.md). Ini menambahkan intro singkat yang dapat dilewati pada root/menu, bukan gate login/start atau pengganti akses langsung pengalaman/CV.
+
 Penyempurnaan 28 September 2026: [DESIGN-REVIEW.md](DESIGN-REVIEW.md) mencatat riset source `blairxu13/persona3-website` pada commit `31d3f5521cdfa7cd3ca1b8422038404dfb8bc779`, kritik Hallmark dan Gesso anti-slop, batas lisensi, serta pemetaan ke transisi/menu/audio portfolio. Tidak ada source/aset pihak ketiga atau paket baru yang diambil dari referensi tersebut.
 
 - Owner-supplied [Persona-inspired website listing](https://karya.smkn1bawang.sch.id/karya/persona-3-1776145951) and [Fawwaz / Vloits demo](https://persona3.fayq.my.id/). This clarified that the request includes a menu-driven experience, animation, and audio, not just a color palette. No source or media from that website is bundled.
@@ -15,7 +17,7 @@ Penyempurnaan 28 September 2026: [DESIGN-REVIEW.md](DESIGN-REVIEW.md) mencatat r
 
 ## Translation into this portfolio
 
-An original implementation inspired by the visual language, not a reproduction of ATLUS assets. A blue full-bleed portrait composition, condensed italic display typography, diagonal planes, reflective motion, and decisive menu states. Light detail surfaces, field photographs, and coral/cyan project diagrams support professional content. Six hash-routed screens replace the original scrolling homepage. The seven network gates remain only in the optional classic view. After Hours is an original Web Audio composition, not game music. No game characters, logos, extracted textures, loading gate, autoplay audio, or fictional RPG skill scores.
+An original implementation inspired by the visual language, not a reproduction of ATLUS assets. A blue full-bleed portrait composition, condensed italic display typography, diagonal planes, reflective motion, and decisive menu states. Light detail surfaces, field photographs, and coral/cyan project diagrams support professional content. Six hash-routed screens replace the original scrolling homepage. The seven network gates remain only in the optional classic view. After Hours is an original Web Audio composition, not game music. No game characters, logos, extracted textures, mandatory start gate, autoplay audio, or fictional RPG skill scores.
 
 Recruiters can immediately identify the person, discipline, experience scope, selected work, contact links, and downloadable CV. Work and career history stay readable as normal HTML. English and Indonesian content share one structured source. Motion respects the operating-system preference and has a persistent pause control.
 

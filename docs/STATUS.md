@@ -18,6 +18,7 @@ Tanggal pemeriksaan terbaru: **30 Oktober 2026, Asia/Bangkok**. Catatan Septembe
 | URL Facebook & label sosial | **Live**, commit `82521f4`, [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850) sukses. Tiga tautan sosial tanpa subteks; Facebook menuju profil langsung. |
 | Karier / CV Oktober 2026 | **Live**, commit `1632fd4`, [run 40999048724](https://github.com/rickopra/rickopra.github.io/actions/runs/40999048724) sukses. Lokal dan production masing-masing **75 lulus, 1 dilewati, 0 gagal**. |
 | Branding jangka panjang | **Live**, commit `41118eb`, [run 41000388019](https://github.com/rickopra/rickopra.github.io/actions/runs/41000388019) sukses. Lokal: **79 lulus, 1 dilewati**. Production terpilih: **15 lulus, 1 dilewati**. Tidak ada tes gagal. |
+| Pembuka orisinal | Implementasi dan verifikasi lokal selesai: **89 lulus, 1 sengaja dilewati, 0 gagal**; build berhasil. Deployment dan pemeriksaan production menunggu. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -178,3 +179,12 @@ Prosedur publikasi dan pemulihan ada di [DEPLOYMENT.md](DEPLOYMENT.md). Insiden 
 - Seluruh suite lokal: **79 lulus, 1 sengaja dilewati, 0 gagal**, 2.2 menit. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada desktop. `npm run build` dan `git diff --check` berhasil.
 - GitHub Pages [run 41000388019](https://github.com/rickopra/rickopra.github.io/actions/runs/41000388019), commit `41118eb`: build dan deploy sukses. Production: **15 tes terpilih lulus, 1 sengaja dilewati, 0 gagal**, 33.7 detik; branding kedua mode/EN/ID, tanggal/batas lab, seluruh rute, layout menu 320 px hingga desktop, kontrol audio, dan hash CV. Ini bukan pengulangan seluruh suite production.
 - HTML live memakai `/assets/index-B61d3MQm.js`, identik dengan build lokal. CV live tetap 1010553 byte dengan SHA-256 `5fcd0c494745c4bca9f7aa551568102af0487f4888144411493e6ac17aff1123`. Commit pencatatan sesudah rilis tidak mengubah aplikasi yang diuji.
+
+## 15. Pembuka Orisinal
+
+- Title sequence 3.6 detik: slit diagonal, monogram RP, portrait monokrom, nama dan spesialisasi, jeda baca, lalu diagonal wipe ke dashboard. Dibuat dengan CSS dan aset yang sudah ada, tanpa dependensi/video/OST baru. Sumber riset, batas akses video resmi, storyboard, serta alur lengkap: [INTRO.md](INTRO.md).
+- Hanya kunjungan pertama root/menu dalam sesi tab. Skip/Escape tersedia, fokus terkelola, deep link/CV/mode klasik melewati intro, reduced motion dan pilihan jeda dihormati. Menu dimuat bersamaan; timer cadangan 4 detik mencegah overlay tertinggal bila event CSS gagal. Audio tidak dimulai otomatis.
+- Crop setengah wajah dan iris biru dashboard, Profile utuh, logo RP, tujuh peran, sembilan kasus, kontak, serta CV tidak diubah. SHA-256 CV publik/build tetap `5fcd0c494745c4bca9f7aa551568102af0487f4888144411493e6ac17aff1123`; kedua portrait tetap cocok dengan baseline.
+- Seluruh suite lokal: **89 lulus, 1 sengaja dilewati, 0 gagal**, 3.6 menit, Chromium desktop dan emulasi iPhone. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada desktop. Sepuluh tes intro mencakup lifecycle/sesi, skip/fokus, bypass, reduced motion, storage/event CSS gagal, audio senyap, geometri 320-1920 px, perubahan pixel, dan axe.
+- `npm run build` dan `git diff --check` berhasil. Entry build `/assets/index-B_dbP_Qv.js`. Screenshot desktop/mobile dibuat di `.local/screenshots/`; penampil gambar mengembalikan hasil kosong, sehingga hasil otomatis bukan review estetika manual.
+- Deployment dan verifikasi production belum selesai saat catatan lokal ini dibuat.

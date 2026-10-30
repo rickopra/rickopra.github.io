@@ -176,6 +176,7 @@ test('filters, case study, Escape, and modal focus', async ({ page }) => {
 
 test('skip links focus content without changing the screen route', async ({ page }) => {
   await page.goto('/');
+  await expect(page.locator('.portfolio-intro')).toHaveCount(0);
   await page.locator('.skip-link').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('#main-menu')).toBeFocused();
@@ -195,6 +196,7 @@ test('gamepad selection, confirm, and back preserve the modal route', async ({ p
   });
   await page.goto('/');
   await expect(page.locator('.persona-menu')).toBeVisible();
+  await expect(page.locator('.portfolio-intro')).toHaveCount(0);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(700);
   const press = async (button: number) => {
@@ -342,6 +344,7 @@ test('career detail, contact destinations, and clipboard failure', async ({ page
 test('accessibility across all screens and the project modal', async ({ page }) => {
   for (const screen of ['menu', 'profile', 'work', 'experience', 'skills', 'contact', 'credits']) {
     await page.goto(`/#${screen}`);
+    await expect(page.locator('.portfolio-intro')).toHaveCount(0);
     await page.waitForTimeout(1100);
     const report = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(report.violations, screen).toEqual([]);

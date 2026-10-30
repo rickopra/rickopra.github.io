@@ -11,6 +11,8 @@ Portfolio profesional berbasis menu dengan referensi visual Persona 3 Reload. Pe
 
 Menu layar penuh, tipografi diagonal, portrait, highlight pilihan, transisi berlapis sesuai layar, animasi refleksi Three.js, dan dua musik instrumental orisinal: **After Hours** serta **Blue Current**. Enam menu membuka profil, studi kasus, pengalaman, kapabilitas, kontak, dan kredit. Bahasa EN/ID, CV PDF, filter proyek, serta modal studi kasus tersedia.
 
+Intro orisinal 3.6 detik menyatukan slit reveal, monogram RP, portrait, nama, dan spesialisasi sebelum membuka menu. Hanya sekali per sesi tab, dapat dilewati/Escape, mengikuti reduced motion, serta dilewati oleh deep link dan CV. Tidak memutar audio otomatis atau mengunduh video.
+
 Musik dimulai hanya setelah tombol speaker ditekan. Pilihan lagu dan volume tersimpan; status putar tidak tersimpan. Meter membaca sinyal audio nyata. Animasi mengikuti preferensi reduced motion sistem dan dapat dijeda. Navigasi menerima mouse, sentuhan, keyboard, dan gamepad standar yang dideteksi browser.
 
 Ini adaptasi independen, **bukan salinan persis game atau situs referensi**, bukan produk ATLUS/SEGA. Tidak ada source, video, karakter, atau rekaman OST yang diekstrak dari karya tersebut. Acuan web yang diberikan pemilik: [listing karya](https://karya.smkn1bawang.sch.id/karya/persona-3-1776145951), [demo langsung](https://persona3.fayq.my.id/).
@@ -24,6 +26,7 @@ Ini adaptasi independen, **bukan salinan persis game atau situs referensi**, buk
 | [PERSONA-3-RELOAD.md](docs/PERSONA-3-RELOAD.md) | Riset referensi, pemetaan desain, implementasi, batas kesetiaan. |
 | [DESIGN-REVIEW.md](docs/DESIGN-REVIEW.md) | Riset repo blairxu13, kritik anti-slop, keputusan perubahan, invariants, alur baru. |
 | [AUDIO.md](docs/AUDIO.md) | Komposisi, Web Audio, lifecycle, volume, dan hak penggunaan. |
+| [INTRO.md](docs/INTRO.md) | Sumber riset opening, storyboard, timeline, skip/sesi, aksesibilitas, dan verifikasi. |
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | GitHub Pages, publikasi, verifikasi, pemulihan. |
 | [RESEARCH.md](docs/RESEARCH.md) | Sumber riset, fakta profesional, batas publikasi. |
 | [EVIDENCE.md](docs/EVIDENCE.md) | Pemetaan arsip lama, bukti proyek, kurasi, dan pembaruan konten. |

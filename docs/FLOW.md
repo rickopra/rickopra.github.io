@@ -9,7 +9,10 @@ flowchart TD
     Open["Buka website atau tautan hash"] --> Load["Muat aplikasi, font, foto lokal"]
     Load --> Preferences["Bahasa, volume, preferensi animasi"]
     Preferences --> Route{"Hash dikenal?"}
-    Route -->|Tidak atau menu| Menu["Menu utama + portrait + animasi"]
+    Route -->|Tidak atau menu| IntroCheck{"Root/menu, sesi baru, animasi diizinkan?"}
+    IntroCheck -->|Ya| Intro["Intro orisinal 3.6 detik; menu dimuat bersamaan"]
+    Intro -->|Selesai / lewati / Escape| Menu["Menu utama + portrait + animasi"]
+    IntroCheck -->|Tidak| Menu
     Route -->|Ya| File["Layar tujuan"]
     Menu --> Profile["Profil dan pendidikan"]
     Menu --> Work["Karya pilihan"]
@@ -34,7 +37,7 @@ flowchart TD
 
 CV selalu tersedia dari header. Experience menampilkan Solugenix / L2 Support Engineer - CyberArk PAM sebagai pilihan awal, lalu enam peran sebelumnya. Profile menyebut peran sekarang dan memisahkan skala pekerjaan ATI sebagai pengalaman terdahulu. Capabilities membedakan fokus dukungan PAM dari komponen bertanda `(lab)`. Perubahan Oktober 2026: [CAREER-UPDATE-2026-10.md](CAREER-UPDATE-2026-10.md).
 
-Studi kasus menggunakan dialog HTML dengan fokus terkelola. Tombol berikutnya berpindah antarbagian; tombol kembali membuka menu. Browser Back/Forward mengikuti riwayat hash. Tidak ada login atau halaman pembuka yang menghalangi akses HR.
+Studi kasus menggunakan dialog HTML dengan fokus terkelola. Tombol berikutnya berpindah antarbagian; tombol kembali membuka menu. Browser Back/Forward mengikuti riwayat hash. Tidak ada login atau tombol start wajib. Intro root/menu dapat dilewati, hanya sekali per sesi tab; deep link dan CV langsung membukanya tanpa intro. Storyboard, sumber, dan aksesibilitas: [INTRO.md](INTRO.md).
 
 Dialog dapat dibuka dari karya maupun pengalaman. Escape mengembalikan fokus ke pemicu tanpa keluar dari layar asal. Galeri kembali ke foto pertama ketika proyek dibuka ulang; thumbnail dan tombol panah mengubah foto tanpa mengubah URL.
 
@@ -63,6 +66,7 @@ Hash bukan path server: refresh langsung pada `/#work` tetap meminta `/` kepada 
 | Volume | `portfolio-volume` | localStorage, default 30%. |
 | Lagu | `portfolio-track` | localStorage; After Hours default, Blue Current alternatif. Tidak menyimpan status putar. |
 | Musik aktif | Klik speaker | Tidak disimpan; reload selalu senyap. |
+| Intro selesai | Akhir animasi, lewati/Escape, perubahan hash/motion | `portfolio-intro-seen` di sessionStorage; tidak mengulang saat reload sesi tab yang sama. |
 | Filter, studi kasus, pengalaman | Interaksi komponen | Tidak disimpan dalam URL/storage. |
 | Status salin email | Clipboard API | Hilang setelah 3,5 detik. |
 

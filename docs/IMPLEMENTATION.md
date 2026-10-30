@@ -13,6 +13,7 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `src/content.ts` | Identitas, teks EN/ID, proyek, pengalaman, kapabilitas. |
 | `src/App.tsx` | Pemilih mode aplikasi, versi klasik, `ProjectDialog`, dan `EvidenceGallery`. |
 | `src/PersonaPortfolio.tsx` | Pengalaman utama: menu, layar hash, state, input, integrasi audio. |
+| `src/PortfolioIntro.tsx`, `src/intro.css` | Title sequence orisinal, sekali per sesi tab, skip/fokus/reduced motion, timeline CSS. |
 | `src/SocialLinks.tsx` | Tautan Instagram, Facebook, dan X yang digunakan bersama oleh Contact Persona dan versi klasik. |
 | `src/TideScene.tsx`, `src/persona.css` | Refleksi Three.js dan komposisi menu/detail bergaya Persona. |
 | `src/audio.ts` | Musik sintetis orisinal dan cue interaksi melalui Web Audio. |
@@ -31,12 +32,15 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `tests/social-links.spec.ts` | Tujuan sosial, EN/ID, tab baru tanpa opener, geometri 320 px/tablet/desktop, axe pada kedua tampilan. |
 | `tests/career-update.spec.ts` | Peran Solugenix, produk CyberArk PAM, batas lab, urutan karier, branding EN/ID, metadata, geometri teks. |
 | `tests/evergreen-branding.spec.ts` | Branding tanpa tahun/edisi pada kedua tampilan dan bahasa; tanggal karier tetap utuh. |
+| `tests/intro.spec.ts` | Pembuka: lifecycle, sesi, fokus, bypass, motion, storage/CSS gagal, geometri/pixel, audio senyap, axe. |
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
 `src/main.tsx` mengalihkan `?resume` ke `/ricko-prayudha-cv.pdf`. `App()` memilih portfolio klasik untuk `?classic`, selain itu `PersonaPortfolio`. Versi utama menggunakan layar berdasarkan hash, bukan scroll anchor. Refresh `/#work` dan `/?resume` tetap dilayani root GitHub Pages. Folder `.local` diabaikan Git dan watcher Vite karena berisi bahan privat serta alat kurasi lokal.
 
 Keputusan penyempurnaan Persona/anti-slop tercatat di [DESIGN-REVIEW.md](DESIGN-REVIEW.md). Tidak ada tambahan paket animasi atau audio; reveal memakai CSS, musik tetap Web Audio. Detail memakai bidang baca penuh, bukan panel bershadow bertingkat.
+
+Pembuka root/menu dimuat dari bundle utama, menu tetap lazy-loaded di belakang permukaan inert. Storyboard 3.6 detik, kebijakan bypass, timer cadangan, dan riset: [INTRO.md](INTRO.md). Jangan menambahkan intro ke tautan langsung pengalaman, mode klasik, atau CV; jangan memulai audio otomatis atau memaksa tombol start.
 
 ## 2. Setup Pertama
 

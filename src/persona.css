@@ -1,4 +1,3 @@
-.portfolio-loading{min-height:100svh;background:#0459e7;color:#fff;display:grid;place-content:center;font:48px 'Anton',sans-serif}
 .persona-app{--electric:#0070fa;--cyan:#74eaff;--night:#06113b;--paper:#f4f8ff;color:#fff;background:#034ecb;position:relative;isolation:isolate;min-height:100svh;overflow:clip;font-family:'DM Sans',sans-serif}
 .persona-app button,.persona-app a,.persona-app input{touch-action:manipulation}
 .persona-app a:focus-visible,.persona-app button:focus-visible,.persona-app input:focus-visible,.persona-app select:focus-visible{outline:3px solid #f6e75b;outline-offset:4px}

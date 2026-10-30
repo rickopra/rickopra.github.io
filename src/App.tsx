@@ -1,8 +1,9 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Github, Linkedin, MapPin, Menu, Pause, Play, X } from 'lucide-react';
 import { capabilities, copy, experiences, identity, projectCover, projects, text } from './content';
 import type { Language, Localized, Project, ProjectCategory, ProjectImage } from './content';
 import SocialLinks from './SocialLinks';
+import PortfolioIntro, { shouldPlayIntro } from './PortfolioIntro';
 
 const NetworkScene = lazy(() => import('./NetworkScene'));
 const PersonaPortfolio = lazy(() => import('./PersonaPortfolio'));
@@ -232,6 +233,13 @@ function Portfolio() {
 
 export default function App() {
   const params = new URLSearchParams(window.location.search);
+  const [intro, setIntro] = useState(() => !params.has('classic') && shouldPlayIntro());
+  const introSkipped = useRef(false);
+  const completeIntro = useCallback((skipped = false) => {
+    try { sessionStorage.setItem('portfolio-intro-seen', '1'); } catch { /* The intro remains bounded without storage. */ }
+    introSkipped.current = skipped;
+    setIntro(false);
+  }, []);
   if (params.has('classic')) return <Portfolio />;
-  return <Suspense fallback={<div className="portfolio-loading" role="status">Ricko Prayudha</div>}><PersonaPortfolio /></Suspense>;
+  return <><div className="portfolio-surface" inert={intro} aria-hidden={intro || undefined}><Suspense fallback={<div className="portfolio-loading" role="status" aria-label="Ricko Prayudha"><img src="/assets/rp-monogram.svg" alt="" width="128" height="128" /></div>}><PersonaPortfolio introActive={intro} focusAfterIntro={introSkipped.current} /></Suspense></div>{intro && <PortfolioIntro onComplete={completeIntro} />}</>;
 }
