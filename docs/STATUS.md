@@ -11,12 +11,12 @@ Tanggal pemeriksaan terbaru: **30 Oktober 2026, Asia/Bangkok**. Catatan Septembe
 | Hosting | GitHub Pages, sumber `workflow`, artifact `dist/`. |
 | Baseline menu yang sudah terbit | Commit `119ddf1`, [run 36341173792](https://github.com/rickopra/rickopra.github.io/actions/runs/36341173792), sukses. |
 | Revisi foto/pengalaman/bukti | **Live**, commit `c01f4cd`, [run 36369570838](https://github.com/rickopra/rickopra.github.io/actions/runs/36369570838), build dan deploy sukses. |
-| CV | **Live**: salinan byte-persis CV utama pemilik, 4 halaman; commit `20b48f4`, [run 36375878536](https://github.com/rickopra/rickopra.github.io/actions/runs/36375878536) sukses. |
+| CV | **Live**: salinan byte-persis CV utama terbaru, 4 halaman, 1010553 byte; commit `1632fd4`, [run 40999048724](https://github.com/rickopra/rickopra.github.io/actions/runs/40999048724) sukses. |
 | Penyempurnaan Persona / anti-slop | **Live**, commit `e41b195`, [run 36392243909](https://github.com/rickopra/rickopra.github.io/actions/runs/36392243909) sukses. Lokal dan production masing-masing **59 lulus, 1 dilewati, 0 gagal**. |
 | Kontak sosial | **Live**, commit `e9ca7f4`, [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551) sukses. Instagram, X, pencarian Facebook tersedia pada kedua tampilan. |
 | Iris biru dashboard | **Live**, commit `1b7a49c`, [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577) sukses. Kedua portrait asli tetap identik; aksen hanya pada menu. |
 | URL Facebook & label sosial | **Live**, commit `82521f4`, [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850) sukses. Tiga tautan sosial tanpa subteks; Facebook menuju profil langsung. |
-| Karier / CV Oktober 2026 | Lulus verifikasi lokal; menunggu publikasi. Peran Solugenix, CyberArk PAM, tujuh jabatan, CV utama terbaru. |
+| Karier / CV Oktober 2026 | **Live**, commit `1632fd4`, [run 40999048724](https://github.com/rickopra/rickopra.github.io/actions/runs/40999048724) sukses. Lokal dan production masing-masing **75 lulus, 1 dilewati, 0 gagal**. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -136,7 +136,8 @@ Verifikasi production revisi ini:
 - CV publik diganti dengan salinan byte-persis `CV Ricko Prayudha.pdf` dari workspace, bukan dibuat ulang atau dipilih dari CV ringkas. Tetap 4 halaman, 1010553 byte; SHA-256 `5fcd0c494745c4bca9f7aa551568102af0487f4888144411493e6ac17aff1123`. Dua PDF referensi lain tidak dipublikasikan.
 - **75 tes lokal lulus, 1 sengaja dilewati, 0 gagal**, 2.6 menit. Enam tes baru memeriksa fakta/batas lab, EN/ID, kedua mode, metadata, label dan konten pada 320 px. Suite lama ikut menguji CV, tujuh jabatan, lima kategori kemampuan, rute, aksesibilitas, WebGL/audio, kontak, semua galeri, dan iris. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada desktop.
 - `npm run build` berhasil. Kedua portrait dan aset iris tidak berubah. Screenshot dibuat; inspeksi estetika manual belum dapat dikonfirmasi karena alat penampil gambar tetap kosong.
-- Status workflow dan pengujian production dicatat sesudah publikasi.
+- GitHub Pages [run 40999048724](https://github.com/rickopra/rickopra.github.io/actions/runs/40999048724), commit `1632fd4`: build dan deploy sukses. Seluruh suite diulang dengan `PORTFOLIO_URL=https://rickopra.github.io`: **75 lulus, 1 sengaja dilewati, 0 gagal**, 2.2 menit. Cakupan dan pengecualian sama dengan suite lokal.
+- HTML live memakai `/assets/index-DW75C96o.js`, sesuai build lokal. CV live: HTTP 200, 1010553 byte, SHA-256 identik dengan sumber/publik/build di atas. Kedua portrait live juga identik dengan aset lokal yang dipertahankan. Commit pencatatan sesudah rilis tidak mengubah source atau aset aplikasi yang diuji.
 
 ## 11. Batas Verifikasi
 
