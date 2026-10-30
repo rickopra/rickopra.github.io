@@ -15,8 +15,8 @@ const TideScene = lazy(() => import('./TideScene'));
 const entries = [
   { id: 'profile', label: text('PROFILE', 'PROFIL'), sub: text('The person behind the systems.', 'Sosok di balik sistem.') },
   { id: 'work', label: text('SELECTED WORK', 'KARYA PILIHAN'), sub: text('Field evidence. Systems. Operational ownership.', 'Bukti lapangan. Sistem. Tanggung jawab operasional.') },
-  { id: 'experience', label: text('EXPERIENCE', 'PENGALAMAN'), sub: text('From field engineering to enterprise operations.', 'Dari rekayasa lapangan ke operasi enterprise.') },
-  { id: 'skills', label: text('CAPABILITIES', 'KAPABILITAS'), sub: text('Infrastructure. Networks. Governance.', 'Infrastruktur. Jaringan. Tata kelola.') },
+  { id: 'experience', label: text('EXPERIENCE', 'PENGALAMAN'), sub: text('CyberArk PAM support, enterprise operations, field engineering.', 'Dukungan CyberArk PAM, operasi enterprise, rekayasa lapangan.') },
+  { id: 'skills', label: text('CAPABILITIES', 'KAPABILITAS'), sub: text('CyberArk PAM. Infrastructure. Networks.', 'CyberArk PAM. Infrastruktur. Jaringan.') },
   { id: 'contact', label: text('CONTACT', 'KONTAK'), sub: text('The next conversation starts here.', 'Percakapan berikutnya dimulai di sini.') },
   { id: 'credits', label: text('CREDITS', 'KREDIT'), sub: text('References, assets, and the original soundtrack.', 'Referensi, aset, dan musik orisinal.') },
 ] as const;
@@ -202,7 +202,7 @@ export default function PersonaPortfolio() {
     </header>
 
     {screen === 'menu' ? <main className="menu-screen" key="menu">
-      <div className="owner-heading"><span className="p-label">IT OPERATIONS / INFRASTRUCTURE</span><h1>RICKO<br /><span>PRAYUDHA</span></h1><span className="owner-location"><MapPin size={12} />JAKARTA, INDONESIA</span></div>
+      <div className="owner-heading"><span className="p-label">{t(copy.heroTag)}</span><h1>RICKO<br /><span>PRAYUDHA</span></h1><span className="owner-location"><MapPin size={12} />JAKARTA, INDONESIA</span></div>
       <div className="menu-composition">
         <p className="menu-kicker"><span>PORTFOLIO</span> / 2026</p>
         <nav className="persona-menu" id="main-menu" ref={menu} tabIndex={-1} aria-label={t(text('Main menu', 'Menu utama'))}>
@@ -218,7 +218,7 @@ export default function PersonaPortfolio() {
       <header className="file-heading"><button className="p-back" onClick={() => go('menu')} title={t(text('Back to menu', 'Kembali ke menu'))} aria-label={t(text('Back to menu', 'Kembali ke menu'))}><ArrowLeft size={25} /></button><div><span className="p-label">RICKO PRAYUDHA / 0{entries.findIndex(entry => entry.id === screen) + 1}</span><h1 ref={panelTitle} tabIndex={-1}>{t(current!.label)}</h1></div><a className="file-next" href={`#${entries[(entries.findIndex(entry => entry.id === screen) + 1) % entries.length].id}`} title={t(text('Next section', 'Bagian berikutnya'))} aria-label={t(text('Next section', 'Bagian berikutnya'))}><ArrowRight size={22} /></a></header>
       <div className="file-content" id="file-content" tabIndex={-1}>
         {screen === 'profile' && <div className="profile-file">
-          <div className="profile-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="853" height="1280" /><span>IT OPERATIONS</span></div>
+          <div className="profile-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="853" height="1280" /><span>CYBERARK PAM</span></div>
           <div className="profile-copy"><span className="file-tag">JAKARTA, INDONESIA</span><h2>Ricko Prayudha</h2><p className="file-lead">{t(copy.intro)}</p><p>{t(copy.about)}</p><p>{t(copy.approach)}</p>
             <dl className="profile-facts"><div><dt>{t(copy.education)}</dt><dd>{t(copy.educationValue)}</dd></div><div><dt>{t(copy.languages)}</dt><dd>{t(copy.languagesValue)}</dd></div></dl>
             <div className="file-actions"><a className="p-command" href="#work">{t(copy.explore)}<ArrowUpRight size={18} /></a><a className="p-command secondary" href="/ricko-prayudha-cv.pdf" download><Download size={18} />{t(copy.cv)}</a></div>

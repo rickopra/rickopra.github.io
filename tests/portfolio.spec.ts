@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { createHash } from 'node:crypto';
 
 const cvPath = '/ricko-prayudha-cv.pdf';
-const cvSha256 = '55adb186dd0f648b029d313da3438dd31f8772ebf95b5038fa7263e956602347';
+const cvSha256 = '5fcd0c494745c4bca9f7aa551568102af0487f4888144411493e6ac17aff1123';
 
 test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ page }) => {
   await page.goto('/');
@@ -61,15 +61,23 @@ test('RP logo renders at favicon, touch-icon, and brand-master sizes', async ({ 
   expect(mark.pStem).not.toEqual(mark.pCounter);
 });
 
-test('capabilities do not claim CyberArk experience', async ({ page }) => {
+test('capabilities include documented CyberArk support and mark lab-only components', async ({ page }) => {
   await page.goto('/#skills');
-  await expect(page.locator('.capability-list section')).toHaveCount(4);
-  await expect(page.locator('.skills-file')).not.toContainText(/CyberArk|Rolebook/i);
+  await expect(page.locator('.capability-list section')).toHaveCount(5);
+  const pam = page.locator('.capability-list section').first();
+  await expect(pam).toContainText('CyberArk PAM support');
+  for (const tool of ['PSM', 'HTML5 Gateway', 'Remote Access', 'Privilege Cloud', 'Digital Vault (lab)', 'PVWA (lab)', 'CPM (lab)', 'PSMP (lab)', 'Connectors (lab)']) {
+    await expect(pam.getByText(tool, { exact: true })).toBeVisible();
+  }
+  await expect(page.locator('.skills-file')).not.toContainText(/Rolebook/i);
   await expect(page.locator('a[href*="cyberark"]')).toHaveCount(0);
   await page.getByRole('button', { name: 'ID', exact: true }).click();
-  await expect(page.locator('.skills-file')).not.toContainText(/CyberArk|Rolebook/i);
+  await expect(pam).toContainText('Dukungan CyberArk PAM');
+  await expect(pam).toContainText('Digital Vault (lab)');
   await page.goto('/?classic');
-  await expect(page.locator('.about-section')).not.toContainText(/CyberArk|Rolebook/i);
+  await expect(page.locator('.capabilities')).toContainText('CyberArk PAM');
+  await expect(page.locator('.capabilities')).toContainText('Digital Vault (lab)');
+  await expect(page.locator('.about-section')).not.toContainText(/Rolebook/i);
 });
 
 test('all CV downloads use the unchanged original PDF', async ({ page, request }) => {
@@ -432,17 +440,17 @@ test('profile and evidence fit narrow screens in both languages', async ({ page 
   }
 });
 
-test('six roles contain CV-level responsibilities and linked evidence', async ({ page }) => {
+test('seven roles contain CV-level responsibilities and linked evidence', async ({ page }) => {
   await page.goto('/#experience');
   const roles = page.locator('.career-list button');
-  await expect(roles).toHaveCount(6);
-  for (const [index, count] of [14, 7, 6, 4, 9, 2].entries()) {
+  await expect(roles).toHaveCount(7);
+  for (const [index, count] of [5, 14, 7, 6, 4, 9, 2].entries()) {
     await roles.nth(index).click();
     await expect(page.locator('.career-detail li')).toHaveCount(count);
     await expect(page.locator('.career-detail .skill-tags')).toBeVisible();
     await expect(page.locator('body')).toHaveJSProperty('scrollWidth', page.viewportSize()!.width);
   }
-  await roles.nth(4).click();
+  await page.getByRole('button', { name: /Network Engineer & NOC/ }).click();
   const trigger = page.getByRole('button', { name: 'View case study: Wireless links, end to end' });
   await trigger.click();
   await expect(page.getByRole('dialog')).toBeVisible();

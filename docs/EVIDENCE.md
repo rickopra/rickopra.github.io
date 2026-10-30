@@ -1,17 +1,21 @@
 # Sumber dan Kurasi Bukti Proyek
 
-Pembaruan: 28 September 2026. Data profesional di `src/content.ts` bersumber dari CV utama dan portfolio lama milik Ricko. Atas permintaan pemilik, repositori memuat salinan byte-persis CV utama di `public/ricko-prayudha-cv.pdf`; sumber arsip lain tetap lokal.
+Pembaruan: 30 Oktober 2026. Data profesional di `src/content.ts` bersumber dari CV utama, portfolio terbaru, dan arsip lama milik Ricko. Atas permintaan pemilik, repositori memuat salinan byte-persis CV utama di `public/ricko-prayudha-cv.pdf`; sumber arsip lain tetap lokal.
 
 ## 1. Sumber dan Prioritas
 
 | Sumber | Penggunaan | Batas |
 | --- | --- | --- |
-| CV terbaru, 4 halaman | Jabatan, periode, tanggung jawab, teknologi | Periode terbaru mengalahkan tulisan `Present` pada arsip lama. |
+| `CV Ricko Prayudha.pdf`, 4 halaman, Oktober 2026 | Jabatan, periode, tanggung jawab, teknologi; salinan PDF publik | Solugenix Agustus 2026 - sekarang; ATI Supervisor berakhir Agustus 2026. Konfigurasi PAM dibatasi lab sesuai sumber. |
+| `Ricko Prayudha CV.pdf`, 2 halaman | Konfirmasi silang pengalaman terbaru dan ringkasan kemampuan | Bukan pengganti CV unduhan utama. |
+| `Ricko Prayudha Portfolio.pdf`, 13 halaman | Spesialisasi CyberArk halaman 2-3; konteks proyek dan riwayat operasional | Screenshot internal tetap privat; tidak otomatis menjadi aset publik. |
 | Portfolio lama, 63 halaman | Lingkup LAN, NOC, FTTH, wireless, fiber, foto lapangan | Mendukung riwayat pekerjaan, bukan verifikasi independen atas hasil atau metrik. |
 | Materi governance milik pemilik | PCI DSS SAQ 2024/2025, pemilik risiko, audit internal | Bukan klaim auditor sertifikasi eksternal atau anggota komite pengarah ISMS. |
 | Repositori ATLAS publik | Konteks implementasi sistem aset | Tidak memublikasikan database atau data operasional. |
 
 ATI Supervisor berakhir Agustus 2026. Pendidikan tetap dinyatakan belum selesai. ISO 27001 pada pekerjaan server-room Mandiangin tidak disamakan dengan keanggotaan ISMS. Tidak ditambahkan angka uptime, penghematan, atau jumlah pelanggan yang tidak didukung sumber.
+
+Solugenix ditambahkan setelah konfirmasi pemilik dan tiga dokumen terbaru yang konsisten. Rolebook tidak dikembalikan; capabilities kini memuat dukungan PAM dan penanda `(lab)` yang sesuai sumber. Peta fakta, keputusan editorial, dan hash dokumen ada di [CAREER-UPDATE-2026-10.md](CAREER-UPDATE-2026-10.md).
 
 ## 2. Peta Arsip Lama
 
@@ -27,7 +31,7 @@ Nomor halaman berikut memakai urutan PDF mulai dari 1, bukan nomor internal slid
 
 Tujuh foto berada di `public/assets/evidence/`. NOC dan FTTH memakai `public/assets/noc.webp` dan `ftth.webp`. Diagram diberi caption **ilustratif**, bukan screenshot produksi atau topologi jaringan aktif.
 
-Empat studi kasus sebelumnya tetap tersedia: enterprise infrastructure, ATLAS, SHIFT/CHECKLIST, dan governance. Total sembilan kasus. Enam jabatan terhubung melalui `projectIds`; jabatan tanpa bukti proyek tersendiri tidak diberi tautan yang mengada-ada.
+Empat studi kasus sebelumnya tetap tersedia: enterprise infrastructure, ATLAS, SHIFT/CHECKLIST, dan governance. Total sembilan kasus. Tujuh jabatan memakai `projectIds`; jabatan tanpa bukti proyek tersendiri, termasuk Solugenix, tidak diberi tautan yang mengada-ada.
 
 ## 3. Batas Publikasi
 

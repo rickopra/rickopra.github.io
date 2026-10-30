@@ -29,6 +29,7 @@ Website statis berbasis React dan TypeScript, dibundel oleh Vite. GitHub Pages t
 | `tests/portfolio.spec.ts` | Tes fungsional, responsive, WebGL, preferensi, dan axe-core. |
 | `tests/enhancements.spec.ts` | Transisi nonblocking, reduced motion, dua lagu, meter nyata, audio ditolak/pending, footer 320 px. |
 | `tests/social-links.spec.ts` | Tujuan sosial, EN/ID, tab baru tanpa opener, geometri 320 px/tablet/desktop, axe pada kedua tampilan. |
+| `tests/career-update.spec.ts` | Peran Solugenix, produk CyberArk PAM, batas lab, urutan karier, branding EN/ID, metadata, geometri teks. |
 | `playwright.config.ts` | Browser Chromium, desktop/mobile, server lokal, trace. |
 | `.github/workflows/deploy.yml` | Build dan publikasi artifact `dist/` ke Pages. |
 
@@ -99,6 +100,8 @@ Jangan memakai screenshot produksi yang berisi IP internal, akun, daftar karyawa
 2. Periksa fakta periode dan batas kewenangan terhadap bukti profesional.
 3. Periksa kedua tampilan website, EN/ID, dan tautan pengalaman terkait. CV utama adalah dokumen pemilik yang terpisah; jangan mengubah isi atau mengganti PDF tanpa versi baru dari pemilik.
 
+Per 30 Oktober 2026, `careerRecords[0]` adalah L2 Support Engineer - CyberArk PAM di Solugenix Corporation, Agustus 2026 - sekarang. Sumber dan batas klaim: [CAREER-UPDATE-2026-10.md](CAREER-UPDATE-2026-10.md). `cyberArkTools` dipakai bersama oleh pengalaman dan capabilities; suffix `(lab)` wajib dipertahankan untuk komponen yang hanya disebut dalam lingkungan lab. Tidak ada proyek CyberArk publik yang diklaim.
+
 ### Data yang Belum Sepenuhnya Terpusat
 
 Angka `500+`, `07`, `24/7`, periode editorial `2021 - 2026`, tahun footer, sejumlah label, metadata SEO, dan teks pada bitmap masih terpisah dari `identity`. Perubahan nama, domain, angka, atau tahun perlu pencarian lintas berkas, bukan hanya edit `content.ts`.
@@ -141,7 +144,7 @@ Font web berasal dari package Fontsource: Anton, Barlow Condensed, DM Sans, IBM 
 
 ## 5. Memperbarui PDF
 
-CV utama saat ini `D:\CV Ricko Prayudha.pdf` (4 halaman); salinan publik harus identik byte-per-byte. Jangan menyunting PDF, membuatnya ulang dari `content.ts`, atau menggunakan generator HTML. Saat pemilik menyediakan CV utama baru:
+CV utama saat ini `CV Ricko Prayudha.pdf` di root workspace (4 halaman, diberikan 30 Oktober 2026); salinan publik harus identik byte-per-byte. Ini menggantikan versi September dari `D:\CV Ricko Prayudha.pdf`. `Ricko Prayudha CV.pdf` (2 halaman) hanya referensi silang, bukan dokumen unduhan utama. Jangan menyunting PDF, membuatnya ulang dari `content.ts`, atau menggunakan generator HTML. Saat pemilik menyediakan CV utama baru:
 
 1. Pastikan pemilik bermaksud memublikasikan seluruh isi dokumen, termasuk informasi kontaknya.
 2. Salin dokumen baru byte-persis ke `public/ricko-prayudha-cv.pdf` tanpa transformasi.
@@ -151,13 +154,13 @@ CV utama saat ini `D:\CV Ricko Prayudha.pdf` (4 halaman); salinan publik harus i
 Contoh verifikasi pada Windows:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 'D:\CV Ricko Prayudha.pdf'
+Get-FileHash -Algorithm SHA256 'CV Ricko Prayudha.pdf'
 Get-FileHash -Algorithm SHA256 'public/ricko-prayudha-cv.pdf'
 npm run build
 Get-FileHash -Algorithm SHA256 'dist/ricko-prayudha-cv.pdf'
 ```
 
-Ketiga hash harus cocok. SHA-256 CV saat ini: `55adb186dd0f648b029d313da3438dd31f8772ebf95b5038fa7263e956602347`. Jika CV utama berubah, perbarui hash tetap pada tes dan dokumentasi. `/?resume` membuka PDF tersebut, bukan halaman cetak.
+Ketiga hash harus cocok. SHA-256 CV saat ini: `5fcd0c494745c4bca9f7aa551568102af0487f4888144411493e6ac17aff1123`. Jika CV utama berubah, perbarui hash tetap pada tes dan dokumentasi. `/?resume` membuka PDF tersebut, bukan halaman cetak.
 
 ## 6. Interaksi dan Aksesibilitas
 

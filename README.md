@@ -1,6 +1,6 @@
 # Ricko Prayudha | Professional Portfolio
 
-Portfolio profesional berbasis menu dengan referensi visual Persona 3 Reload. Identitas dan pengalaman Ricko tetap menjadi isi utama: IT operations, infrastruktur, jaringan, sistem internal, dan governance.
+Portfolio profesional berbasis menu dengan referensi visual Persona 3 Reload. Peran saat ini: L2 Support Engineer di Solugenix Corporation, khusus CyberArk PAM. Pengalaman IT operations, infrastruktur, jaringan, sistem internal, dan governance tetap tersedia.
 
 - Website: https://rickopra.github.io/
 - Repositori: https://github.com/rickopra/rickopra.github.io
@@ -27,6 +27,7 @@ Ini adaptasi independen, **bukan salinan persis game atau situs referensi**, buk
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | GitHub Pages, publikasi, verifikasi, pemulihan. |
 | [RESEARCH.md](docs/RESEARCH.md) | Sumber riset, fakta profesional, batas publikasi. |
 | [EVIDENCE.md](docs/EVIDENCE.md) | Pemetaan arsip lama, bukti proyek, kurasi, dan pembaruan konten. |
+| [CAREER-UPDATE-2026-10.md](docs/CAREER-UPDATE-2026-10.md) | Sumber peran Solugenix, batas klaim CyberArk PAM, bahasa publik, dan alur pembaruan Oktober 2026. |
 | [LOGO.md](docs/LOGO.md) | Filosofi identitas RP, warna, master vektor, ekspor favicon, aturan pemakaian. |
 | [STATUS.md](docs/STATUS.md) | Hasil tes, catatan rilis, keterbatasan, checklist pemilik. |
 
@@ -48,7 +49,7 @@ npm run build
 npm audit --omit=dev
 ```
 
-Build menghasilkan `dist/` dan menyalin `public/ricko-prayudha-cv.pdf` tanpa mengubah isinya. CV ini salinan byte-persis dari dokumen utama pemilik `D:\CV Ricko Prayudha.pdf`; jangan sunting atau buat ulang isinya. Prosedur penggantian: [IMPLEMENTATION.md](docs/IMPLEMENTATION.md).
+Build menghasilkan `dist/` dan menyalin `public/ricko-prayudha-cv.pdf` tanpa mengubah isinya. CV ini salinan byte-persis dari `CV Ricko Prayudha.pdf` terbaru yang diberikan pemilik di root workspace pada 30 Oktober 2026; jangan sunting atau buat ulang isinya. Prosedur penggantian: [IMPLEMENTATION.md](docs/IMPLEMENTATION.md).
 
 ## Publikasi
 
@@ -56,4 +57,4 @@ Push `main` memicu `.github/workflows/deploy.yml`. Sumber GitHub Pages wajib **G
 
 ## Teknologi dan Privasi
 
-React 19, TypeScript, Vite 7, Three.js, Web Audio, Lucide, Fontsource, Playwright, axe-core. Tidak ada backend, analytics, atau formulir pengiriman data. Font, foto, diagram, dan PDF di-host lokal. Sembilan studi kasus mencakup tujuh foto bukti dari arsip pemilik; diagram tetap diberi label ilustratif. Enam posisi dijelaskan per bidang tanggung jawab, terhubung ke studi kasus terkait. **CV asli yang diminta pemilik untuk dipublikasikan memuat nomor telepon**; arsip privat lain, kredensial, dan konfigurasi jaringan mentah tetap tidak dipublikasikan.
+React 19, TypeScript, Vite 7, Three.js, Web Audio, Lucide, Fontsource, Playwright, axe-core. Tidak ada backend, analytics, atau formulir pengiriman data. Font, foto, diagram, dan PDF di-host lokal. Sembilan studi kasus mencakup tujuh foto bukti dari arsip pemilik; diagram tetap diberi label ilustratif. Tujuh posisi dijelaskan per bidang tanggung jawab; tautan studi kasus hanya ditampilkan bila ada bukti. Konfigurasi CyberArk yang bersumber dari lab tetap ditandai sebagai lab. **CV asli yang diminta pemilik untuk dipublikasikan memuat nomor telepon**; arsip privat lain, kredensial, dan konfigurasi jaringan mentah tetap tidak dipublikasikan.

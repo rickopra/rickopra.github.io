@@ -163,7 +163,7 @@ function Portfolio() {
         <div className="hero-plane-light" aria-hidden="true" />
         <Suspense fallback={null}><NetworkScene motion={motion} /></Suspense>
         <div className="hero-index mono" aria-hidden="true">PERSONAL PORTFOLIO <span>VOL. 01 / 2026</span></div>
-        <div className="hero-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="853" height="1280" fetchPriority="high" /><div className="photo-caption mono"><span>RICKO PRAYUDHA</span><span>IT OPERATIONS</span></div></div>
+        <div className="hero-photo"><img src="/assets/ricko-portrait.webp" alt="Ricko Prayudha" width="853" height="1280" fetchPriority="high" /><div className="photo-caption mono"><span>RICKO PRAYUDHA</span><span>CYBERARK PAM</span></div></div>
         <div className="hero-content">
           <p className="hero-eyebrow mono"><span className="tiny-cross" aria-hidden="true">+</span> {translate(copy.heroTag)}</p>
           <h1 id="hero-title"><span>RICKO</span><span>PRAYUDHA<span className="name-period">.</span></span></h1>

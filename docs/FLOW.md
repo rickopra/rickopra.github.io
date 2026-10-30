@@ -32,7 +32,9 @@ flowchart TD
     File -->|Kembali atau Escape| Menu
 ```
 
-CV selalu tersedia dari header. Studi kasus menggunakan dialog HTML dengan fokus terkelola. Tombol berikutnya berpindah antarbagian; tombol kembali membuka menu. Browser Back/Forward mengikuti riwayat hash. Tidak ada login atau halaman pembuka yang menghalangi akses HR.
+CV selalu tersedia dari header. Experience menampilkan Solugenix / L2 Support Engineer - CyberArk PAM sebagai pilihan awal, lalu enam peran sebelumnya. Profile menyebut peran sekarang dan memisahkan skala pekerjaan ATI sebagai pengalaman terdahulu. Capabilities membedakan fokus dukungan PAM dari komponen bertanda `(lab)`. Perubahan Oktober 2026: [CAREER-UPDATE-2026-10.md](CAREER-UPDATE-2026-10.md).
+
+Studi kasus menggunakan dialog HTML dengan fokus terkelola. Tombol berikutnya berpindah antarbagian; tombol kembali membuka menu. Browser Back/Forward mengikuti riwayat hash. Tidak ada login atau halaman pembuka yang menghalangi akses HR.
 
 Dialog dapat dibuka dari karya maupun pengalaman. Escape mengembalikan fokus ke pemicu tanpa keluar dari layar asal. Galeri kembali ke foto pertama ketika proyek dibuka ulang; thumbnail dan tombol panah mengubah foto tanpa mengubah URL.
 

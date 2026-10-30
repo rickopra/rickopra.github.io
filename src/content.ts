@@ -19,9 +19,9 @@ export const copy = {
   experience: text('Experience', 'Pengalaman'),
   contact: text('Contact', 'Kontak'),
   cv: text('Download CV', 'Unduh CV'),
-  heroTag: text('IT OPERATIONS / INFRASTRUCTURE / GOVERNANCE', 'OPERASI IT / INFRASTRUKTUR / TATA KELOLA'),
-  intro: text('I connect people, systems, and the processes that keep them moving.', 'Menghubungkan manusia, sistem, dan proses yang menjaga semuanya berjalan.'),
-  introDetail: text('From hands-on network engineering to enterprise IT operations. Built on ownership. Backed by experience.', 'Dari rekayasa jaringan langsung di lapangan hingga operasi IT enterprise. Bertanggung jawab. Berlandaskan pengalaman.'),
+  heroTag: text('L2 SUPPORT / CYBERARK PAM', 'DUKUNGAN L2 / CYBERARK PAM'),
+  intro: text('L2 Support Engineer at Solugenix, focused on CyberArk PAM.', 'L2 Support Engineer di Solugenix, fokus pada CyberArk PAM.'),
+  introDetail: text('I troubleshoot privileged-session connectivity and authentication, backed by 5+ years in infrastructure and network operations.', 'Menangani konektivitas sesi privileged dan autentikasi, dengan pengalaman 5+ tahun di infrastruktur dan operasi jaringan.'),
   explore: text('Explore my work', 'Jelajahi karya'),
   based: text('BASED IN JAKARTA, INDONESIA', 'BERBASIS DI JAKARTA, INDONESIA'),
   users: text('Enterprise users supported', 'Pengguna enterprise didukung'),
@@ -42,16 +42,16 @@ export const copy = {
   close: text('Close case study', 'Tutup studi kasus'),
   source: text('View source', 'Lihat kode'),
   careerTitle: text('BUILT FROM THE GROUND UP.', 'BERKEMBANG DARI LAPANGAN.'),
-  careerIntro: text('Field engineering taught me how systems connect. Enterprise operations taught me how to make them last.', 'Rekayasa lapangan mengajarkan cara sistem terhubung. Operasi enterprise mengajarkan cara menjaganya tetap andal.'),
+  careerIntro: text('From ISP networks and enterprise IT operations to L2 support for CyberArk PAM.', 'Dari jaringan ISP dan operasi IT enterprise ke dukungan L2 untuk CyberArk PAM.'),
   aboutTitle: text('TECHNICAL DEPTH.\nOPERATIONAL PERSPECTIVE.', 'KEDALAMAN TEKNIS.\nPERSPEKTIF OPERASIONAL.'),
-  about: text('I work where infrastructure, people, and process meet. I am comfortable tracing a network issue, deploying a monitoring platform, coordinating a shift, or turning a control requirement into evidence that can actually be reviewed.', 'Saya bekerja di persimpangan infrastruktur, manusia, dan proses. Terbiasa menelusuri gangguan jaringan, membangun platform monitoring, mengoordinasikan shift, serta menerjemahkan kebutuhan kontrol menjadi bukti yang bisa ditinjau.'),
-  approach: text('The common thread: make complex operations clearer, more reliable, and easier for the next person to own.', 'Benang merahnya: membuat operasi kompleks lebih jelas, andal, dan mudah dilanjutkan oleh tim.'),
+  about: text('I support CyberArk PSM, HTML5 Gateway, Remote Access, and Privilege Cloud. My work covers log analysis, diagnostic data collection, case documentation, and escalation coordination.', 'Saya mendukung CyberArk PSM, HTML5 Gateway, Remote Access, dan Privilege Cloud. Pekerjaan saya mencakup analisis log, pengumpulan data diagnostik, dokumentasi kasus, dan koordinasi eskalasi.'),
+  approach: text('Previously, I supervised 24/7 IT operations for 500+ users and delivered BGP connectivity across 7 sites at ATI Business Group.', 'Sebelumnya, saya mengawasi operasi IT 24/7 untuk 500+ pengguna dan mengimplementasikan konektivitas BGP di 7 lokasi ATI Business Group.'),
   education: text('Education', 'Pendidikan'),
   educationValue: text('Informatics Engineering, Sriwijaya University. Degree not completed.', 'Teknik Informatika, Universitas Sriwijaya. Pendidikan belum diselesaikan.'),
   languages: text('Languages', 'Bahasa'),
   languagesValue: text('Indonesian (native) / English (professional working proficiency)', 'Indonesia (bahasa ibu) / Inggris (kemampuan kerja profesional)'),
   contactTitle: text('LET\'S BUILD\nWHAT\'S NEXT.', 'MARI BANGUN\nLANGKAH BERIKUTNYA.'),
-  contactIntro: text('Have a role or a challenge where reliable operations matter? Let\'s talk.', 'Punya peluang atau tantangan yang membutuhkan operasi IT andal? Mari berdiskusi.'),
+  contactIntro: text('For CyberArk PAM support, infrastructure, or IT operations roles, reach me here.', 'Untuk peluang di CyberArk PAM support, infrastruktur, atau operasi IT, hubungi saya.'),
   email: text('Get in touch', 'Hubungi saya'),
   copyEmail: text('Copy email address', 'Salin alamat email'),
   copied: text('Email copied', 'Email disalin'),
@@ -255,7 +255,29 @@ projects.push(
   },
 );
 
+const cyberArkTools = ['CyberArk PAM', 'PSM', 'HTML5 Gateway', 'Remote Access', 'Privilege Cloud', 'Digital Vault (lab)', 'PVWA (lab)', 'CPM (lab)', 'PSMP (lab)', 'Connectors (lab)'];
+
 const careerRecords = [
+  {
+    period: text('AUG 2026 - PRESENT', 'AGU 2026 - SEKARANG'),
+    role: 'L2 Support Engineer - CyberArk PAM', company: 'Solugenix Corporation', location: 'Jakarta',
+    summary: text('CyberArk PAM support: session connectivity, authentication, and case diagnostics.', 'Dukungan CyberArk PAM: konektivitas sesi, autentikasi, dan diagnostik kasus.'),
+    tools: cyberArkTools,
+    projectIds: [],
+    sections: [
+      { title: text('Product support & diagnostics', 'Dukungan produk & diagnostik'), points: [
+        text('Provide L2 technical support for CyberArk PSM, HTML5 Gateway, Remote Access, and Privilege Cloud.', 'Memberikan dukungan teknis L2 untuk CyberArk PSM, HTML5 Gateway, Remote Access, dan Privilege Cloud.'),
+        text('Investigate privileged-session connectivity, authentication, and configuration issues through log analysis and technical diagnostics.', 'Menelusuri gangguan konektivitas sesi privileged, autentikasi, dan konfigurasi melalui analisis log serta diagnostik teknis.'),
+      ] },
+      { title: text('Technical case handling', 'Penanganan kasus teknis'), points: [
+        text('Collect diagnostic data, document investigation findings, and coordinate technical escalations.', 'Mengumpulkan data diagnostik, mendokumentasikan hasil investigasi, dan mengoordinasikan eskalasi teknis.'),
+        text('Provide troubleshooting guidance, issue updates, and resolution follow-ups in customer-facing support workflows.', 'Memberikan panduan troubleshooting, pembaruan status kasus, dan tindak lanjut penyelesaian dalam alur dukungan pelanggan.'),
+      ] },
+      { title: text('Lab configuration & troubleshooting', 'Konfigurasi & troubleshooting lab'), points: [
+        text('Configure, deploy, and troubleshoot Digital Vault, PVWA, CPM, PSM, PSMP, and connector infrastructure in technical lab environments.', 'Mengonfigurasi, men-deploy, dan menangani gangguan Digital Vault, PVWA, CPM, PSM, PSMP, serta infrastruktur connector di lingkungan lab teknis.'),
+      ] },
+    ],
+  },
   {
     period: text('MAR 2024 - AUG 2026', 'MAR 2024 - AGU 2026'),
     role: 'IT Operations Supervisor', company: 'PT ATI Business Group', location: 'Jakarta',
@@ -379,6 +401,7 @@ const careerRecords = [
 export const experiences = careerRecords.map(item => ({ ...item, points: item.sections.flatMap(section => section.points) }));
 
 export const capabilities = [
+  { title: text('CyberArk PAM support', 'Dukungan CyberArk PAM'), tools: cyberArkTools },
   { title: text('Infrastructure & systems', 'Infrastruktur & sistem'), tools: ['Proxmox VE', 'Windows Server', 'Active Directory', 'WSUS', 'NAS'] },
   { title: text('Networks & resilience', 'Jaringan & ketahanan'), tools: ['MikroTik', 'Sophos', 'Ubiquiti', 'BGP', 'VLAN / DMZ', 'FTTH'] },
   { title: text('Observability & security', 'Observabilitas & keamanan'), tools: ['Zabbix', 'Grafana', 'Uptime Kuma', 'Wazuh', 'ELK', 'CrowdStrike'] },

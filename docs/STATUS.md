@@ -1,6 +1,6 @@
 # Status, Pengujian, dan Review
 
-Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub menggunakan UTC.
+Tanggal pemeriksaan terbaru: **30 Oktober 2026, Asia/Bangkok**. Catatan September dipertahankan sebagai riwayat rilis, bukan status CV/peran terkini. Timestamp GitHub menggunakan UTC.
 
 ## 1. Status Rilis
 
@@ -16,6 +16,7 @@ Tanggal pemeriksaan: **28 September 2026, Asia/Bangkok**. Timestamp GitHub mengg
 | Kontak sosial | **Live**, commit `e9ca7f4`, [run 36395993551](https://github.com/rickopra/rickopra.github.io/actions/runs/36395993551) sukses. Instagram, X, pencarian Facebook tersedia pada kedua tampilan. |
 | Iris biru dashboard | **Live**, commit `1b7a49c`, [run 36398572577](https://github.com/rickopra/rickopra.github.io/actions/runs/36398572577) sukses. Kedua portrait asli tetap identik; aksen hanya pada menu. |
 | URL Facebook & label sosial | **Live**, commit `82521f4`, [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850) sukses. Tiga tautan sosial tanpa subteks; Facebook menuju profil langsung. |
+| Karier / CV Oktober 2026 | Lulus verifikasi lokal; menunggu publikasi. Peran Solugenix, CyberArk PAM, tujuh jabatan, CV utama terbaru. |
 | Dokumentasi | Flow, implementasi, audio, sumber bukti, desain, riset, deployment, status. |
 
 ## 2. Perubahan Revisi
@@ -127,7 +128,17 @@ Verifikasi production revisi ini:
 - Tes sosial: **4 lulus** pada desktop/ponsel, kedua bahasa dan lebar hingga 320 px. Ketiga URL, ketiadaan subteks, tab baru, fokus, geometri, dan axe diuji. **10 tes regresi terpilih lulus** untuk CV asli, menu, Profile, mode klasik, serta aksesibilitas semua layar. `npm run build` berhasil; hash CV sumber/publik/build tetap identik. Tes memakai respons tiruan saat membuka platform eksternal; kepemilikan akun/login platform tidak diuji.
 - GitHub Pages [run 36406674850](https://github.com/rickopra/rickopra.github.io/actions/runs/36406674850), commit `82521f4`: sukses. **4 tes production sosial lulus, 0 gagal** pada desktop/mobile, kedua mode serta EN/ID. HTML live memakai bundle `/assets/index-CAh5Jl-L.js` sesuai build; PDF live tetap cocok dengan CV sumber. Commit dokumentasi sesudah rilis tidak mengubah aplikasi yang diuji.
 
-## 10. Batas Verifikasi
+## 10. Solugenix / CyberArk PAM: Oktober 2026
+
+- Tiga dokumen baru dibaca: CV utama 4 halaman, CV ringkas 2 halaman, portfolio 13 halaman. Peran terbaru konsisten: L2 Support Engineer - CyberArk PAM, Solugenix Corporation, Jakarta, Agustus 2026 - sekarang.
+- Lima tanggung jawab dalam tiga kelompok: dukungan PSM/HTML5 Gateway/Remote Access/Privilege Cloud; analisis konektivitas sesi, autentikasi, konfigurasi dan log; data diagnostik, dokumentasi, eskalasi, komunikasi kasus; konfigurasi komponen di lab. Tidak ada klaim sertifikasi atau deployment PAM produksi. Rolebook tidak dikembalikan.
+- Profile, label dashboard, Capabilities, metadata, no-script, dan mode klasik mengikuti peran baru. Skala 500+ pengguna, 7 lokasi BGP, 24/7 dijelaskan di Profile sebagai pengalaman ATI sebelumnya. Ketujuh riwayat jabatan dan sembilan studi kasus tetap tersedia. Sumber dan alur: [CAREER-UPDATE-2026-10.md](CAREER-UPDATE-2026-10.md).
+- CV publik diganti dengan salinan byte-persis `CV Ricko Prayudha.pdf` dari workspace, bukan dibuat ulang atau dipilih dari CV ringkas. Tetap 4 halaman, 1010553 byte; SHA-256 `5fcd0c494745c4bca9f7aa551568102af0487f4888144411493e6ac17aff1123`. Dua PDF referensi lain tidak dipublikasikan.
+- **75 tes lokal lulus, 1 sengaja dilewati, 0 gagal**, 2.6 menit. Enam tes baru memeriksa fakta/batas lab, EN/ID, kedua mode, metadata, label dan konten pada 320 px. Suite lama ikut menguji CV, tujuh jabatan, lima kategori kemampuan, rute, aksesibilitas, WebGL/audio, kontak, semua galeri, dan iris. Pengecualian tetap matrix viewport yang hanya dijalankan sekali pada desktop.
+- `npm run build` berhasil. Kedua portrait dan aset iris tidak berubah. Screenshot dibuat; inspeksi estetika manual belum dapat dikonfirmasi karena alat penampil gambar tetap kosong.
+- Status workflow dan pengujian production dicatat sesudah publikasi.
+
+## 11. Batas Verifikasi
 
 - Screenshot telah dibuat, tetapi inspeksi visual manual belum dapat dikonfirmasi pada sesi ini karena alat penampil gambar tidak menampilkan hasil. Tes geometri/pixel bukan pengganti review tampilan.
 - Belum diuji Safari/Firefox, perangkat ponsel fisik, controller fisik, screen reader manual, zoom 200%, jaringan buruk, atau Lighthouse.
@@ -136,7 +147,7 @@ Verifikasi production revisi ini:
 - Tujuh foto arsip telah melalui pemilihan sumber, OCR redaction, deteksi wajah, dan penghapusan metadata EXIF/XMP. Deteksi otomatis tidak menjamin semua detail privat tertutup; review visual pemilik masih diperlukan. Lihat [EVIDENCE.md](EVIDENCE.md).
 - Implementasi menerapkan menu, komposisi, motion, dan audio, tetapi **tidak dinyatakan identik dengan Persona 3 Reload**. Kesetiaan desain memerlukan perbandingan referensi dan review pemilik.
 
-## 11. Pemeliharaan Berikutnya
+## 12. Pemeliharaan Berikutnya
 
 - CI belum menjalankan Playwright/audit; masih menjadi langkah lokal sebelum push.
 - Sebagian metrik dan label website masih berada dalam komponen selain `content.ts`; CV asli terpisah sepenuhnya dari komponen.
@@ -145,7 +156,7 @@ Verifikasi production revisi ini:
 - Kegagalan unduh chunk Three.js belum memiliki error boundary khusus; fallback renderer hanya menangani WebGL yang tidak tersedia.
 - Layout scrolling `?classic` adalah mode kompatibilitas, bukan target utama penyempurnaan menu. Tes hero pendek versi klasik dari rilis awal tidak menjadi bukti masalah atau perbaikan pada menu baru.
 
-## 12. Checklist Pemilik
+## 13. Checklist Pemilik
 
 - [ ] Foto profil tampil utuh dan sesuai preferensi komposisi.
 - [ ] Nama, kontak, periode kerja, dan tanggung jawab seluruh jabatan benar.
